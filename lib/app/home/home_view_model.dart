@@ -13,6 +13,10 @@ class HomeViewModel extends ChangeNotifier {
   HomeViewModel(this._recordService);
   final RecordService _recordService;
   List<RecordModel> rooms = [];
+  static DateTime today = DateTime.now();
+  int selectYear = today.year;
+  int selectMonth = today.month;
+  int selectDay = today.day;
 
   // Future<void> load() async {
   // rooms = await fetchRoom();

@@ -53,8 +53,13 @@ class HomePage extends ConsumerWidget {
                       children: Constants.yearArray
                           .map((year) => Text(year.toString() + '年'))
                           .toList(),
+                      scrollController: FixedExtentScrollController(
+                        initialItem: 1,
+                      ),
                       onSelectedItemChanged: (index) {
                         print(index);
+                        viewModel.selectYear = Constants.yearArray[index];
+                        print(viewModel.selectYear);
                       },
                     ),
                   ),
@@ -64,10 +69,17 @@ class HomePage extends ConsumerWidget {
                       looping: true,
                       itemExtent: 30,
                       children: Constants.monthArray
-                          .map((day) => Text(day.toString() + '月'))
+                          .map((month) => Text(month.toString() + '月'))
                           .toList(),
+                      scrollController: FixedExtentScrollController(
+                        initialItem: viewModel.selectMonth == 1
+                            ? 0
+                            : viewModel.selectMonth - 1,
+                      ),
                       onSelectedItemChanged: (index) {
                         print(index);
+                        viewModel.selectMonth = Constants.monthArray[index];
+                        print(viewModel.selectMonth);
                       },
                     ),
                   ),
@@ -79,8 +91,15 @@ class HomePage extends ConsumerWidget {
                       children: Constants.dayArray
                           .map((day) => Text(day.toString() + '日'))
                           .toList(),
+                      scrollController: FixedExtentScrollController(
+                        initialItem: viewModel.selectDay == 1
+                            ? 0
+                            : viewModel.selectDay - 1,
+                      ),
                       onSelectedItemChanged: (index) {
                         print(index);
+                        viewModel.selectDay = Constants.dayArray[index];
+                        print(viewModel.selectDay);
                       },
                     ),
                   ),
