@@ -21,9 +21,9 @@ class RecordService {
   // }
 
   // Future<List<RecordModel>> fetchRooms() async {
-  Future<void> createRecord(int money) async {
+  Future<void> createRecord(int money, DateTime expenditureDate) async {
     print('記録するよ');
-    final data = RecordModel.initialData(money);
+    final data = RecordModel.initialData(money, expenditureDate);
     print(data);
     await _recordRepository.createRecord(
       record: data,
