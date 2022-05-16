@@ -62,6 +62,7 @@ class InputDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
+            viewModel.foodPriceController.clear();
             Navigator.pop(context);
           },
           child: Text(
