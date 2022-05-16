@@ -45,4 +45,14 @@ class HomeViewModel extends ChangeNotifier {
     print('支出日: $expenditureDate');
     return expenditureDate;
   }
+
+  Future<void> getTaxIncludePrice(double number) async {
+    if (foodPriceController.text.isEmpty == false) {
+      final foodPrice = int.parse(foodPriceController.text) * number;
+      final floorFoodPrice = foodPrice.round();
+      print(foodPrice);
+      print(floorFoodPrice);
+      foodPriceController.text = floorFoodPrice.toString();
+    }
+  }
 }

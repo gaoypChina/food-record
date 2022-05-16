@@ -32,6 +32,31 @@ class InputDialog extends StatelessWidget {
             autofocus: true,
             keyboardType: TextInputType.number,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                child: Text('×8%'),
+                onPressed: () {
+                  print('8%掛ける');
+                  viewModel.getTaxIncludePrice(1.08);
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                ),
+              ),
+              ElevatedButton(
+                child: Text('×10%'),
+                onPressed: () {
+                  print('10%掛ける');
+                  viewModel.getTaxIncludePrice(1.1);
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                ),
+              ),
+            ],
+          )
         ],
       ),
       actions: [

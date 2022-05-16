@@ -22,6 +22,7 @@ class RecordButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: Colors.green,
           shape: CircleBorder(),
+          elevation: 0,
         ),
         onPressed: () {
           print('食費を入力');
