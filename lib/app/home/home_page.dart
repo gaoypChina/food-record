@@ -136,6 +136,7 @@ class HomePage extends ConsumerWidget {
                                   height: 18,
                                 ),
                                 CupertinoTextField(
+                                  controller: viewModel.foodPriceController,
                                   autofocus: true,
                                   keyboardType: TextInputType.number,
                                 ),
@@ -156,8 +157,22 @@ class HomePage extends ConsumerWidget {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {
-                                  viewModel.createRecord(1000);
+                                onPressed: () async {
+                                  final expenditureDate =
+                                      await viewModel.createExpenditureDate(
+                                    viewModel.selectYear,
+                                    viewModel.selectMonth,
+                                    viewModel.selectDay,
+                                  );
+                                  print('返り血$expenditureDate');
+                                  final foodPrice = int.parse(
+                                      viewModel.foodPriceController.text);
+                                  print('食費の金額: $foodPrice');
+                                  await viewModel.createRecord(
+                                    foodPrice,
+                                    expenditureDate,
+                                  );
+                                  viewModel.foodPriceController.clear();
                                   Navigator.pop(context);
                                 },
                                 child: Text(
