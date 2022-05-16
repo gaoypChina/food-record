@@ -27,9 +27,17 @@ class HomeViewModel extends ChangeNotifier {
   // }
 
   // Future<List<RecordModel>> fetchRoom() async {
-  Future<void> createRecord(int money, DateTime expenditureDate) async {
+  Future<void> createRecord(
+    int money,
+    DateTime expenditureDate,
+    String category,
+  ) async {
     // return _recordService.fetchRooms();
-    await _recordService.createRecord(money, expenditureDate);
+    await _recordService.createRecord(
+      money,
+      expenditureDate,
+      category,
+    );
   }
 
   Future<DateTime> createExpenditureDate(int year, int month, int day) async {
