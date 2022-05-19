@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/record/record_remote_data_source.dart';
+import 'package:food_record/app/report/report_model.dart';
 
 final recordRepositoryProvider = Provider<RecordRepository>((ref) {
   return RecordRepository(
@@ -26,5 +27,9 @@ class RecordRepository {
     await _recordRemoteDataSource.createRecord(
       record: record,
     );
+  }
+
+  Future<List<ReportModel>> fetchWeekRecords() async {
+    return _recordRemoteDataSource.getWeekRecords();
   }
 }

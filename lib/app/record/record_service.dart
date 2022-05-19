@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/record/record_repository.dart';
+import 'package:food_record/app/report/report_model.dart';
 
 final recordServiceProvider = Provider<RecordService>((ref) {
   return RecordService(
@@ -36,5 +37,9 @@ class RecordService {
     await _recordRepository.createRecord(
       record: data,
     );
+  }
+
+  Future<List<ReportModel>> fetchWeekRecords() async {
+    return _recordRepository.fetchWeekRecords();
   }
 }
