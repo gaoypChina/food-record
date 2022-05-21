@@ -73,15 +73,16 @@ class ReportPage extends ConsumerWidget {
               height: 250,
               //グラフ表示部分
               // recordIndexの数値を渡して、表示するグラフを変更する
-              // child: charts.TimeSeriesChart(
-              //   _createReportModel(reportList),
-              // ),
-              child: changeChart(
-                viewModel,
-                // viewModel.recordIndex,
-                // viewModel.reports,
-                // viewModel.fetchMonthRecords(),
+              child: charts.TimeSeriesChart(
+                _createReportModel(viewModel.reports),
+                // _createReportModel(reportList),
               ),
+              // child: changeChart(
+              // viewModel,
+              // viewModel.recordIndex,
+              // viewModel.reports,
+              // viewModel.fetchMonthRecords(),
+              // ),
               // child: changeChart(viewModel),
             ),
           ],
