@@ -140,6 +140,51 @@ class RecordDatabase {
     return fixedMaps;
   }
 
+  Future<List<ReportModel>> getMonthReports() async {
+    final db = await database;
+    final now = DateTime.now();
+    final first = DateTime(
+      now.year,
+      now.month,
+      1,
+    );
+    print('月の初日$first');
+    final end = DateTime(
+      now.year,
+      now.month + 1,
+      1,
+    ).add(Duration(days: -1));
+    print('月の末日$end');
+
+    final isWeekday = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).weekday;
+
+    final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
+    final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
+    final monthRawQuery =
+        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
+    final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
+    print(maps);
+    print(maps[0]['expenditureDate'].toString());
+    print(maps[0]['sum(money)'].toString());
+    final fixedMaps = maps
+        .map(
+          (record) => ReportModel(
+            expense: double.parse(record['sum(money)'].toString()),
+            date: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['expenditureDate'].toString()),
+            ),
+          ),
+        )
+        .toList();
+    print('object');
+    print(fixedMaps);
+    return fixedMaps;
+  }
+
   Future<int> getrecordIndex() async {
     final db = await database;
     final List<Map<String, dynamic>> maps =

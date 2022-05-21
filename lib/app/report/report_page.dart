@@ -60,7 +60,7 @@ class ReportPage extends ConsumerWidget {
               children: {
                 0: Text('1週間'),
                 1: Text('1ヶ月'),
-                2: Text('6ヶ月'),
+                2: Text('3ヶ月'),
                 3: Text('カスタム')
               },
               groupValue: viewModel.recordIndex,
@@ -76,7 +76,13 @@ class ReportPage extends ConsumerWidget {
               // child: charts.TimeSeriesChart(
               //   _createReportModel(reportList),
               // ),
-              child: changeChart(viewModel.recordIndex, viewModel.reports),
+              child: changeChart(
+                viewModel,
+                // viewModel.recordIndex,
+                // viewModel.reports,
+                // viewModel.fetchMonthRecords(),
+              ),
+              // child: changeChart(viewModel),
             ),
           ],
         ),
@@ -84,10 +90,19 @@ class ReportPage extends ConsumerWidget {
     );
   }
 
-  Widget changeChart(int index, List<ReportModel> reports) {
-    print(reports);
-    if (index == 0) {
+  Widget changeChart(
+    ReportViewModel viewModel,
+    // int index,
+    // List<ReportModel> reports,
+    // Future<void> getMonthRecords,
+  ) {
+    // Widget changeChart(ReportViewModel viewModel) {
+    // print(reports);
+    if (viewModel.recordIndex == 0) {
+      // if (index == 0) {
       // print('切り替え時$index');
+      // viewModel.load();
+      final reports = viewModel.reports;
       final reportList = reports
           .map((report) => ReportModel(
                 date: report.date,
@@ -139,18 +154,27 @@ class ReportPage extends ConsumerWidget {
       return charts.TimeSeriesChart(
         _createReportModel(reportList),
       );
-    } else if (index == 1) {
-      print('切り替え時$index');
+    } else if (viewModel.recordIndex == 1) {
+      // } else if (index == 1) {
+      // print('切り替え時${index}');
+      print('切り替え時${viewModel.recordIndex}');
+      // viewModel.fetchMonthRecords();
+      // viewModel.loadMonth();
+      print('一ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.reports}');
       return charts.TimeSeriesChart(
-        _createReportModel(weightList),
+        _createReportModel(viewModel.reports),
+        // _createReportModel(reports),
       );
-    } else if (index == 2) {
-      print('切り替え時$index');
+    } else if (viewModel.recordIndex == 2) {
+      // } else if (index == 2) {
+      // print('切り替え時${index}');
+      print('切り替え時${viewModel.recordIndex}');
       return charts.TimeSeriesChart(
         _createReportModel(weightList),
       );
     } else {
-      print('切り替え時$index');
+      // print('切り替え時${index}');
+      print('切り替え時${viewModel.recordIndex}');
       return charts.TimeSeriesChart(
         _createReportModel(weightList),
       );

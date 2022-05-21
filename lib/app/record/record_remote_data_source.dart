@@ -25,6 +25,10 @@ class RecordRemoteDataSource {
     return _recordDatabase.getWeekRecords();
   }
 
+  Future<List<ReportModel>> getMonthRecords() async {
+    return _recordDatabase.getMonthReports();
+  }
+
   // Future<void> setRoom(
   //     {required String roomId, required Map<String, dynamic> data}) async {
   //   await _cloudFirestoreService.setData(
