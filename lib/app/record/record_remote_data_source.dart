@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/record/record_model.dart';
+import 'package:food_record/app/report/report_model.dart';
 import 'package:food_record/app/sqflite/record_database.dart';
 
 final recordRemoteDataSourceProvider = Provider<RecordRemoteDataSource>((ref) {
@@ -18,6 +19,14 @@ class RecordRemoteDataSource {
     print('テstudio');
     // await _recordDatabase.deleteTable();
     await _recordDatabase.add(record);
+  }
+
+  Future<List<ReportModel>> getWeekRecords() async {
+    return _recordDatabase.getWeekRecords();
+  }
+
+  Future<List<ReportModel>> getMonthRecords() async {
+    return _recordDatabase.getMonthReports();
   }
 
   // Future<void> setRoom(

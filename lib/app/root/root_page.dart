@@ -2,6 +2,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/home/home_page.dart';
+import 'package:food_record/app/report/report_page.dart';
+import 'package:food_record/app/report/report_view_model.dart';
 import 'package:food_record/app/root/tab_controller.dart';
 
 class RootPage extends ConsumerWidget {
@@ -16,8 +18,14 @@ class RootPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tabType = ref.watch(tabTypeProvider);
     final tabTypeFunc = ref.watch(tabTypeProvider.notifier);
+    // final report = ref.watch(reportViewModelProvider);
+    // final reports = report.reports;
+    // print('Reportの値はこれだよ〜〜〜$reports');
     final _views = [
       HomePage(),
+      ReportPage(
+          // report: report,
+          ),
     ];
     return Scaffold(
       body: Column(
@@ -35,12 +43,12 @@ class RootPage extends ConsumerWidget {
         selectedItemColor: Color.fromARGB(255, 27, 152, 40),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'ホーム',
+            icon: Icon(Icons.edit),
+            label: '食費記録',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.inbox),
-            label: '過去の記録',
+            icon: Icon(Icons.assessment_outlined),
+            label: 'レポート',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
