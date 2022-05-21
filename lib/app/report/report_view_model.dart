@@ -36,6 +36,12 @@ class ReportViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loadThreeMonth() async {
+    reports = await fetchThreeMonthRecords();
+    print('リロード$reports');
+    notifyListeners();
+  }
+
   Future<List<ReportModel>> fetchWeekRecords() async {
     final reports = await _recordService.fetchWeekRecords();
     print('fetchしてるよ〜〜〜$reports');
@@ -50,6 +56,14 @@ class ReportViewModel extends ChangeNotifier {
     // notifyListeners();
   }
 
+  Future<List<ReportModel>> fetchThreeMonthRecords() async {
+    final threeMonthReports = await _recordService.fetchThreeMonthRecords();
+    print('月のレポート表示$threeMonthReports');
+    return threeMonthReports;
+    // reports = monthReports;
+    // notifyListeners();
+  }
+
   Future<void> updateIndex(int index) async {
     recordIndex = index;
     print(recordIndex);
@@ -57,6 +71,8 @@ class ReportViewModel extends ChangeNotifier {
       await load();
     } else if (index == 1) {
       await loadMonth();
+    } else if (index == 2) {
+      await loadThreeMonth();
     }
     notifyListeners();
   }
