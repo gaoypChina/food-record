@@ -46,4 +46,8 @@ class RecordService {
   Future<List<ReportModel>> fetchMonthRecords() async {
     return _recordRepository.fetchMonthRecords();
   }
+
+  Future<List<ReportModel>> fetchThreeMonthRecords() async {
+    return _recordRepository.fetchThreeMonthRecords();
+  }
 }
