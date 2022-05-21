@@ -15,13 +15,26 @@ import 'package:food_record/app/report/report_view_model.dart';
 // }
 
 class ReportPage extends ConsumerWidget {
-  ReportPage({Key? key}) : super(key: key);
+  ReportPage({
+    Key? key,
+    // required this.report,
+  }) : super(key: key);
+
+  // final ReportViewModel report;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(reportViewModelProvider);
-    final reports = viewModel.reports;
-    final index = viewModel.recordIndex;
+    // final reports = viewModel.reports;
+    // final reportList = reports
+    //     .map((report) => ReportModel(
+    //           date: report.date,
+    //           expense: report.expense,
+    //         ))
+    //     .toList();
+    // print(reportList[0].date);
+    // print(reportList[0].expense);
+    // final index = viewModel.recordIndex;
 
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +55,7 @@ class ReportPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(reports.toString()),
+            Text(viewModel.reports.toString()),
             CupertinoSlidingSegmentedControl<int>(
               children: {
                 0: Text('1週間'),
@@ -50,7 +63,7 @@ class ReportPage extends ConsumerWidget {
                 2: Text('6ヶ月'),
                 3: Text('カスタム')
               },
-              groupValue: index,
+              groupValue: viewModel.recordIndex,
               onValueChanged: (index) {
                 print(index);
                 viewModel.updateIndex(int.parse(index.toString()));
@@ -60,7 +73,10 @@ class ReportPage extends ConsumerWidget {
               height: 250,
               //グラフ表示部分
               // recordIndexの数値を渡して、表示するグラフを変更する
-              child: changeChart(index, reports),
+              // child: charts.TimeSeriesChart(
+              //   _createReportModel(reportList),
+              // ),
+              child: changeChart(viewModel.recordIndex, viewModel.reports),
             ),
           ],
         ),
@@ -181,7 +197,8 @@ class ReportPage extends ConsumerWidget {
 
 //上のリストからグラフに表示させるデータを生成
   List<charts.Series<ReportModel, DateTime>> _createReportModel(
-      List<ReportModel> weightList) {
+    List<ReportModel> weightList,
+  ) {
     return [
       charts.Series<ReportModel, DateTime>(
         id: 'Muscles',

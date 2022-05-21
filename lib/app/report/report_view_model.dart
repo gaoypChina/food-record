@@ -4,7 +4,7 @@ import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/record/record_service.dart';
 import 'package:food_record/app/report/report_model.dart';
 
-final reportViewModelProvider = ChangeNotifierProvider((ref) {
+final reportViewModelProvider = ChangeNotifierProvider.autoDispose((ref) {
   return ReportViewModel(
     ref.watch(recordServiceProvider),
   );
@@ -12,6 +12,7 @@ final reportViewModelProvider = ChangeNotifierProvider((ref) {
 
 class ReportViewModel extends ChangeNotifier {
   ReportViewModel(this._recordService) {
+    print('loadするよ〜〜〜');
     load();
   }
 
@@ -21,6 +22,10 @@ class ReportViewModel extends ChangeNotifier {
 
   Future<void> load() async {
     reports = await fetchWeekRecords();
+    reports.forEach((report) => {
+          print(report.date),
+          print(report.expense),
+        });
     print('初期リロード$reports');
     notifyListeners();
   }
