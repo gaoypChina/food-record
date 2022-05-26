@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/custom/custom_page.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/report/report_model.dart';
 import 'package:food_record/app/report/report_view_model.dart';
@@ -53,9 +54,33 @@ class ReportPage extends ConsumerWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(viewModel.reports.toString()),
+            // Text(viewModel.reports.toString()),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.amber.shade100,
+                border: Border(
+                  bottom: BorderSide(),
+                ),
+              ),
+              child: ListTile(
+                title: Center(
+                  child: Text(
+                    '${viewModel.opening.year}年${viewModel.opening.month}月${viewModel.opening.day}日 - ${viewModel.closing.year}年${viewModel.closing.month}月${viewModel.closing.day}日',
+                  ),
+                  // child: Text('全期間'),
+                  // child: viewModel.isFullPeriod
+                  //     ? Text('全期間')
+                  //     : Text(
+                  //         '${viewModel.openingDate.year}年${viewModel.openingDate.month}月${viewModel.openingDate.day}日 - ${viewModel.closingDate.year}年${viewModel.closingDate.month}月${viewModel.closingDate.day}日',
+                  // '${now.year}年${now.month}月${now.day}日',
+                  // style: TextStyle(
+                  //   fontWeight: FontWeight.bold,
+                  // ),
+                ),
+              ),
+            ),
             CupertinoSlidingSegmentedControl<int>(
               children: {
                 0: Text('1週間'),
@@ -67,6 +92,32 @@ class ReportPage extends ConsumerWidget {
               onValueChanged: (index) {
                 print(index);
                 viewModel.updateIndex(int.parse(index.toString()));
+                // if (viewModel.recordIndex == 3) {
+                // TODO: 下のコードを移動する
+                // final result = Navigator.push(
+                //   context,
+                //   MaterialPageRoute<ReportModel>(
+                //     builder: (context) => CustomPage(),
+                //   ),
+                // );
+                // _______________________________
+                //
+                // showCupertinoDialog<void>(
+                //   context: context,
+                //   builder: (context) {
+                //     return CupertinoAlertDialog(
+                //       title: Text("カスタムできるよ〜"),
+                //       content: Text('自由に期間を決めてグラフを描画しよう！！！'),
+                //       actions: [
+                //         TextButton(
+                //           onPressed: () => Navigator.pop(context),
+                //           child: Text('OK'),
+                //         ),
+                //       ],
+                //     );
+                //   },
+                // );
+                // }
               },
             ),
             Container(
@@ -85,6 +136,26 @@ class ReportPage extends ConsumerWidget {
               // ),
               // child: changeChart(viewModel),
             ),
+            viewModel.recordIndex == 3
+                ? ElevatedButton(
+                    onPressed: () {
+                      // final result = Navigator.push(
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<ReportModel>(
+                          builder: (context) => CustomPage(),
+                        ),
+                      ).then((value) => {
+                            viewModel.loadCustomPeriod(),
+                          });
+                      // if (result != null) {
+                      //   print('カスタムされた期間で読み込む');
+                      //   viewModel.loadCustomPeriod();
+                      // }
+                    },
+                    child: Text('期間を設定する'),
+                  )
+                : Container(),
           ],
         ),
       ),

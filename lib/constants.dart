@@ -2,6 +2,13 @@ final nowYear = DateTime.now().year;
 
 class Constants {
   static final yearArray = <int>[
+    nowYear - 8,
+    nowYear - 7,
+    nowYear - 6,
+    nowYear - 5,
+    nowYear - 4,
+    nowYear - 3,
+    nowYear - 2,
     nowYear - 1,
     nowYear,
     nowYear + 1,

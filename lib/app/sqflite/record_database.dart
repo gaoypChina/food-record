@@ -224,6 +224,38 @@ class RecordDatabase {
     return fixedMaps;
   }
 
+  Future<List<ReportModel>> getCustomPeriodRecords(
+    DateTime opening,
+    DateTime closing,
+  ) async {
+    final db = await database;
+    final formattedOpening = opening.microsecondsSinceEpoch.toString();
+    final formattedClosing = closing.microsecondsSinceEpoch.toString();
+    print(formattedOpening);
+    print(formattedClosing);
+    final customPeriodRawQuery =
+        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedOpening and $formattedClosing group by expenditureDate';
+    // const customPeriodRawQuery = 'select * from expenses';
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery(customPeriodRawQuery);
+    print(maps);
+    print(maps[0]['expenditureDate'].toString());
+    print(maps[0]['sum(money)'].toString());
+    final fixedMaps = maps
+        .map(
+          (record) => ReportModel(
+            expense: double.parse(record['sum(money)'].toString()),
+            date: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['expenditureDate'].toString()),
+            ),
+          ),
+        )
+        .toList();
+    print('object');
+    print(fixedMaps);
+    return fixedMaps;
+  }
+
   Future<int> getrecordIndex() async {
     final db = await database;
     final List<Map<String, dynamic>> maps =
