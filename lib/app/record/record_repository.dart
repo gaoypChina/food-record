@@ -40,4 +40,11 @@ class RecordRepository {
   Future<List<ReportModel>> fetchThreeMonthRecords() async {
     return _recordRemoteDataSource.getThreeMonthRecords();
   }
+
+  Future<List<ReportModel>> fetchCustomPeriodRecords(
+    DateTime opening,
+    DateTime closing,
+  ) async {
+    return _recordRemoteDataSource.getCustomPeriodRecords(opening, closing);
+  }
 }

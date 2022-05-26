@@ -33,6 +33,13 @@ class RecordRemoteDataSource {
     return _recordDatabase.getThreeMonthReports();
   }
 
+  Future<List<ReportModel>> getCustomPeriodRecords(
+    DateTime opening,
+    DateTime closing,
+  ) async {
+    return _recordDatabase.getCustomPeriodRecords(opening, closing);
+  }
+
   // Future<void> setRoom(
   //     {required String roomId, required Map<String, dynamic> data}) async {
   //   await _cloudFirestoreService.setData(
