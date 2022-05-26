@@ -115,8 +115,8 @@ class RecordDatabase {
     // final List<Map<String, dynamic>> maps =
     //     await db.rawQuery('select * from expenses limit 3 offset 1;');
     print(maps);
-    print(maps[0]['expenditureDate'].toString());
-    print(maps[0]['sum(money)'].toString());
+    // print(maps[0]['expenditureDate'].toString());
+    // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
         .map(
           (record) => ReportModel(
@@ -168,8 +168,8 @@ class RecordDatabase {
         'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
-    print(maps[0]['expenditureDate'].toString());
-    print(maps[0]['sum(money)'].toString());
+    // print(maps[0]['expenditureDate'].toString());
+    // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
         .map(
           (record) => ReportModel(
@@ -207,8 +207,8 @@ class RecordDatabase {
         'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
-    print(maps[0]['expenditureDate'].toString());
-    print(maps[0]['sum(money)'].toString());
+    // print(maps[0]['expenditureDate'].toString());
+    // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
         .map(
           (record) => ReportModel(
@@ -239,8 +239,8 @@ class RecordDatabase {
     final List<Map<String, dynamic>> maps =
         await db.rawQuery(customPeriodRawQuery);
     print(maps);
-    print(maps[0]['expenditureDate'].toString());
-    print(maps[0]['sum(money)'].toString());
+    // print(maps[0]['expenditureDate'].toString());
+    // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
         .map(
           (record) => ReportModel(

@@ -121,22 +121,86 @@ class ReportPage extends ConsumerWidget {
               },
             ),
             Container(
-              height: 250,
-              //グラフ表示部分
-              // recordIndexの数値を渡して、表示するグラフを変更する
-              child: charts.TimeSeriesChart(
-                _createReportModel(viewModel.reports),
-                // _createReportModel(reportList),
-              ),
-              // child: changeChart(
-              // viewModel,
-              // viewModel.recordIndex,
-              // viewModel.reports,
-              // viewModel.fetchMonthRecords(),
-              // ),
-              // child: changeChart(viewModel),
-            ),
-            viewModel.recordIndex == 3
+                height: 250,
+                //グラフ表示部分
+                // recordIndexの数値を渡して、表示するグラフを変更する
+                child: viewModel.reports.isNotEmpty
+                    ? charts.TimeSeriesChart(
+                        _createReportModel(viewModel.reports),
+                        // _createReportModel(reportList),
+                      )
+                    : Container(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 24,
+                              width: 24,
+                            ),
+                            Center(
+                              child: Text(
+                                'データがありません',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: Image.asset(
+                                'assets/images/rabit5.png',
+                              ),
+                            ),
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                            ),
+                            Center(
+                              child: SizedBox(
+                                width: 240,
+                                height: 48,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.amber,
+                                  ),
+                                  onPressed: () async {
+                                    print('テスト');
+                                  },
+                                  child: Text(
+                                    '食費を記録する',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey.shade900,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 36,
+                              ),
+                              child: Text(
+                                '注: 食費が記録されていなければ、グラフは表示されません。',
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                // child: changeChart(
+                // viewModel,
+                // viewModel.recordIndex,
+                // viewModel.reports,
+                // viewModel.fetchMonthRecords(),
+                // ),
+                // child: changeChart(viewModel),
+                ),
+            viewModel.recordIndex == 3 && viewModel.reports.isNotEmpty
                 ? ElevatedButton(
                     onPressed: () {
                       // final result = Navigator.push(
