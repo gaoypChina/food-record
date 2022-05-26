@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/custom/custom_page.dart';
+import 'package:food_record/app/home/home_page.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/report/report_model.dart';
 import 'package:food_record/app/report/report_view_model.dart';
@@ -121,21 +122,91 @@ class ReportPage extends ConsumerWidget {
               },
             ),
             Container(
-              height: 250,
-              //グラフ表示部分
-              // recordIndexの数値を渡して、表示するグラフを変更する
-              child: charts.TimeSeriesChart(
-                _createReportModel(viewModel.reports),
-                // _createReportModel(reportList),
-              ),
-              // child: changeChart(
-              // viewModel,
-              // viewModel.recordIndex,
-              // viewModel.reports,
-              // viewModel.fetchMonthRecords(),
-              // ),
-              // child: changeChart(viewModel),
-            ),
+                height: 250,
+                //グラフ表示部分
+                // recordIndexの数値を渡して、表示するグラフを変更する
+                child: viewModel.reports.isNotEmpty
+                    ? charts.TimeSeriesChart(
+                        _createReportModel(viewModel.reports),
+                        // _createReportModel(reportList),
+                      )
+                    : Container(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 24,
+                              width: 24,
+                            ),
+                            Center(
+                              child: Text(
+                                'データがありません',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: Image.asset(
+                                'assets/images/rabit5.png',
+                              ),
+                            ),
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                            ),
+                            // Center(
+                            //   child: SizedBox(
+                            //     width: 240,
+                            //     height: 48,
+                            //     child: ElevatedButton(
+                            //       style: ElevatedButton.styleFrom(
+                            //         primary: Colors.amber,
+                            //       ),
+                            //       onPressed: () async {
+                            //         print('テスト');
+                            //         Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute<ReportModel>(
+                            //             builder: (context) => HomePage(),
+                            //           ),
+                            //         );
+                            //       },
+                            //       child: Text(
+                            //         '食費を記録する',
+                            //         style: TextStyle(
+                            //           fontSize: 20,
+                            //           fontWeight: FontWeight.w600,
+                            //           color: Colors.grey.shade900,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   width: 24,
+                            //   height: 24,
+                            // ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 36,
+                              ),
+                              child: Text(
+                                '注: 食費が記録されていなければ、グラフは表示されません。',
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                // child: changeChart(
+                // viewModel,
+                // viewModel.recordIndex,
+                // viewModel.reports,
+                // viewModel.fetchMonthRecords(),
+                // ),
+                // child: changeChart(viewModel),
+                ),
             viewModel.recordIndex == 3
                 ? ElevatedButton(
                     onPressed: () {
