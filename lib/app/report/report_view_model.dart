@@ -79,7 +79,13 @@ class ReportViewModel extends ChangeNotifier {
 
   Future<int> getCustomIndex() async {
     final prefs = await SharedPreferences.getInstance();
-    final index = int.parse(prefs.getInt(indexPrefsKey).toString());
+    final customIndex = prefs.getInt(indexPrefsKey);
+    print(customIndex);
+    if (customIndex == null) {
+      const index = 0;
+      return index;
+    }
+    final index = int.parse(customIndex.toString());
     print('インデックスを取得したよ〜〜〜$index');
     return index;
   }

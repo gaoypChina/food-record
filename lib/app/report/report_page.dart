@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/custom/custom_page.dart';
+import 'package:food_record/app/home/home_page.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/report/report_model.dart';
 import 'package:food_record/app/report/report_view_model.dart';
@@ -155,32 +156,38 @@ class ReportPage extends ConsumerWidget {
                               width: 24,
                               height: 24,
                             ),
-                            Center(
-                              child: SizedBox(
-                                width: 240,
-                                height: 48,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.amber,
-                                  ),
-                                  onPressed: () async {
-                                    print('テスト');
-                                  },
-                                  child: Text(
-                                    '食費を記録する',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.grey.shade900,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                            ),
+                            // Center(
+                            //   child: SizedBox(
+                            //     width: 240,
+                            //     height: 48,
+                            //     child: ElevatedButton(
+                            //       style: ElevatedButton.styleFrom(
+                            //         primary: Colors.amber,
+                            //       ),
+                            //       onPressed: () async {
+                            //         print('テスト');
+                            //         Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute<ReportModel>(
+                            //             builder: (context) => HomePage(),
+                            //           ),
+                            //         );
+                            //       },
+                            //       child: Text(
+                            //         '食費を記録する',
+                            //         style: TextStyle(
+                            //           fontSize: 20,
+                            //           fontWeight: FontWeight.w600,
+                            //           color: Colors.grey.shade900,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   width: 24,
+                            //   height: 24,
+                            // ),
                             Container(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 36,
@@ -200,7 +207,7 @@ class ReportPage extends ConsumerWidget {
                 // ),
                 // child: changeChart(viewModel),
                 ),
-            viewModel.recordIndex == 3 && viewModel.reports.isNotEmpty
+            viewModel.recordIndex == 3
                 ? ElevatedButton(
                     onPressed: () {
                       // final result = Navigator.push(
