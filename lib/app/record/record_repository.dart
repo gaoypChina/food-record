@@ -29,6 +29,18 @@ class RecordRepository {
     );
   }
 
+  Future<List<RecordModel>> getWeekRecords() async {
+    return _recordRemoteDataSource.getWeekRecordList();
+  }
+
+  Future<List<RecordModel>> getMonthRecords() async {
+    return _recordRemoteDataSource.getMonthRecordList();
+  }
+
+  Future<List<RecordModel>> getThreeMonthRecords() async {
+    return _recordRemoteDataSource.getThreeMonthRecordList();
+  }
+
   Future<List<ReportModel>> fetchWeekRecords() async {
     return _recordRemoteDataSource.getWeekRecords();
   }

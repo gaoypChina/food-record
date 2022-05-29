@@ -27,6 +27,14 @@ class ReportPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(reportViewModelProvider);
+    final list = viewModel.records;
+    // var list = [
+    //   "メッセージ",
+    //   "メッセージ",
+    //   "メッセージ",
+    //   "メッセージ",
+    //   "メッセージ",
+    // ];
     // final reports = viewModel.reports;
     // final reportList = reports
     //     .map((report) => ReportModel(
@@ -53,182 +61,291 @@ class ReportPage extends ConsumerWidget {
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Text(viewModel.reports.toString()),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.amber.shade100,
-                border: Border(
-                  bottom: BorderSide(),
-                ),
-              ),
-              child: ListTile(
-                title: Center(
-                  child: Text(
-                    '${viewModel.opening.year}年${viewModel.opening.month}月${viewModel.opening.day}日 - ${viewModel.closing.year}年${viewModel.closing.month}月${viewModel.closing.day}日',
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Text(viewModel.reports.toString()),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.amber.shade100,
+                    border: Border(
+                      bottom: BorderSide(),
+                    ),
                   ),
-                  // child: Text('全期間'),
-                  // child: viewModel.isFullPeriod
-                  //     ? Text('全期間')
-                  //     : Text(
-                  //         '${viewModel.openingDate.year}年${viewModel.openingDate.month}月${viewModel.openingDate.day}日 - ${viewModel.closingDate.year}年${viewModel.closingDate.month}月${viewModel.closingDate.day}日',
-                  // '${now.year}年${now.month}月${now.day}日',
-                  // style: TextStyle(
-                  //   fontWeight: FontWeight.bold,
-                  // ),
+                  child: ListTile(
+                    title: Center(
+                      child: Text(
+                        '${viewModel.opening.year}年${viewModel.opening.month}月${viewModel.opening.day}日 - ${viewModel.closing.year}年${viewModel.closing.month}月${viewModel.closing.day}日',
+                      ),
+                      // child: Text('全期間'),
+                      // child: viewModel.isFullPeriod
+                      //     ? Text('全期間')
+                      //     : Text(
+                      //         '${viewModel.openingDate.year}年${viewModel.openingDate.month}月${viewModel.openingDate.day}日 - ${viewModel.closingDate.year}年${viewModel.closingDate.month}月${viewModel.closingDate.day}日',
+                      // '${now.year}年${now.month}月${now.day}日',
+                      // style: TextStyle(
+                      //   fontWeight: FontWeight.bold,
+                      // ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            CupertinoSlidingSegmentedControl<int>(
-              children: {
-                0: Text('1週間'),
-                1: Text('1ヶ月'),
-                2: Text('3ヶ月'),
-                3: Text('カスタム')
-              },
-              groupValue: viewModel.recordIndex,
-              onValueChanged: (index) {
-                print(index);
-                viewModel.updateIndex(int.parse(index.toString()));
-                // if (viewModel.recordIndex == 3) {
-                // TODO: 下のコードを移動する
-                // final result = Navigator.push(
-                //   context,
-                //   MaterialPageRoute<ReportModel>(
-                //     builder: (context) => CustomPage(),
-                //   ),
-                // );
-                // _______________________________
-                //
-                // showCupertinoDialog<void>(
-                //   context: context,
-                //   builder: (context) {
-                //     return CupertinoAlertDialog(
-                //       title: Text("カスタムできるよ〜"),
-                //       content: Text('自由に期間を決めてグラフを描画しよう！！！'),
-                //       actions: [
-                //         TextButton(
-                //           onPressed: () => Navigator.pop(context),
-                //           child: Text('OK'),
-                //         ),
-                //       ],
-                //     );
-                //   },
-                // );
-                // }
-              },
-            ),
-            Container(
-                height: 250,
-                //グラフ表示部分
-                // recordIndexの数値を渡して、表示するグラフを変更する
-                child: viewModel.reports.isNotEmpty
-                    ? charts.TimeSeriesChart(
-                        _createReportModel(viewModel.reports),
-                        // _createReportModel(reportList),
-                      )
-                    : Container(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 24,
-                              width: 24,
-                            ),
-                            Center(
-                              child: Text(
-                                'データがありません',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Image.asset(
-                                'assets/images/rabit5.png',
-                              ),
-                            ),
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                            ),
-                            // Center(
-                            //   child: SizedBox(
-                            //     width: 240,
-                            //     height: 48,
-                            //     child: ElevatedButton(
-                            //       style: ElevatedButton.styleFrom(
-                            //         primary: Colors.amber,
-                            //       ),
-                            //       onPressed: () async {
-                            //         print('テスト');
-                            //         Navigator.push(
-                            //           context,
-                            //           MaterialPageRoute<ReportModel>(
-                            //             builder: (context) => HomePage(),
-                            //           ),
-                            //         );
-                            //       },
-                            //       child: Text(
-                            //         '食費を記録する',
-                            //         style: TextStyle(
-                            //           fontSize: 20,
-                            //           fontWeight: FontWeight.w600,
-                            //           color: Colors.grey.shade900,
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   width: 24,
-                            //   height: 24,
-                            // ),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 36,
-                              ),
-                              child: Text(
-                                '注: 食費が記録されていなければ、グラフは表示されません。',
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                // child: changeChart(
-                // viewModel,
-                // viewModel.recordIndex,
-                // viewModel.reports,
-                // viewModel.fetchMonthRecords(),
-                // ),
-                // child: changeChart(viewModel),
-                ),
-            viewModel.recordIndex == 3
-                ? ElevatedButton(
-                    onPressed: () {
+                Container(
+                  child: CupertinoSlidingSegmentedControl<int>(
+                    children: {
+                      0: Text('1週間'),
+                      1: Text('1ヶ月'),
+                      2: Text('3ヶ月'),
+                      3: Text('カスタム')
+                    },
+                    groupValue: viewModel.recordIndex,
+                    onValueChanged: (index) {
+                      print(index);
+                      viewModel.updateIndex(int.parse(index.toString()));
+                      // if (viewModel.recordIndex == 3) {
+                      // TODO: 下のコードを移動する
                       // final result = Navigator.push(
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<ReportModel>(
-                          builder: (context) => CustomPage(),
-                        ),
-                      ).then((value) => {
-                            viewModel.loadCustomPeriod(),
-                          });
-                      // if (result != null) {
-                      //   print('カスタムされた期間で読み込む');
-                      //   viewModel.loadCustomPeriod();
+                      //   context,
+                      //   MaterialPageRoute<ReportModel>(
+                      //     builder: (context) => CustomPage(),
+                      //   ),
+                      // );
+                      // _______________________________
+                      //
+                      // showCupertinoDialog<void>(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return CupertinoAlertDialog(
+                      //       title: Text("カスタムできるよ〜"),
+                      //       content: Text('自由に期間を決めてグラフを描画しよう！！！'),
+                      //       actions: [
+                      //         TextButton(
+                      //           onPressed: () => Navigator.pop(context),
+                      //           child: Text('OK'),
+                      //         ),
+                      //       ],
+                      //     );
+                      //   },
+                      // );
                       // }
                     },
-                    child: Text('期間を設定する'),
-                  )
-                : Container(),
-          ],
+                  ),
+                ),
+                Container(
+                    height: 250,
+                    //グラフ表示部分
+                    // recordIndexの数値を渡して、表示するグラフを変更する
+                    child: viewModel.reports.isNotEmpty
+                        ? charts.TimeSeriesChart(
+                            _createReportModel(viewModel.reports),
+                            // _createReportModel(reportList),
+                          )
+                        : SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 24,
+                                  width: 24,
+                                ),
+                                Center(
+                                  child: Text(
+                                    'データがありません',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: Image.asset(
+                                    'assets/images/rabit5.png',
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                ),
+                                // Center(
+                                //   child: SizedBox(
+                                //     width: 240,
+                                //     height: 48,
+                                //     child: ElevatedButton(
+                                //       style: ElevatedButton.styleFrom(
+                                //         primary: Colors.amber,
+                                //       ),
+                                //       onPressed: () async {
+                                //         print('テスト');
+                                //         Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute<ReportModel>(
+                                //             builder: (context) => HomePage(),
+                                //           ),
+                                //         );
+                                //       },
+                                //       child: Text(
+                                //         '食費を記録する',
+                                //         style: TextStyle(
+                                //           fontSize: 20,
+                                //           fontWeight: FontWeight.w600,
+                                //           color: Colors.grey.shade900,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                                // SizedBox(
+                                //   width: 24,
+                                //   height: 24,
+                                // ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 36,
+                                  ),
+                                  child: Text(
+                                    '注: 食費が記録されていなければ、グラフは表示されません。',
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                    // child: changeChart(
+                    // viewModel,
+                    // viewModel.recordIndex,
+                    // viewModel.reports,
+                    // viewModel.fetchMonthRecords(),
+                    // ),
+                    // child: changeChart(viewModel),
+                    ),
+                // CupertinoSlidingSegmentedControl<int>(
+                //   children: {
+                //     0: Text('日時'),
+                //     1: Text('価格'),
+                //     2: Text('カテゴリー'),
+                //   },
+                //   groupValue: 0,
+                //   onValueChanged: (index) {
+                //     print('test: $index');
+                //   },
+                // ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: viewModel.records.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // if (index >= list.length) {
+                    //   list.addAll([
+                    //     "メッセージ",
+                    //     "メッセージ",
+                    //     "メッセージ",
+                    //     "メッセージ",
+                    //   ]);
+                    // }
+                    return _messageItem(list[index]);
+                  },
+                ),
+                // viewModel.recordIndex == 3
+                //     ?
+                // ElevatedButton(
+                //     onPressed: () {
+                //       // final result = Navigator.push(
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute<ReportModel>(
+                //           builder: (context) => CustomPage(),
+                //         ),
+                //       ).then((value) => {
+                //             viewModel.loadCustomPeriod(),
+                //           });
+                //       // if (result != null) {
+                //       //   print('カスタムされた期間で読み込む');
+                //       //   viewModel.loadCustomPeriod();
+                //       // }
+                //     },
+                //     child: Text('期間を設定する'),
+                //   )
+                // : Container(),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: ElevatedButton(
+                child: Text(
+                  '期間を設定する',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<ReportModel>(
+                      builder: (context) => CustomPage(),
+                    ),
+                  ).then((value) => {
+                        viewModel.recordIndex = 3,
+                        viewModel.loadCustomPeriod(),
+                      });
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.only(
+                    top: 8,
+                    bottom: 8,
+                  ),
+                  elevation: 0,
+                  minimumSize: Size(300, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(36),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _messageItem(RecordModel record) {
+    return Container(
+      decoration: new BoxDecoration(
+          border:
+              new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
+      child: ListTile(
+        dense: true,
+        leading: Icon(
+          Icons.arrow_back_ios,
+          size: 32,
+          color: Colors.green,
         ),
+        title: Text(
+          record.category,
+          style: TextStyle(color: Colors.black, fontSize: 18.0),
+        ),
+        subtitle: Text(
+          '${record.expenditureDate.year}年${record.expenditureDate.month}月${record.expenditureDate.day}日',
+          style: TextStyle(color: Colors.grey.shade800, fontSize: 12.0),
+        ),
+        trailing: Text(
+          '${record.money}円',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        onTap: () {
+          print("onTap called.");
+        }, // タップ
+        onLongPress: () {
+          print("onLongTap called.");
+        }, // 長押し
       ),
     );
   }

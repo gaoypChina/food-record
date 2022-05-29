@@ -21,6 +21,18 @@ class RecordRemoteDataSource {
     await _recordDatabase.add(record);
   }
 
+  Future<List<RecordModel>> getWeekRecordList() async {
+    return _recordDatabase.getWeekRecordList();
+  }
+
+  Future<List<RecordModel>> getMonthRecordList() async {
+    return _recordDatabase.getMonthRecordList();
+  }
+
+  Future<List<RecordModel>> getThreeMonthRecordList() async {
+    return _recordDatabase.getThreeMonthRecordList();
+  }
+
   Future<List<ReportModel>> getWeekRecords() async {
     return _recordDatabase.getWeekRecords();
   }
