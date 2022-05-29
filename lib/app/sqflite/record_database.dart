@@ -73,6 +73,160 @@ class RecordDatabase {
     return fixedMaps;
   }
 
+  Future<List<RecordModel>> getThreeMonthRecordList() async {
+    final db = await database;
+    final now = DateTime.now();
+    final first = DateTime(
+      now.year,
+      now.month - 2,
+      1,
+    );
+    print('3ヶ月の初日$first');
+    final end = DateTime(
+      now.year,
+      now.month + 1,
+      1,
+    ).add(Duration(days: -1));
+    print('3ヶ月の末日$end');
+
+    final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
+    final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
+    final monthRawQuery =
+        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
+    final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
+    print(maps);
+
+    final fixedMaps = maps
+        .map(
+          (record) => RecordModel(
+            id: int.parse(record['id'].toString()),
+            money: int.parse(record['money'].toString()),
+            category: record['category'].toString(),
+            expenditureDate: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['expenditureDate'].toString()),
+            ),
+            createdAt: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['createdAt'].toString()),
+            ),
+          ),
+        )
+        .toList();
+    print('object');
+    print(fixedMaps);
+    return fixedMaps;
+  }
+
+  Future<List<RecordModel>> getMonthRecordList() async {
+    final db = await database;
+    final now = DateTime.now();
+    final first = DateTime(
+      now.year,
+      now.month,
+      1,
+    );
+    print('月の初日$first');
+    final end = DateTime(
+      now.year,
+      now.month + 1,
+      1,
+    ).add(Duration(days: -1));
+    print('月の末日$end');
+
+    final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
+    final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
+    final monthRawQuery =
+        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
+    final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
+    print(maps);
+
+    final fixedMaps = maps
+        .map(
+          (record) => RecordModel(
+            id: int.parse(record['id'].toString()),
+            money: int.parse(record['money'].toString()),
+            category: record['category'].toString(),
+            expenditureDate: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['expenditureDate'].toString()),
+            ),
+            createdAt: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['createdAt'].toString()),
+            ),
+          ),
+        )
+        .toList();
+    print('object');
+    print(fixedMaps);
+    return fixedMaps;
+  }
+
+  Future<List<RecordModel>> getWeekRecordList() async {
+    final db = await database;
+    final now = DateTime.now();
+    final today = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    );
+    final isWeekday = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).weekday;
+    print(today);
+    final monday =
+        isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
+    final sunday =
+        isWeekday == 7 ? today : today.add(Duration(days: isWeekday - 1) * 1);
+    print(monday);
+    print(monday.microsecondsSinceEpoch);
+    print(sunday);
+    print(sunday.microsecondsSinceEpoch);
+    print('これ何曜日？${monday.weekday}');
+    final formattedMonday = monday.microsecondsSinceEpoch.toString();
+    final formattedSunday = sunday.microsecondsSinceEpoch.toString();
+    // final mondayRawQuery = 'select * from expenses order by expenditureDate';
+    final mondayRawQuery =
+        'select * from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
+    // final mondayRawQuery =
+    //     'select money, expenditureDate, sum(money), count(*) from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
+    // final mondayRawQuery =
+    //     'select * from expenses where expenditureDate between $formattedMonday and $formattedSunday order by expenditureDate';
+    // final sundayRawQuery =
+    //     'select * from expenses where expenditureDate = $formattedSunday';
+    // final mondayRawQuery =
+    //     'select * from expenses where expenditureDate = $formattedMonday';
+    // final mondayRawQuery =
+    //     'select expenditureDate, typeof(expenditureDate), createdAt, typeof(createdAt) from expenses';
+    final List<Map<String, dynamic>> maps = await db.rawQuery(mondayRawQuery);
+    // final List<Map<String, dynamic>> maps =
+    //     await db.rawQuery('select * from expenses limit 3 offset 1;');
+    print(maps);
+    // print(maps[0]['expenditureDate'].toString());
+    // print(maps[0]['sum(money)'].toString());
+    final fixedMaps = maps
+        .map(
+          (record) => RecordModel(
+            // expense: double.parse(record['sum(money)'].toString()),
+            // date: DateTime.fromMicrosecondsSinceEpoch(
+            //   int.parse(record['expenditureDate'].toString()),
+            // ),
+            id: int.parse(record['id'].toString()),
+            money: int.parse(record['money'].toString()),
+            category: record['category'].toString(),
+            expenditureDate: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['expenditureDate'].toString()),
+            ),
+            createdAt: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['createdAt'].toString()),
+            ),
+          ),
+        )
+        .toList();
+    print('object');
+    print(fixedMaps);
+    return fixedMaps;
+  }
+
   Future<List<ReportModel>> getWeekRecords() async {
     final db = await database;
     final now = DateTime.now();

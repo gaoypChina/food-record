@@ -18,6 +18,7 @@ class ReportViewModel extends ChangeNotifier {
   }
 
   final RecordService _recordService;
+  List<RecordModel> records = [];
   List<ReportModel> reports = [];
   int recordIndex = 0;
   int customIndex = 0;
@@ -31,6 +32,7 @@ class ReportViewModel extends ChangeNotifier {
 
   Future<void> load() async {
     reports = await fetchWeekRecords();
+    records = await getWeekRecords();
     // if (recordIndex == 0) {
     //   opening = DateTime.now().add(
     //     Duration(days: -6),
@@ -44,22 +46,32 @@ class ReportViewModel extends ChangeNotifier {
     //   opening = await getOpeningDate();
     //   closing = await getClosingDate();
     // }
+    records.forEach((record) => {
+          print(record.id),
+          print(record.category),
+          print(record.createdAt),
+          print(record.expenditureDate),
+          print(record.money),
+        });
     reports.forEach((report) => {
           print(report.date),
           print(report.expense),
         });
-    print('初期リロード$reports');
+    print('初期リロード$records');
     notifyListeners();
   }
 
   Future<void> loadMonth() async {
     reports = await fetchMonthRecords();
+    records = await getMonthRecords();
     print('リロード$reports');
+    print('リロード$records');
     notifyListeners();
   }
 
   Future<void> loadThreeMonth() async {
     reports = await fetchThreeMonthRecords();
+    records = await getThreeMonthRecords();
     print('リロード$reports');
     notifyListeners();
   }
@@ -104,6 +116,24 @@ class ReportViewModel extends ChangeNotifier {
     final closing = DateTime.fromMillisecondsSinceEpoch(index);
     print('closingをDateTimeに$closing');
     return closing;
+  }
+
+  Future<List<RecordModel>> getWeekRecords() async {
+    final records = await _recordService.getWeekRecords();
+    print(records);
+    return records;
+  }
+
+  Future<List<RecordModel>> getMonthRecords() async {
+    final records = await _recordService.getMonthRecords();
+    print(records);
+    return records;
+  }
+
+  Future<List<RecordModel>> getThreeMonthRecords() async {
+    final records = await _recordService.getThreeMonthRecords();
+    print(records);
+    return records;
   }
 
   Future<List<ReportModel>> fetchWeekRecords() async {
