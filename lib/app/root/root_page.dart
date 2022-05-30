@@ -51,6 +51,10 @@ class RootPage extends ConsumerWidget {
             label: 'レポート',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: '通知',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: '設定',
           ),
