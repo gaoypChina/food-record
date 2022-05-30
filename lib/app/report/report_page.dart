@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/custom/custom_page.dart';
+import 'package:food_record/app/edit/edit_page.dart';
 import 'package:food_record/app/home/home_page.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/report/no_data_alert.dart';
@@ -241,7 +242,7 @@ class ReportPage extends ConsumerWidget {
     );
   }
 
-  Widget _messageItem(RecordModel record) {
+  Widget _messageItem(RecordModel record, BuildContext context) {
     return Container(
       decoration: new BoxDecoration(
           border:
@@ -270,6 +271,17 @@ class ReportPage extends ConsumerWidget {
           ),
         ),
         onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<ReportModel>(
+              builder: (context) => EditPage(
+                record: record,
+              ),
+            ),
+          ).then((value) {
+            // viewModel.recordIndex = 3,
+            // viewModel.loadCustomPeriod(),
+          });
           print("onTap called.");
         }, // タップ
         onLongPress: () {
@@ -446,7 +458,7 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index]);
+                return _messageItem(records[index], context);
               },
             )
           : Container();
@@ -466,7 +478,7 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index]);
+                return _messageItem(records[index], context);
               },
             )
           : Container();
@@ -486,7 +498,7 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index]);
+                return _messageItem(records[index], context);
               },
             )
           : Container();
@@ -506,7 +518,7 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index]);
+                return _messageItem(records[index], context);
               },
             )
           : Container();
