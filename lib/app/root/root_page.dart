@@ -40,6 +40,13 @@ class RootPage extends ConsumerWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        // unselectedIconTheme: IconThemeData(
+        //   color: Colors.grey.shade400,
+        // ),
+        // selectedIconTheme: IconThemeData(
+        //   color: Color.fromARGB(255, 27, 152, 40),
+        // ),
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: Color.fromARGB(255, 27, 152, 40),
         items: const [
           BottomNavigationBarItem(
