@@ -21,7 +21,7 @@ class RecordModel {
       'money': money,
       'category': category,
       'expenditureDate': expenditureDate.microsecondsSinceEpoch,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': createdAt.microsecondsSinceEpoch,
     };
     return map;
   }
@@ -35,7 +35,7 @@ class RecordModel {
       expenditureDate: DateTime.fromMicrosecondsSinceEpoch(
         int.parse(map['expenditureDate'].toString()),
       ),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(
+      createdAt: DateTime.fromMicrosecondsSinceEpoch(
         int.parse(map['createdAt'].toString()),
       ),
     );

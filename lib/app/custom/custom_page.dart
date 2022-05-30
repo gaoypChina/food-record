@@ -86,18 +86,18 @@ class CustomPage extends ConsumerWidget {
                     period: '過去365日間',
                     index: 6,
                   ),
-                  SimpleDateTile(
-                    viewModel: viewModel,
-                    period: '全期間',
-                    index: 7,
-                  ),
+                  // SimpleDateTile(
+                  //   viewModel: viewModel,
+                  //   period: '全期間',
+                  //   index: 7,
+                  // ),
                   ExpansionTile(
                     title: Text('カスタム(開始日、締め日を指定)'),
                     children: [
                       SimpleDateTile(
                         viewModel: viewModel,
                         period: 'カスタムを適用する',
-                        index: 8,
+                        index: 7,
                       ),
                       CustomDateTile(
                         viewModel: viewModel,

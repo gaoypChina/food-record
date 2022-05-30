@@ -10,7 +10,10 @@ final customViewModelProvider = ChangeNotifierProvider((ref) {
 });
 
 class CustomViewModel extends ChangeNotifier {
-  CustomViewModel(this._recordService);
+  CustomViewModel(this._recordService) {
+    print('ロードするよ');
+    load();
+  }
   final RecordService _recordService;
   int selectedPeriodIndex = 0;
   DateTime openingDate = DateTime.now();
@@ -23,6 +26,13 @@ class CustomViewModel extends ChangeNotifier {
   static const closingPrefsKey = 'customClosing';
 
   // TODO: 初期ロードの処理
+  Future<void> load() async {
+    final index = await getPeriodIndex();
+    print(index);
+    selectedPeriodIndex = int.parse(index.toString());
+    notifyListeners();
+  }
+
   // TODO: shared_preferenceを読み込む処理
   Future<int?> getPeriodIndex() async {
     final prefs = await SharedPreferences.getInstance();
@@ -76,9 +86,11 @@ class CustomViewModel extends ChangeNotifier {
         setPastHalfYear();
       } else if (selectedPeriodIndex == 6) {
         setPastOneYear();
-      } else if (selectedPeriodIndex == 7) {
-        setFullPeriod();
-      } else if (selectedPeriodIndex == 8) {
+      }
+      // else if (selectedPeriodIndex == 7) {
+      //   setFullPeriod();
+      // }
+      else if (selectedPeriodIndex == 7) {
         setOpeningDate(openingDate);
         setClosingDate(closingDate);
       }

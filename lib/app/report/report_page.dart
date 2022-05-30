@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/custom/custom_page.dart';
 import 'package:food_record/app/home/home_page.dart';
 import 'package:food_record/app/record/record_model.dart';
+import 'package:food_record/app/report/no_data_alert.dart';
 import 'package:food_record/app/report/report_model.dart';
 import 'package:food_record/app/report/report_view_model.dart';
 
@@ -27,7 +28,7 @@ class ReportPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(reportViewModelProvider);
-    final list = viewModel.records;
+    // final list = viewModel.weekRecords;
     // var list = [
     //   "メッセージ",
     //   "メッセージ",
@@ -133,92 +134,17 @@ class ReportPage extends ConsumerWidget {
                     },
                   ),
                 ),
-                Container(
-                    height: 250,
-                    //グラフ表示部分
-                    // recordIndexの数値を渡して、表示するグラフを変更する
-                    child: viewModel.reports.isNotEmpty
-                        ? charts.TimeSeriesChart(
-                            _createReportModel(viewModel.reports),
-                            // _createReportModel(reportList),
-                          )
-                        : SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 24,
-                                  width: 24,
-                                ),
-                                Center(
-                                  child: Text(
-                                    'データがありません',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                                Center(
-                                  child: Image.asset(
-                                    'assets/images/rabit5.png',
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                ),
-                                // Center(
-                                //   child: SizedBox(
-                                //     width: 240,
-                                //     height: 48,
-                                //     child: ElevatedButton(
-                                //       style: ElevatedButton.styleFrom(
-                                //         primary: Colors.amber,
-                                //       ),
-                                //       onPressed: () async {
-                                //         print('テスト');
-                                //         Navigator.push(
-                                //           context,
-                                //           MaterialPageRoute<ReportModel>(
-                                //             builder: (context) => HomePage(),
-                                //           ),
-                                //         );
-                                //       },
-                                //       child: Text(
-                                //         '食費を記録する',
-                                //         style: TextStyle(
-                                //           fontSize: 20,
-                                //           fontWeight: FontWeight.w600,
-                                //           color: Colors.grey.shade900,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   width: 24,
-                                //   height: 24,
-                                // ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 36,
-                                  ),
-                                  child: Text(
-                                    '注: 食費が記録されていなければ、グラフは表示されません。',
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                    // child: changeChart(
-                    // viewModel,
-                    // viewModel.recordIndex,
-                    // viewModel.reports,
-                    // viewModel.fetchMonthRecords(),
-                    // ),
-                    // child: changeChart(viewModel),
-                    ),
+                changeChart(viewModel),
+                // viewModel.weekReports.isNotEmpty
+                //     ? Container(
+                //         height: 250,
+                //         child: changeChart(viewModel),
+                // charts.TimeSeriesChart(
+                //   _createReportModel(viewModel.reports),
+                //   // _createReportModel(reportList),
+                // ),
+                //   )
+                // : NoDataAlert(),
                 // CupertinoSlidingSegmentedControl<int>(
                 //   children: {
                 //     0: Text('日時'),
@@ -230,22 +156,25 @@ class ReportPage extends ConsumerWidget {
                 //     print('test: $index');
                 //   },
                 // ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: viewModel.records.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    // if (index >= list.length) {
-                    //   list.addAll([
-                    //     "メッセージ",
-                    //     "メッセージ",
-                    //     "メッセージ",
-                    //     "メッセージ",
-                    //   ]);
-                    // }
-                    return _messageItem(list[index]);
-                  },
-                ),
+                changeRecord(viewModel),
+                // viewModel.weekRecords.isNotEmpty
+                //     ? ListView.builder(
+                //         shrinkWrap: true,
+                //         physics: NeverScrollableScrollPhysics(),
+                //         itemCount: viewModel.weekRecords.length,
+                //         itemBuilder: (BuildContext context, int index) {
+                // if (index >= list.length) {
+                //   list.addAll([
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //   ]);
+                // }
+                //       return _messageItem(list[index]);
+                //     },
+                //   )
+                // : Container(),
                 // viewModel.recordIndex == 3
                 //     ?
                 // ElevatedButton(
@@ -362,15 +291,15 @@ class ReportPage extends ConsumerWidget {
       // if (index == 0) {
       // print('切り替え時$index');
       // viewModel.load();
-      final reports = viewModel.reports;
-      final reportList = reports
-          .map((report) => ReportModel(
-                date: report.date,
-                expense: report.expense,
-                // date: report.expenditureDate,
-                // expense: report.money.toDouble(),
-              ))
-          .toList();
+      final reports = viewModel.weekReports;
+      // final reportList = reports
+      //     .map((report) => ReportModel(
+      //           date: report.date,
+      //           expense: report.expense,
+      // date: report.expenditureDate,
+      // expense: report.money.toDouble(),
+      // ))
+      // .toList();
       // print('テルミ');
       // final test = reportList.map((report) {
       //   print('春');
@@ -411,34 +340,178 @@ class ReportPage extends ConsumerWidget {
       // print(reportList[0].expense);
       // print(reportList[0].date);
       // print(reportList.map((report) => report));
-      return charts.TimeSeriesChart(
-        _createReportModel(reportList),
-      );
+      return reports.isNotEmpty
+          ? Container(
+              height: 250,
+              child: charts.TimeSeriesChart(
+                _createReportModel(reports),
+              ),
+              // child: changeChart(viewModel),
+              // charts.TimeSeriesChart(
+              //   _createReportModel(viewModel.reports),
+              //   // _createReportModel(reportList),
+              // ),
+            )
+          : NoDataAlert();
+      // return charts.TimeSeriesChart(
+      //   _createReportModel(reportList),
+      // );
     } else if (viewModel.recordIndex == 1) {
       // } else if (index == 1) {
       // print('切り替え時${index}');
       print('切り替え時${viewModel.recordIndex}');
       // viewModel.fetchMonthRecords();
       // viewModel.loadMonth();
-      print('一ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.reports}');
-      return charts.TimeSeriesChart(
-        _createReportModel(viewModel.reports),
-        // _createReportModel(reports),
-      );
+      print('一ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.monthReports}');
+      // return charts.TimeSeriesChart(
+      //   _createReportModel(viewModel.monthReports),
+      // _createReportModel(reports),
+      // );
+      final reports = viewModel.monthReports;
+      return reports.isNotEmpty
+          ? Container(
+              height: 250,
+              child: charts.TimeSeriesChart(
+                _createReportModel(reports),
+              ),
+              // child: changeChart(viewModel),
+              // charts.TimeSeriesChart(
+              //   _createReportModel(viewModel.reports),
+              //   // _createReportModel(reportList),
+              // ),
+            )
+          : NoDataAlert();
     } else if (viewModel.recordIndex == 2) {
       // } else if (index == 2) {
       // print('切り替え時${index}');
       print('切り替え時${viewModel.recordIndex}');
-      return charts.TimeSeriesChart(
-        _createReportModel(weightList),
-      );
+      print('3ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.threeMonthReports}');
+      final reports = viewModel.threeMonthReports;
+      // return charts.TimeSeriesChart(
+      //   _createReportModel(viewModel.threeMonthReports),
+      // );
+      return reports.isNotEmpty
+          ? Container(
+              height: 250,
+              child: charts.TimeSeriesChart(
+                _createReportModel(reports),
+              ),
+              // child: changeChart(viewModel),
+              // charts.TimeSeriesChart(
+              //   _createReportModel(viewModel.reports),
+              //   // _createReportModel(reportList),
+              // ),
+            )
+          : NoDataAlert();
     } else {
       // print('切り替え時${index}');
       print('切り替え時${viewModel.recordIndex}');
-      return charts.TimeSeriesChart(
-        _createReportModel(weightList),
-      );
+      print('カスタムのレポートのデータ取得したよ〜〜〜${viewModel.customReports}');
+      final reports = viewModel.customReports;
+      return reports.isNotEmpty
+          ? Container(
+              height: 250,
+              child: charts.TimeSeriesChart(
+                _createReportModel(reports),
+              ),
+              // child: changeChart(viewModel),
+              // charts.TimeSeriesChart(
+              //   _createReportModel(viewModel.reports),
+              //   // _createReportModel(reportList),
+              // ),
+            )
+          : NoDataAlert();
+      // return charts.TimeSeriesChart(
+      //   _createReportModel(viewModel.customReports),
+      // );
     }
+  }
+
+  Widget changeRecord(
+    ReportViewModel viewModel,
+  ) {
+    if (viewModel.recordIndex == 0) {
+      final records = viewModel.weekRecords;
+      return records.isNotEmpty
+          ? ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: records.length,
+              itemBuilder: (BuildContext context, int index) {
+                // if (index >= list.length) {
+                //   list.addAll([
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //   ]);
+                // }
+                return _messageItem(records[index]);
+              },
+            )
+          : Container();
+    } else if (viewModel.recordIndex == 1) {
+      final records = viewModel.monthRecords;
+      return records.isNotEmpty
+          ? ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: records.length,
+              itemBuilder: (BuildContext context, int index) {
+                // if (index >= list.length) {
+                //   list.addAll([
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //   ]);
+                // }
+                return _messageItem(records[index]);
+              },
+            )
+          : Container();
+    } else if (viewModel.recordIndex == 2) {
+      final records = viewModel.threeMonthRecords;
+      return records.isNotEmpty
+          ? ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: records.length,
+              itemBuilder: (BuildContext context, int index) {
+                // if (index >= list.length) {
+                //   list.addAll([
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //   ]);
+                // }
+                return _messageItem(records[index]);
+              },
+            )
+          : Container();
+    } else {
+      final records = viewModel.customRecords;
+      return records.isNotEmpty
+          ? ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: records.length,
+              itemBuilder: (BuildContext context, int index) {
+                // if (index >= list.length) {
+                //   list.addAll([
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //     "メッセージ",
+                //   ]);
+                // }
+                return _messageItem(records[index]);
+              },
+            )
+          : Container();
+    }
+    // return Text('テスト');
   }
 
 //ReportModelのリストを作成。好きな日付と体重入れよう
