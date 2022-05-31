@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/home/home_page.dart';
+import 'package:food_record/app/notification/notification_page.dart';
 import 'package:food_record/app/report/report_page.dart';
 import 'package:food_record/app/report/report_view_model.dart';
 import 'package:food_record/app/root/tab_controller.dart';
@@ -26,6 +27,7 @@ class RootPage extends ConsumerWidget {
       ReportPage(
           // report: report,
           ),
+      NotificationPage(),
     ];
     return Scaffold(
       body: Column(
