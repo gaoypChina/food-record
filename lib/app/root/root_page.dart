@@ -40,6 +40,13 @@ class RootPage extends ConsumerWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        // unselectedIconTheme: IconThemeData(
+        //   color: Colors.grey.shade400,
+        // ),
+        // selectedIconTheme: IconThemeData(
+        //   color: Color.fromARGB(255, 27, 152, 40),
+        // ),
+        type: BottomNavigationBarType.fixed,
         selectedItemColor: Color.fromARGB(255, 27, 152, 40),
         items: const [
           BottomNavigationBarItem(
@@ -49,6 +56,10 @@ class RootPage extends ConsumerWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.assessment_outlined),
             label: 'レポート',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: '通知',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

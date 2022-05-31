@@ -33,6 +33,13 @@ class RecordRemoteDataSource {
     return _recordDatabase.getThreeMonthRecordList();
   }
 
+  Future<List<RecordModel>> getCustomRecords(
+    DateTime opening,
+    DateTime closing,
+  ) async {
+    return _recordDatabase.getCustomPeriodRecordList(opening, closing);
+  }
+
   Future<List<ReportModel>> getWeekRecords() async {
     return _recordDatabase.getWeekRecords();
   }

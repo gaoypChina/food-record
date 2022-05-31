@@ -43,6 +43,12 @@ class RecordDatabase {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     print('追加後のDB$db');
+    final List<Map<String, dynamic>> maps = await db.query('expenses');
+    print(maps);
+    final test = DateTime.fromMicrosecondsSinceEpoch(
+      int.parse(maps[0]['expenditureDate'].toString()),
+    );
+    print('支出日をparse$test');
     // final List<Map<String, dynamic>> maps = await db.query('expenses');
     // print('追加後のdb$db');
   }
@@ -73,6 +79,43 @@ class RecordDatabase {
     return fixedMaps;
   }
 
+  Future<List<RecordModel>> getCustomPeriodRecordList(
+    DateTime opening,
+    DateTime closing,
+  ) async {
+    final db = await database;
+    final formattedOpening = opening.microsecondsSinceEpoch.toString();
+    final formattedClosing = closing.microsecondsSinceEpoch.toString();
+    print(formattedOpening);
+    print(formattedClosing);
+    final customPeriodRawQuery =
+        'select * from expenses where expenditureDate between $formattedOpening and $formattedClosing';
+    // const customPeriodRawQuery = 'select * from expenses';
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery(customPeriodRawQuery);
+    print(maps);
+    // print(maps[0]['expenditureDate'].toString());
+    // print(maps[0]['sum(money)'].toString());
+    final fixedMaps = maps
+        .map(
+          (record) => RecordModel(
+            id: int.parse(record['id'].toString()),
+            money: int.parse(record['money'].toString()),
+            category: record['category'].toString(),
+            expenditureDate: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['expenditureDate'].toString()),
+            ),
+            createdAt: DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(record['createdAt'].toString()),
+            ),
+          ),
+        )
+        .toList();
+    print('object');
+    print(fixedMaps);
+    return fixedMaps;
+  }
+
   Future<List<RecordModel>> getThreeMonthRecordList() async {
     final db = await database;
     final now = DateTime.now();
@@ -92,7 +135,7 @@ class RecordDatabase {
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
-        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
+        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
 
@@ -135,7 +178,7 @@ class RecordDatabase {
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
-        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
+        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
 
@@ -162,31 +205,35 @@ class RecordDatabase {
   Future<List<RecordModel>> getWeekRecordList() async {
     final db = await database;
     final now = DateTime.now();
-    final today = DateTime(
-      now.year,
-      now.month,
-      now.day,
+    // final today = DateTime(
+    //   now.year,
+    //   now.month,
+    //   now.day,
+    // );
+    // final isWeekday = DateTime(
+    //   now.year,
+    //   now.month,
+    //   now.day,
+    // ).weekday;
+    // print(today);
+    final opening = now.add(
+      Duration(days: -6),
     );
-    final isWeekday = DateTime(
-      now.year,
-      now.month,
-      now.day,
-    ).weekday;
-    print(today);
-    final monday =
-        isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
-    final sunday =
-        isWeekday == 7 ? today : today.add(Duration(days: isWeekday - 1) * 1);
-    print(monday);
-    print(monday.microsecondsSinceEpoch);
-    print(sunday);
-    print(sunday.microsecondsSinceEpoch);
-    print('これ何曜日？${monday.weekday}');
-    final formattedMonday = monday.microsecondsSinceEpoch.toString();
-    final formattedSunday = sunday.microsecondsSinceEpoch.toString();
+    final closing = now;
+    // final monday =
+    //     isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
+    // final sunday =
+    //     isWeekday == 7 ? today : today.add(Duration(days: isWeekday - 1) * 1);
+    print(opening);
+    print(opening.microsecondsSinceEpoch);
+    print(closing);
+    print(closing.microsecondsSinceEpoch);
+    print('これ何曜日？${opening.weekday}');
+    final formattedMonday = opening.microsecondsSinceEpoch.toString();
+    final formattedSunday = closing.microsecondsSinceEpoch.toString();
     // final mondayRawQuery = 'select * from expenses order by expenditureDate';
     final mondayRawQuery =
-        'select * from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
+        'select * from expenses where expenditureDate between $formattedMonday and $formattedSunday';
     // final mondayRawQuery =
     //     'select money, expenditureDate, sum(money), count(*) from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
     // final mondayRawQuery =
@@ -230,31 +277,35 @@ class RecordDatabase {
   Future<List<ReportModel>> getWeekRecords() async {
     final db = await database;
     final now = DateTime.now();
-    final today = DateTime(
-      now.year,
-      now.month,
-      now.day,
+    // final today = DateTime(
+    //   now.year,
+    //   now.month,
+    //   now.day,
+    // );
+    // final isWeekday = DateTime(
+    //   now.year,
+    //   now.month,
+    //   now.day,
+    // ).weekday;
+    // print(today);
+    final opening = now.add(
+      Duration(days: -6),
     );
-    final isWeekday = DateTime(
-      now.year,
-      now.month,
-      now.day,
-    ).weekday;
-    print(today);
-    final monday =
-        isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
-    final sunday =
-        isWeekday == 7 ? today : today.add(Duration(days: isWeekday - 1) * 1);
-    print(monday);
-    print(monday.microsecondsSinceEpoch);
-    print(sunday);
-    print(sunday.microsecondsSinceEpoch);
-    print('これ何曜日？${monday.weekday}');
-    final formattedMonday = monday.microsecondsSinceEpoch.toString();
-    final formattedSunday = sunday.microsecondsSinceEpoch.toString();
+    final closing = now;
+    // final monday =
+    //     isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
+    // final sunday =
+    //     isWeekday == 7 ? today : today.add(Duration(days: isWeekday - 1) * 1);
+    print(opening);
+    print(opening.microsecondsSinceEpoch);
+    print(closing);
+    print(closing.microsecondsSinceEpoch);
+    print('これ何曜日？${closing.weekday}');
+    final formattedOpening = opening.microsecondsSinceEpoch.toString();
+    final formattedClosing = closing.microsecondsSinceEpoch.toString();
     // final mondayRawQuery = 'select * from expenses order by expenditureDate';
     final mondayRawQuery =
-        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
+        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedOpening and $formattedClosing group by expenditureDate';
     // final mondayRawQuery =
     //     'select money, expenditureDate, sum(money), count(*) from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
     // final mondayRawQuery =

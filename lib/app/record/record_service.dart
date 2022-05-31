@@ -51,6 +51,13 @@ class RecordService {
     return _recordRepository.getThreeMonthRecords();
   }
 
+  Future<List<RecordModel>> getCustomRecords(
+    DateTime opening,
+    DateTime closing,
+  ) async {
+    return _recordRepository.getCustomRecords(opening, closing);
+  }
+
   Future<List<ReportModel>> fetchWeekRecords() async {
     return _recordRepository.fetchWeekRecords();
   }
