@@ -77,19 +77,21 @@ class InputDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
-            final expenditureDate = await viewModel.createExpenditureDate(
-              viewModel.selectYear,
-              viewModel.selectMonth,
-              viewModel.selectDay,
-            );
-            print('返り血$expenditureDate');
+            // final expenditureDate = await viewModel.createExpenditureDate(
+            //   viewModel.selectYear,
+            //   viewModel.selectMonth,
+            //   viewModel.selectDay,
+            // );
+            // print('返り血$expenditureDate');
             final foodPrice = int.parse(viewModel.foodPriceController.text);
             print('食費の金額: $foodPrice');
-            await viewModel.createRecord(
-              foodPrice,
-              expenditureDate,
-              category,
-            );
+            await viewModel.updateMoney(foodPrice);
+            // viewModel.money = foodPrice;
+            // await viewModel.createRecord(
+            //   foodPrice,
+            //   expenditureDate,
+            //   category,
+            // );
             viewModel.foodPriceController.clear();
             Navigator.pop(context);
           },

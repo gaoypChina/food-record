@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/edit/date_picker.dart';
 import 'package:food_record/app/edit/edit_view_model.dart';
 import 'package:food_record/app/edit/input_dialog.dart';
 import 'package:food_record/app/record/record_model.dart';
@@ -71,7 +72,7 @@ class EditPage extends ConsumerWidget {
           ListTile(
             tileColor: Colors.white,
             title: Text(
-              '${record.money}円',
+              viewModel.money == 0 ? '${record.money}円' : '${viewModel.money}円',
             ),
             trailing: Icon(
               Icons.arrow_back_ios,
@@ -105,9 +106,72 @@ class EditPage extends ConsumerWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              showCupertinoDialog<String>(
+                  context: context,
+                  builder: (context) {
+                    return CupertinoAlertDialog(
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Text('日付を選択'),
+                      ),
+                      content: Container(
+                        width: 120,
+                        height: 120,
+                        child: DatePicker(
+                          viewModel: viewModel,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            // viewModel.foodPriceController.clear();
+                            // viewModel.updateExpenditureDate();
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'キャンセル',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            print('OK');
+                            viewModel.updateExpenditureDate();
+                            // if (period == '開始日') {
+                            //   viewModel.setOpeningDate(viewModel.openingDate);
+                            // } else {
+                            //   viewModel.setClosingDate(viewModel.closingDate);
+                            // }
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            '完了',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ],
+                      // content: Container(
+                      //   height: 120,
+                      //   width: 120,
+                      // child: DatePicker(),
+                      // ),
+                    );
+                  });
+            },
             tileColor: Colors.white,
             title: Text(
-                '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}'),
+              // '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}',
+              '${viewModel.date.year}/${viewModel.date.month}/${viewModel.date.day}',
+            ),
             trailing: Icon(
               Icons.arrow_back_ios,
               textDirection: TextDirection.rtl,

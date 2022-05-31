@@ -24,6 +24,7 @@ class EditViewModel extends ChangeNotifier {
   // EditPageでの状態管理(カテゴリー、金額)
   String category = '';
   int money = 0;
+  DateTime date = DateTime.now();
 
   // TODO: 初期ロードでカテゴリー, 金額, 日数を引数から受け取って更新したい。
 
@@ -53,5 +54,17 @@ class EditViewModel extends ChangeNotifier {
       print(floorFoodPrice);
       foodPriceController.text = floorFoodPrice.toString();
     }
+  }
+
+  Future<void> updateMoney(int foodPrice) async {
+    money = foodPrice;
+    print(money);
+    notifyListeners();
+  }
+
+  Future<void> updateExpenditureDate() async {
+    final expenditureDate = DateTime(selectYear, selectMonth, selectDay);
+    date = expenditureDate;
+    notifyListeners();
   }
 }
