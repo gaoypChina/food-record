@@ -10,7 +10,7 @@ import 'package:food_record/app/settings/setting_tile.dart';
 import 'package:food_record/app/settings/settings_view_model.dart';
 import 'package:food_record/app/settings/simple_data_tile.dart';
 import 'package:food_record/app/settings/toggle_tile.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({
@@ -105,17 +105,17 @@ class SettingsPage extends ConsumerWidget {
           //     Share.share('食費管理');
           //   },
           // ),
-          SettingTile(
-            viewModel: viewModel,
-            title: 'このアプリを評価する',
-            icon: Icon(
-              Icons.thumb_up_outlined,
-              color: Colors.green,
-            ),
-            onTap: () async {
-              await appReview();
-            },
-          ),
+          // SettingTile(
+          //   viewModel: viewModel,
+          //   title: 'このアプリを評価する',
+          //   icon: Icon(
+          //     Icons.thumb_up_outlined,
+          //     color: Colors.green,
+          //   ),
+          //   onTap: () async {
+          //     await appReview();
+          //   },
+          // ),
           // Text(
           //     '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}'),
         ],
@@ -123,9 +123,9 @@ class SettingsPage extends ConsumerWidget {
     );
   }
 
-  Future<void> appReview() async {
-    await AppReview.writeReview.then((value) {
-      print('レビュー終わったよ〜〜〜$value');
-    });
-  }
+  // Future<void> appReview() async {
+  //   await AppReview.writeReview.then((value) {
+  //     print('レビュー終わったよ〜〜〜$value');
+  //   });
+  // }
 }
