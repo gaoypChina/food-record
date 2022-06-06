@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/home/date_picker.dart';
 import 'package:food_record/app/home/home_view_model.dart';
+import 'package:food_record/app/home/mini_record_button.dart';
 import 'package:food_record/app/home/record_button.dart';
 import 'package:food_record/constants.dart';
 
@@ -28,7 +29,7 @@ class HomePage extends ConsumerWidget {
         ),
       ),
       body: Container(
-        height: 320,
+        height: 540,
         child: Column(
           children: [
             SizedBox(
@@ -46,12 +47,43 @@ class HomePage extends ConsumerWidget {
               height: 18,
             ),
             DatePicker(viewModel: viewModel),
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 8,
+              ),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    primary: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    side: const BorderSide(
+                      color: Colors.green,
+                    ),
+                  ),
+                  child: Text(
+                    'カテゴリーを編集',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 8,
+              height: 8,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RecordButton(
                   viewModel: viewModel,
-                  category: '朝食',
+                  category: viewModel.categories[0],
+                  // category: '朝食',
                 ),
                 SizedBox(
                   width: 18,
@@ -59,7 +91,8 @@ class HomePage extends ConsumerWidget {
                 ),
                 RecordButton(
                   viewModel: viewModel,
-                  category: '昼食',
+                  category: viewModel.categories[1],
+                  // category: '昼食',
                 ),
                 SizedBox(
                   width: 18,
@@ -67,10 +100,32 @@ class HomePage extends ConsumerWidget {
                 ),
                 RecordButton(
                   viewModel: viewModel,
-                  category: '夕食',
+                  category: viewModel.categories[2],
+                  // category: '夕食',
                 )
               ],
-            )
+            ),
+            Flexible(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: viewModel.categories.sublist(3).length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Row(
+                    children: [
+                      MiniRecordButton(
+                        viewModel: viewModel,
+                        category: viewModel.categories.sublist(3)[index],
+                        // category: '朝食',
+                      ),
+                      SizedBox(
+                        width: 12,
+                        height: 12,
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

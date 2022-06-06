@@ -12,7 +12,17 @@ final homeViewModelProvider = ChangeNotifierProvider((ref) {
 class HomeViewModel extends ChangeNotifier {
   HomeViewModel(this._recordService);
   final RecordService _recordService;
-  List<RecordModel> rooms = [];
+  // List<RecordModel> rooms = [];
+  List<String> categories = [
+    '朝食',
+    '昼食',
+    '夕食',
+    'おやつ',
+    '飲み物',
+    '食材',
+    '交際費',
+    'カフェ',
+  ];
   final TextEditingController foodPriceController = TextEditingController();
   static DateTime today = DateTime.now();
   int selectYear = today.year;
