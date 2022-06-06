@@ -29,9 +29,6 @@ class CustomPage extends ConsumerWidget {
           Container(
             decoration: BoxDecoration(
               color: Colors.amber.shade100,
-              border: Border(
-                bottom: BorderSide(),
-              ),
             ),
             child: ListTile(
               title: Center(

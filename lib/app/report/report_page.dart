@@ -73,9 +73,6 @@ class ReportPage extends ConsumerWidget {
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.amber.shade100,
-                    border: Border(
-                      bottom: BorderSide(),
-                    ),
                   ),
                   child: ListTile(
                     title: Center(
@@ -94,45 +91,50 @@ class ReportPage extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Container(
-                  child: CupertinoSlidingSegmentedControl<int>(
-                    children: {
-                      0: Text('1週間'),
-                      1: Text('1ヶ月'),
-                      2: Text('3ヶ月'),
-                      3: Text('カスタム')
-                    },
-                    groupValue: viewModel.recordIndex,
-                    onValueChanged: (index) {
-                      print(index);
-                      viewModel.updateIndex(int.parse(index.toString()));
-                      // if (viewModel.recordIndex == 3) {
-                      // TODO: 下のコードを移動する
-                      // final result = Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute<ReportModel>(
-                      //     builder: (context) => CustomPage(),
-                      //   ),
-                      // );
-                      // _______________________________
-                      //
-                      // showCupertinoDialog<void>(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     return CupertinoAlertDialog(
-                      //       title: Text("カスタムできるよ〜"),
-                      //       content: Text('自由に期間を決めてグラフを描画しよう！！！'),
-                      //       actions: [
-                      //         TextButton(
-                      //           onPressed: () => Navigator.pop(context),
-                      //           child: Text('OK'),
-                      //         ),
-                      //       ],
-                      //     );
-                      //   },
-                      // );
-                      // }
-                    },
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                  ),
+                  child: Container(
+                    child: CupertinoSlidingSegmentedControl<int>(
+                      children: {
+                        0: Text('1週間'),
+                        1: Text('1ヶ月'),
+                        2: Text('3ヶ月'),
+                        3: Text('カスタム')
+                      },
+                      groupValue: viewModel.recordIndex,
+                      onValueChanged: (index) {
+                        print(index);
+                        viewModel.updateIndex(int.parse(index.toString()));
+                        // if (viewModel.recordIndex == 3) {
+                        // TODO: 下のコードを移動する
+                        // final result = Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute<ReportModel>(
+                        //     builder: (context) => CustomPage(),
+                        //   ),
+                        // );
+                        // _______________________________
+                        //
+                        // showCupertinoDialog<void>(
+                        //   context: context,
+                        //   builder: (context) {
+                        //     return CupertinoAlertDialog(
+                        //       title: Text("カスタムできるよ〜"),
+                        //       content: Text('自由に期間を決めてグラフを描画しよう！！！'),
+                        //       actions: [
+                        //         TextButton(
+                        //           onPressed: () => Navigator.pop(context),
+                        //           child: Text('OK'),
+                        //         ),
+                        //       ],
+                        //     );
+                        //   },
+                        // );
+                        // }
+                      },
+                    ),
                   ),
                 ),
                 changeChart(viewModel),
