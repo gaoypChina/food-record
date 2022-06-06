@@ -20,7 +20,9 @@ class CustomDateTile extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(),
+          bottom: BorderSide(
+            color: Colors.grey,
+          ),
         ),
       ),
       child: ListTile(

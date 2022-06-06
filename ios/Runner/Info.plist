@@ -43,5 +43,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>PermissionGroupNotification</key>
+  <string>enable to call locao notification</string>
 </dict>
 </plist>
