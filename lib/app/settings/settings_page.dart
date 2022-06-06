@@ -10,6 +10,7 @@ import 'package:food_record/app/settings/setting_tile.dart';
 import 'package:food_record/app/settings/settings_view_model.dart';
 import 'package:food_record/app/settings/simple_data_tile.dart';
 import 'package:food_record/app/settings/toggle_tile.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({
@@ -38,6 +39,7 @@ class SettingsPage extends ConsumerWidget {
               top: 32,
             ),
             child: ExpansionTile(
+              initiallyExpanded: true,
               leading: Icon(
                 Icons.notifications,
                 color: Colors.green,
@@ -91,17 +93,18 @@ class SettingsPage extends ConsumerWidget {
               ],
             ),
           ),
-          SettingTile(
-            viewModel: viewModel,
-            title: 'このアプリを紹介する',
-            icon: Icon(
-              Icons.share_sharp,
-              color: Colors.green,
-            ),
-            onTap: () {
-              print('紹介するよ〜〜〜');
-            },
-          ),
+          // SettingTile(
+          //   viewModel: viewModel,
+          //   title: 'このアプリを紹介する',
+          //   icon: Icon(
+          //     Icons.share_sharp,
+          //     color: Colors.green,
+          //   ),
+          //   onTap: () {
+          //     print('紹介するよ〜〜〜');
+          //     Share.share('食費管理');
+          //   },
+          // ),
           SettingTile(
             viewModel: viewModel,
             title: 'このアプリを評価する',
