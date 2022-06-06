@@ -1,3 +1,4 @@
+import 'package:app_review/app_review.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -97,6 +98,9 @@ class SettingsPage extends ConsumerWidget {
               Icons.share_sharp,
               color: Colors.green,
             ),
+            onTap: () {
+              print('紹介するよ〜〜〜');
+            },
           ),
           SettingTile(
             viewModel: viewModel,
@@ -105,11 +109,20 @@ class SettingsPage extends ConsumerWidget {
               Icons.thumb_up_outlined,
               color: Colors.green,
             ),
+            onTap: () async {
+              await appReview();
+            },
           ),
           // Text(
           //     '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}'),
         ],
       ),
     );
+  }
+
+  Future<void> appReview() async {
+    await AppReview.writeReview.then((value) {
+      print('レビュー終わったよ〜〜〜$value');
+    });
   }
 }

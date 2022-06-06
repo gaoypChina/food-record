@@ -11,19 +11,22 @@ class SettingTile extends StatelessWidget {
     required this.viewModel,
     required this.title,
     required this.icon,
+    required this.onTap,
   }) : super(key: key);
 
   final String title;
   final SettingsViewModel viewModel;
   final Icon icon;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        print('Tileをタップしたよ〜〜〜');
-        notify('食費管理', 'おはようございます！朝の食費を記録しましょう！！！');
-      },
+      onTap: onTap,
+      // () {
+      // print('Tileをタップしたよ〜〜〜');
+      // notify('食費管理', 'おはようございます！朝の食費を記録しましょう！！！');
+      // },
       leading: icon,
       tileColor: Colors.white,
       title: Text(
@@ -36,16 +39,16 @@ class SettingTile extends StatelessWidget {
     );
   }
 
-  Future<void> notify(String changeMessage, String timeMessage) {
-    final flnp = FlutterLocalNotificationsPlugin();
-    // print(flnp);
-    return flnp
-        .initialize(
-          InitializationSettings(
-            iOS: IOSInitializationSettings(),
-          ),
-        )
-        .then((_) =>
-            flnp.show(0, changeMessage, timeMessage, NotificationDetails()));
-  }
+  // Future<void> notify(String changeMessage, String timeMessage) {
+  //   final flnp = FlutterLocalNotificationsPlugin();
+  //   // print(flnp);
+  //   return flnp
+  //       .initialize(
+  //         InitializationSettings(
+  //           iOS: IOSInitializationSettings(),
+  //         ),
+  //       )
+  //       .then((_) =>
+  //           flnp.show(0, changeMessage, timeMessage, NotificationDetails()));
+  // }
 }
