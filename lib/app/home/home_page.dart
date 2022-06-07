@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/category/category_model.dart';
+import 'package:food_record/app/edit_category/edit_category_page.dart';
 import 'package:food_record/app/home/date_picker.dart';
 import 'package:food_record/app/home/home_view_model.dart';
 import 'package:food_record/app/home/mini_record_button.dart';
@@ -54,7 +56,18 @@ class HomePage extends ConsumerWidget {
               child: Align(
                 alignment: Alignment.topRight,
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<CategoryModel>(
+                        builder: (context) => EditCategoryPage(),
+                      ),
+                    );
+                    // .then((value) => {
+                    //       viewModel.recordIndex = 3,
+                    //       viewModel.loadCustomPeriod(),
+                    //     });
+                  },
                   style: OutlinedButton.styleFrom(
                     primary: Colors.green,
                     shape: RoundedRectangleBorder(
