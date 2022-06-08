@@ -1,5 +1,5 @@
 class CategoryModel {
-  const CategoryModel({
+  CategoryModel({
     this.id,
     required this.category,
   });
@@ -16,11 +16,15 @@ class CategoryModel {
   }
 
   // Map<String, dynamic>パターン
-  factory CategoryModel.fromMap(Map<String, dynamic> map) {
-    final room = CategoryModel(
-      id: int.parse(map['id'].toString()),
-      category: map['category'].toString(),
-    );
-    return room;
-  }
+  // factory CategoryModel.fromMap(Map<String, dynamic> map) {
+  //   final room = CategoryModel(
+  //     id: int.parse(map['id'].toString()),
+  //     category: map['category'].toString(),
+  //   );
+  //   return room;
+  // }
+
+  CategoryModel.fromJson(Map map)
+      : id = int.parse(map['id'].toString()),
+        category = map['category'].toString();
 }

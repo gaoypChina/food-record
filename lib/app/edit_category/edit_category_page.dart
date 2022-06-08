@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/edit_category/edit_category_view_model.dart';
@@ -59,6 +60,77 @@ class EditCategoryPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('カテゴリーを追加する');
+          showCupertinoDialog<void>(
+            context: context,
+            builder: (context) {
+              return CupertinoAlertDialog(
+                title: Text('カテゴリーを追加する'),
+                content: Column(
+                  children: [
+                    SizedBox(
+                      width: 2,
+                      height: 2,
+                    ),
+                    Text('カテゴリー名を記入してください。'),
+                    SizedBox(
+                      width: 18,
+                      height: 18,
+                    ),
+                    CupertinoTextField(
+                      controller: viewModel.categoryController,
+                      autofocus: true,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      viewModel.categoryController.clear();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'キャンセル',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      // final expenditureDate = await viewModel.createExpenditureDate(
+                      //   viewModel.selectYear,
+                      //   viewModel.selectMonth,
+                      //   viewModel.selectDay,
+                      // );
+                      // print('返り血$expenditureDate');
+                      final category = viewModel.categoryController.text;
+                      print('カテゴリー名: $category');
+                      await viewModel.addNewCategory(category);
+                      // viewModel.money = foodPrice;
+                      // await viewModel.createRecord(
+                      //   foodPrice,
+                      //   expenditureDate,
+                      //   category,
+                      // );
+                      viewModel.categoryController.clear();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      '完了',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
         },
         backgroundColor: Colors.green,
         child: Icon(

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'dart:convert';
 
 final editCategoryViewModelProvider = ChangeNotifierProvider((ref) {
   return EditCategoryViewModel(
@@ -22,6 +23,7 @@ class EditCategoryViewModel extends ChangeNotifier {
     load();
   }
   final RecordService _recordService;
+  final TextEditingController categoryController = TextEditingController();
   List<String> categories = [
     '朝食',
     '昼食',
@@ -32,31 +34,83 @@ class EditCategoryViewModel extends ChangeNotifier {
     '交際費',
     'カフェ',
   ];
-  static const categoryPrefsKey = 'category';
+  static const categoryListPrefsKey = 'categoryArray';
 
   FlutterLocalNotificationsPlugin flnp = FlutterLocalNotificationsPlugin();
 
   Future<void> load() async {
-    final savedCategories = await getCategory();
+    final savedCategories = await getCategoryList();
     if (savedCategories != null) {
       categories = savedCategories;
       print('保存されているcategoriesを読み込んだよ〜〜〜');
     } else {
       print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
+      await setCategoryList(categories);
+      // categories.forEach((category) {
+      //   print('一個ずつcategory保存していくよ〜〜〜');
+      // });
+      // setCategory(category);
     }
     notifyListeners();
   }
 
-  Future<List<String>?> getCategory() async {
+  Future<List<String>?> getCategoryList() async {
     final prefs = await SharedPreferences.getInstance();
-    final isFirstLoading = prefs.getStringList(categoryPrefsKey);
-    print('カテゴリーはjson型？？？$isFirstLoading');
-    return isFirstLoading;
+    print(categoryListPrefsKey);
+    // final isFirstLoading = prefs
+    //     .getStringList(categoryListPrefsKey)
+    //     ?.cast<String>() as List<String>;
+    final categoryList = prefs.getStringList(categoryListPrefsKey);
+    print('カテゴリーはjson型？？？$categoryList');
+    return categoryList;
+
+    // if (categoryList != null) {
+    // final readingList = categoryList
+    //     .map((category) => CategoryModel.fromJson(json.encode(category)))
+    //     .toList();
+    // final readingList = categoryList
+    // final readingList = categoryList
+    //     .map((category) => CategoryModel(
+    //         id: int.parse(category['id'].toString()),
+    //         category: category['category'].toString()))
+    //     .toList();
+    // } else {}
+    // return isFirstLoading;
   }
 
-  Future<void> setCategory(List<String> categories) async {
+  Future<void> setCategoryList(List<String> categories) async {
     final prefs = await SharedPreferences.getInstance();
-    print('カテゴリーを更新するよ〜〜〜$categories');
-    await prefs.setStringList(categoryPrefsKey, categories);
+    final index = categories.length - 1;
+    print('新しく作成するIndex: $index');
+    print('保存するするするCategories: $categories');
+    // final fixedCategories =
+    // final newCategories = categories
+    //     .map(
+    //       (category) => CategoryModel(
+    //         id: index,
+    //         category: category,
+    //       ),
+    //     )
+    //     .toList();
+    // print('新しいカテゴリーを作成するよ〜〜〜$newCategories');
+    // final fixedCategories = newCategories
+    //     .map((newCategory) => json.encode(newCategory.toMap()))
+    //     .toList();
+    // print('新しいカテゴリーを作成するよ〜〜〜$fixedCategories');
+    await prefs.setStringList(categoryListPrefsKey, categories);
+
+    // final newCategory = CategoryModel(
+    //   id: index,
+    //   category: category,
+    // );
+    // await prefs.setStringList(categoryListPrefsKey, category);
+  }
+
+  Future<void> addNewCategory(String category) async {
+    categories.add(category);
+    await setCategoryList(categories);
+    notifyListeners();
+    // money = category;
+    // print(money);
   }
 }
