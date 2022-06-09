@@ -49,6 +49,25 @@ class ReportPage extends ConsumerWidget {
     // final index = viewModel.recordIndex;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          print('期間を設定する');
+          Navigator.push(
+            context,
+            MaterialPageRoute<ReportModel>(
+              builder: (context) => CustomPage(),
+            ),
+          ).then((value) => {
+                viewModel.recordIndex = 3,
+                viewModel.loadCustomPeriod(),
+              });
+        },
+        backgroundColor: Colors.green,
+        label: Text('期間を設定'),
+        icon: Icon(
+          Icons.search,
+        ),
+      ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.green,
@@ -226,43 +245,43 @@ class ReportPage extends ConsumerWidget {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: ElevatedButton(
-                child: Text(
-                  '期間を設定する',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<ReportModel>(
-                      builder: (context) => CustomPage(),
-                    ),
-                  ).then((value) => {
-                        viewModel.recordIndex = 3,
-                        viewModel.loadCustomPeriod(),
-                      });
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.only(
-                    top: 8,
-                    bottom: 8,
-                  ),
-                  elevation: 0,
-                  minimumSize: Size(300, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(36),
-                  ),
-                ),
-              ),
-            ),
-          )
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(bottom: 8),
+          //     child: ElevatedButton(
+          //       child: Text(
+          //         '期間を設定する',
+          //         style: TextStyle(
+          //           fontSize: 20,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //       onPressed: () {
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute<ReportModel>(
+          //             builder: (context) => CustomPage(),
+          //           ),
+          //         ).then((value) => {
+          //               viewModel.recordIndex = 3,
+          //               viewModel.loadCustomPeriod(),
+          //             });
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //         padding: EdgeInsets.only(
+          //           top: 8,
+          //           bottom: 8,
+          //         ),
+          //         elevation: 0,
+          //         minimumSize: Size(300, 50),
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(36),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );
