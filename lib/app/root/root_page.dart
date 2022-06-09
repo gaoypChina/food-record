@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/home/date_picker.dart';
 import 'package:food_record/app/home/home_page.dart';
-import 'package:food_record/app/notification/notification_page.dart';
 import 'package:food_record/app/report/report_page.dart';
 import 'package:food_record/app/report/report_view_model.dart';
 import 'package:food_record/app/root/root_view_model.dart';

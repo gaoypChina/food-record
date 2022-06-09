@@ -1,18 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/category/category_model.dart';
+import 'package:food_record/app/edit/confirm_delete_dialog.dart';
 import 'package:food_record/app/edit/date_picker.dart';
 import 'package:food_record/app/edit/edit_view_model.dart';
 import 'package:food_record/app/edit/input_dialog.dart';
+import 'package:food_record/app/edit/select_category_page.dart';
 import 'package:food_record/app/record/record_model.dart';
 
 class EditPage extends ConsumerWidget {
-  const EditPage({
+  EditPage({
     Key? key,
     required this.record,
+    required this.index,
   }) : super(key: key);
 
   final RecordModel record;
+  final int index;
+  final ConfirmDeleteDialog _confirmDeleteDialog = ConfirmDeleteDialog();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,6 +33,23 @@ class EditPage extends ConsumerWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.delete,
+              size: 28,
+            ),
+            onPressed: () {
+              print('この記録を駆除する');
+              _confirmDeleteDialog.deleteRecordDialog(
+                context,
+                viewModel,
+                record,
+                index,
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,12 +70,26 @@ class EditPage extends ConsumerWidget {
           ListTile(
             tileColor: Colors.white,
             title: Text(
-              record.category,
+              viewModel.category.isEmpty ? record.category : viewModel.category,
             ),
             trailing: Icon(
               Icons.arrow_back_ios,
               textDirection: TextDirection.rtl,
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<String>(
+                  builder: (context) => SelectCategoryPage(),
+                ),
+              ).then((value) => {
+                    print('戻ってきたよ〜〜〜: $value'),
+                    if (value != null)
+                      {
+                        viewModel.updateCategory(value.toString()),
+                      }
+                  });
+            },
           ),
           // Text(record.category),
           Padding(
@@ -127,7 +164,7 @@ class EditPage extends ConsumerWidget {
                           onPressed: () {
                             // viewModel.foodPriceController.clear();
                             // viewModel.updateExpenditureDate();
-                            Navigator.pop(context);
+                            Navigator.pop<int>(context, index);
                           },
                           child: Text(
                             'キャンセル',
@@ -147,7 +184,7 @@ class EditPage extends ConsumerWidget {
                             // } else {
                             //   viewModel.setClosingDate(viewModel.closingDate);
                             // }
-                            Navigator.pop(context);
+                            Navigator.pop<int>(context, index);
                           },
                           child: Text(
                             '完了',
@@ -169,8 +206,14 @@ class EditPage extends ConsumerWidget {
             },
             tileColor: Colors.white,
             title: Text(
-              // '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}',
-              '${viewModel.date.year}/${viewModel.date.month}/${viewModel.date.day}',
+              viewModel.date ==
+                      DateTime(
+                        DateTime.now().year,
+                        DateTime.now().month,
+                        DateTime.now().day,
+                      )
+                  ? '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}'
+                  : '${viewModel.date.year}/${viewModel.date.month}/${viewModel.date.day}',
             ),
             trailing: Icon(
               Icons.arrow_back_ios,
@@ -183,37 +226,124 @@ class EditPage extends ConsumerWidget {
             ),
             child: Align(
               alignment: Alignment.center,
-              child: ElevatedButton(
-                child: Text(
-                  '変更を反映させる',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    child: Text(
+                      '変更を反映させる',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () async {
+                      // if (viewModel.money == 0 &&
+                      //     viewModel.category == '' &&
+                      //     viewModel.date ==
+                      //         DateTime(
+                      //           DateTime.now().year,
+                      //           DateTime.now().month,
+                      //           DateTime.now().day,
+                      //         )) {
+                      //   await viewModel.updateChangedValue(
+                      //     record.money,
+                      //     record.category,
+                      //     record.expenditureDate,
+                      //   );
+                      // }
+                      final money = viewModel.isUpdatedMoney
+                          ? viewModel.money
+                          : record.money;
+                      final date = viewModel.isUpdatedDate
+                          ? viewModel.date
+                          : record.expenditureDate;
+                      final category = viewModel.isUpdatedCategory
+                          ? viewModel.category
+                          : record.category;
+                      print(
+                          '更新してるの？${viewModel.isUpdatedMoney} : Money $money');
+                      print('更新してるの？${viewModel.isUpdatedDate} : Date $date');
+                      print(
+                          '更新してるの？${viewModel.isUpdatedCategory} : Category $category');
+
+                      await viewModel.updateRecord(
+                        int.parse(record.id.toString()),
+                        money,
+                        date,
+                        category,
+                        record.createdAt,
+                      );
+                      Navigator.pop<int>(context, index);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute<ReportModel>(
+                      //     builder: (context) => CustomPage(),
+                      //   ),
+                      // ).then((value) => {
+                      //       viewModel.recordIndex = 3,
+                      //       viewModel.loadCustomPeriod(),
+                      //     });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.only(
+                        top: 8,
+                        bottom: 8,
+                      ),
+                      elevation: 0,
+                      minimumSize: Size(300, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute<ReportModel>(
-                  //     builder: (context) => CustomPage(),
-                  //   ),
-                  // ).then((value) => {
-                  //       viewModel.recordIndex = 3,
-                  //       viewModel.loadCustomPeriod(),
-                  //     });
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.only(
-                    top: 8,
-                    bottom: 8,
+                  SizedBox(
+                    width: 12,
+                    height: 12,
                   ),
-                  elevation: 0,
-                  minimumSize: Size(300, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(36),
+                  OutlinedButton(
+                    child: Text(
+                      'この記録を削除する',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      print('この記録を駆除する');
+                      _confirmDeleteDialog.deleteRecordDialog(
+                        context,
+                        viewModel,
+                        record,
+                        index,
+                      );
+
+                      // viewModel.updateRecord(
+                      //   int.parse(record.id.toString()),
+                      //   viewModel.money,
+                      //   viewModel.date,
+                      //   viewModel.category,
+                      //   record.createdAt,
+                      // );
+                      // Navigator.pop(context);
+                    },
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      primary: Colors.red,
+                      padding: EdgeInsets.only(
+                        top: 8,
+                        bottom: 8,
+                      ),
+                      elevation: 0,
+                      minimumSize: Size(300, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                      side: const BorderSide(
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

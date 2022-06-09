@@ -59,6 +59,7 @@ class SettingsViewModel extends ChangeNotifier {
         } else {
           canBeNotified = true;
         }
+        notifyListeners();
       }
     } else {
       isMorning = false;

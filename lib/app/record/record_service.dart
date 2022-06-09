@@ -39,6 +39,33 @@ class RecordService {
     );
   }
 
+  Future<void> updateRecord(
+    int id,
+    int money,
+    DateTime expenditureDate,
+    String category,
+    DateTime createdAt,
+  ) async {
+    print('Recordをアップデートするよ');
+    final data = RecordModel(
+      id: id,
+      money: money,
+      expenditureDate: expenditureDate,
+      category: category,
+      createdAt: createdAt,
+    );
+    print(data);
+    await _recordRepository.updateRecord(
+      record: data,
+    );
+  }
+
+  Future<void> deleteRecord(RecordModel record) async {
+    await _recordRepository.deleteRecord(
+      record: record,
+    );
+  }
+
   Future<List<RecordModel>> getWeekRecords() async {
     return _recordRepository.getWeekRecords();
   }

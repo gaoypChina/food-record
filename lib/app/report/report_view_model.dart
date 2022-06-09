@@ -686,4 +686,60 @@ class ReportViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<void> updateWeekRecords() async {
+    final records = await getWeekRecords();
+    weekRecords = records;
+    print('一週間のRecord: $weekRecords');
+    notifyListeners();
+  }
+
+  Future<void> updateWeekReports() async {
+    final reports = await fetchWeekRecords();
+    weekReports = reports;
+    print('一週間のReport: $weekReports');
+    notifyListeners();
+  }
+
+  Future<void> updateMonthRecords() async {
+    final records = await getMonthRecords();
+    monthRecords = records;
+    print('一ヶ月のRecord: $monthRecords');
+    notifyListeners();
+  }
+
+  Future<void> updateMonthReports() async {
+    final reports = await fetchMonthRecords();
+    monthReports = reports;
+    print('一ヶ月のReport: $monthReports');
+    notifyListeners();
+  }
+
+  Future<void> updateThreeMonthRecords() async {
+    final records = await getThreeMonthRecords();
+    threeMonthRecords = records;
+    print('3ヶ月のRecord: $monthRecords');
+    notifyListeners();
+  }
+
+  Future<void> updateThreeMonthReports() async {
+    final reports = await fetchThreeMonthRecords();
+    threeMonthReports = reports;
+    print('3ヶ月のReport: $monthReports');
+    notifyListeners();
+  }
+
+  Future<void> updateCustomRecords() async {
+    final records = await getCustomRecords();
+    customRecords = records;
+    print('CustomRecord: $customRecords');
+    notifyListeners();
+  }
+
+  Future<void> updateCustomReports() async {
+    final reports = await fetchCustomPeriodRecords();
+    customReports = reports;
+    print('CustomReport: $customReports');
+    notifyListeners();
+  }
 }

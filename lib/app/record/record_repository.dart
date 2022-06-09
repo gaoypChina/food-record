@@ -29,6 +29,24 @@ class RecordRepository {
     );
   }
 
+  Future<void> updateRecord({
+    required RecordModel record,
+  }) async {
+    print('update: $record');
+    await _recordRemoteDataSource.updateRecord(
+      record: record,
+    );
+  }
+
+  Future<void> deleteRecord({
+    required RecordModel record,
+  }) async {
+    print('delete: $record');
+    await _recordRemoteDataSource.deleteRecord(
+      record: record,
+    );
+  }
+
   Future<List<RecordModel>> getWeekRecords() async {
     return _recordRemoteDataSource.getWeekRecordList();
   }
