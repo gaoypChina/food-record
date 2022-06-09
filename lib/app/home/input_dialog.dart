@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_record/app/home/funky_overlay.dart';
 import 'package:food_record/app/home/home_view_model.dart';
+import 'dart:async';
 
 class InputDialog extends StatelessWidget {
   const InputDialog({
@@ -91,6 +93,13 @@ class InputDialog extends StatelessWidget {
             );
             viewModel.foodPriceController.clear();
             Navigator.pop(context);
+            final _overlayEntry = OverlayEntry(
+              builder: (BuildContext context) {
+                return FunkyOverlay();
+              },
+            );
+            Navigator.of(context).overlay?.insert(_overlayEntry);
+            Timer(Duration(seconds: 2), () => _overlayEntry.remove());
           },
           child: Text(
             '完了',
