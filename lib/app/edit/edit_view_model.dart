@@ -33,6 +33,10 @@ class EditViewModel extends ChangeNotifier {
     DateTime.now().day,
   );
 
+  bool isUpdatedCategory = false;
+  bool isUpdatedMoney = false;
+  bool isUpdatedDate = false;
+
   // TODO: 初期ロードでカテゴリー, 金額, 日数を引数から受け取って更新したい。
 
   Future<void> load() async {
@@ -74,6 +78,10 @@ class EditViewModel extends ChangeNotifier {
     );
   }
 
+  Future<void> deleteRecord(RecordModel record) async {
+    await _recordService.deleteRecord(record);
+  }
+
   Future<DateTime> createExpenditureDate(int year, int month, int day) async {
     final expenditureDate = DateTime(year, month, day);
     print('支出日: $expenditureDate');
@@ -92,19 +100,26 @@ class EditViewModel extends ChangeNotifier {
 
   Future<void> updateCategory(String selectedCategory) async {
     category = selectedCategory;
+    isUpdatedCategory = true;
     print(category);
+    print(isUpdatedCategory);
     notifyListeners();
   }
 
   Future<void> updateMoney(int foodPrice) async {
     money = foodPrice;
+    isUpdatedMoney = true;
     print(money);
+    print(isUpdatedMoney);
     notifyListeners();
   }
 
   Future<void> updateExpenditureDate() async {
     final expenditureDate = DateTime(selectYear, selectMonth, selectDay);
     date = expenditureDate;
+    isUpdatedDate = true;
+    print(date);
+    print(isUpdatedDate);
     notifyListeners();
   }
 }

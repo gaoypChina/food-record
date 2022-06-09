@@ -28,6 +28,14 @@ class RecordRemoteDataSource {
     await _recordDatabase.updateRecord(record);
   }
 
+  Future<void> deleteRecord({
+    required RecordModel record,
+  }) async {
+    print('Databaseに更新するよ〜〜〜: $record');
+    final recordId = int.parse(record.id.toString());
+    await _recordDatabase.deleteRecord(recordId);
+  }
+
   Future<List<RecordModel>> getWeekRecordList() async {
     return _recordDatabase.getWeekRecordList();
   }

@@ -60,6 +60,12 @@ class RecordService {
     );
   }
 
+  Future<void> deleteRecord(RecordModel record) async {
+    await _recordRepository.deleteRecord(
+      record: record,
+    );
+  }
+
   Future<List<RecordModel>> getWeekRecords() async {
     return _recordRepository.getWeekRecords();
   }

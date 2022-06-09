@@ -62,6 +62,30 @@ class ReportPage extends ConsumerWidget {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.replay_outlined,
+              size: 28,
+            ),
+            onPressed: () async {
+              print('ローディング');
+              if (viewModel.recordIndex == 0) {
+                await viewModel.updateWeekRecords();
+                await viewModel.updateWeekReports();
+              } else if (viewModel.recordIndex == 1) {
+                await viewModel.updateMonthRecords();
+                await viewModel.updateMonthReports();
+              } else if (viewModel.recordIndex == 2) {
+                await viewModel.updateThreeMonthRecords();
+                await viewModel.updateThreeMonthReports();
+              } else {
+                await viewModel.updateCustomRecords();
+                await viewModel.updateCustomReports();
+              }
+            },
+          ),
+        ],
       ),
       body: Stack(
         children: [
@@ -279,14 +303,27 @@ class ReportPage extends ConsumerWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute<ReportModel>(
+            MaterialPageRoute<int>(
               builder: (context) => EditPage(
                 record: record,
+                index: viewModel.recordIndex,
               ),
             ),
           ).then((value) async {
-            await viewModel.updateWeekRecords();
-            await viewModel.updateWeekReports();
+            print('RecordIndex: ${value}');
+            if (value == 0) {
+              await viewModel.updateWeekRecords();
+              await viewModel.updateWeekReports();
+            } else if (value == 1) {
+              await viewModel.updateMonthRecords();
+              await viewModel.updateMonthReports();
+            } else if (value == 2) {
+              await viewModel.updateThreeMonthRecords();
+              await viewModel.updateThreeMonthReports();
+            } else {
+              await viewModel.updateCustomRecords();
+              await viewModel.updateCustomReports();
+            }
             // viewModel.load();
             // viewModel.recordIndex = 3,
             // viewModel.loadCustomPeriod(),

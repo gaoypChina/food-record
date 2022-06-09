@@ -38,6 +38,15 @@ class RecordRepository {
     );
   }
 
+  Future<void> deleteRecord({
+    required RecordModel record,
+  }) async {
+    print('delete: $record');
+    await _recordRemoteDataSource.deleteRecord(
+      record: record,
+    );
+  }
+
   Future<List<RecordModel>> getWeekRecords() async {
     return _recordRemoteDataSource.getWeekRecordList();
   }

@@ -265,11 +265,11 @@ class EditCategoryMethod {
                 Navigator.pop(context);
               },
               child: Text(
-                '完了',
+                '削除',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
-                  color: Colors.blue,
+                  color: Colors.red,
                 ),
               ),
             ),
