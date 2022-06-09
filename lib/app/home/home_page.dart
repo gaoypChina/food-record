@@ -62,7 +62,10 @@ class HomePage extends ConsumerWidget {
                       MaterialPageRoute<CategoryModel>(
                         builder: (context) => EditCategoryPage(),
                       ),
-                    );
+                    ).then((value) => {
+                          print(value),
+                          viewModel.load(),
+                        });
                     // .then((value) => {
                     //       viewModel.recordIndex = 3,
                     //       viewModel.loadCustomPeriod(),
