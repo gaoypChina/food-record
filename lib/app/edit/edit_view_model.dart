@@ -3,14 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/record/record_service.dart';
 
-final editViewModelProvider = ChangeNotifierProvider((ref) {
+final editViewModelProvider = ChangeNotifierProvider.autoDispose((ref) {
   return EditViewModel(
     ref.watch(recordServiceProvider),
   );
 });
 
 class EditViewModel extends ChangeNotifier {
-  EditViewModel(this._recordService);
+  EditViewModel(this._recordService) {
+    print('EditViewModel初期描画');
+    load();
+  }
   final RecordService _recordService;
   List<RecordModel> rooms = [];
   // moneyでのDialogの文字入力部分
@@ -24,9 +27,23 @@ class EditViewModel extends ChangeNotifier {
   // EditPageでの状態管理(カテゴリー、金額)
   String category = '';
   int money = 0;
-  DateTime date = DateTime.now();
+  DateTime date = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
 
   // TODO: 初期ロードでカテゴリー, 金額, 日数を引数から受け取って更新したい。
+
+  Future<void> load() async {
+    category = '';
+    money = 0;
+    date = DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+    );
+  }
 
   Future<void> createRecord(
     int money,
@@ -37,6 +54,23 @@ class EditViewModel extends ChangeNotifier {
       money,
       expenditureDate,
       category,
+    );
+  }
+
+  Future<void> updateRecord(
+    int id,
+    int money,
+    DateTime expenditureDate,
+    String category,
+    DateTime createdAt,
+  ) async {
+    // return _recordService.fetchRooms();
+    await _recordService.updateRecord(
+      id,
+      money,
+      expenditureDate,
+      category,
+      createdAt,
     );
   }
 
@@ -54,6 +88,12 @@ class EditViewModel extends ChangeNotifier {
       print(floorFoodPrice);
       foodPriceController.text = floorFoodPrice.toString();
     }
+  }
+
+  Future<void> updateCategory(String selectedCategory) async {
+    category = selectedCategory;
+    print(category);
+    notifyListeners();
   }
 
   Future<void> updateMoney(int foodPrice) async {

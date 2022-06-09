@@ -63,7 +63,7 @@ class HomePage extends ConsumerWidget {
                         builder: (context) => EditCategoryPage(),
                       ),
                     ).then((value) => {
-                          print(value),
+                          print('EditCategoryから戻ってきたよ: $value'),
                           viewModel.load(),
                         });
                     // .then((value) => {

@@ -42,6 +42,7 @@ class EditCategoryViewModel extends ChangeNotifier {
     final savedCategories = await getCategoryList();
     if (savedCategories != null) {
       categories = savedCategories;
+      notifyListeners();
       print('保存されているcategoriesを読み込んだよ〜〜〜');
     } else {
       print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
@@ -51,7 +52,6 @@ class EditCategoryViewModel extends ChangeNotifier {
       // });
       // setCategory(category);
     }
-    notifyListeners();
   }
 
   Future<List<String>?> getCategoryList() async {
@@ -112,5 +112,50 @@ class EditCategoryViewModel extends ChangeNotifier {
     notifyListeners();
     // money = category;
     // print(money);
+  }
+
+  Future<void> updateCategory(
+    String newCategory,
+    int index,
+  ) async {
+    final updatedCategory = categories
+        .map(
+          (category) =>
+              categories.indexOf(category) == index ? newCategory : category,
+        )
+        .toList();
+    // final updatedCategory = categories
+    //     .where(
+    //       (element) => categories.indexOf(element) == index,
+    //     )
+    //     .toList();
+    print('カテゴリーの番号: $index');
+    print('新しいカテゴリー: $newCategory');
+    print('条件に合ったカテゴリー: $updatedCategory');
+    print(updatedCategory);
+    categories = updatedCategory;
+    print(categories);
+    notifyListeners();
+    await setCategoryList(updatedCategory);
+    // await setCategoryList(categories);
+    // notifyListeners();
+    // money = category;
+    // print(money);
+  }
+
+  Future<void> deleteCategory(
+    int index,
+  ) async {
+    print('削除前のCategories: $categories');
+    categories.removeAt(index);
+    await setCategoryList(categories);
+    print('削除後のCategories: $categories');
+    notifyListeners();
+    // final fixedCategory = categories
+    //     .map(
+    //       (category) =>
+    //           categories.indexOf(category) == index ? newCategory : category,
+    //     )
+    //     .toList();
   }
 }

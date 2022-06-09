@@ -1,26 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/edit/select_category_view_model.dart';
 import 'package:food_record/app/edit_category/edit_category_method.dart';
 import 'package:food_record/app/edit_category/edit_category_view_model.dart';
 
-class EditCategoryPage extends ConsumerWidget {
-  EditCategoryPage({
+class SelectCategoryPage extends ConsumerWidget {
+  const SelectCategoryPage({
     Key? key,
   }) : super(key: key);
 
-  final EditCategoryMethod _editCategoryMethod = EditCategoryMethod();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(editCategoryViewModelProvider);
+    final viewModel = ref.watch(selectCategoryViewModelProvider);
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          'カテゴリーを編集する',
+          'カテゴリーを選択する',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -43,12 +42,9 @@ class EditCategoryPage extends ConsumerWidget {
                     ),
                     child: ListTile(
                       onTap: () {
-                        print('カテゴリーの編集と削除を記述するよ');
-                        _editCategoryMethod.showActionSheet(
-                          context,
-                          viewModel,
-                          index,
-                        );
+                        final selectedCategory = viewModel.categories[index];
+                        print('選択したカテゴリー: $selectedCategory');
+                        Navigator.pop<String>(context, selectedCategory);
                       },
                       tileColor: Colors.white,
                       title: Text(
@@ -66,32 +62,6 @@ class EditCategoryPage extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          print('カテゴリーを追加する');
-          await _editCategoryMethod.newCategoryDialog(context, viewModel);
-          // await newCategoryDialog(context, viewModel);
-        },
-        backgroundColor: Colors.green,
-        child: Icon(
-          Icons.add,
-        ),
-      ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     print('カテゴリーを追加する');
-      //   },
-      //   backgroundColor: Colors.green,
-      //   icon: Icon(
-      //     Icons.add,
-      //   ),
-      //   label: Text(
-      //     '追加する',
-      //     style: TextStyle(
-      //       fontWeight: FontWeight.bold,
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

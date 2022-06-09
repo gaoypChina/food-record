@@ -469,7 +469,18 @@ class RecordDatabase {
     return recordIndex;
   }
 
-  Future<void> deleterecord(int id) async {
+  Future<void> updateRecord(RecordModel record) async {
+    final db = await database;
+    print(record.toMap());
+    await db.update(
+      'expenses',
+      record.toMap(),
+      where: 'id = ?',
+      whereArgs: [record.id],
+    );
+  }
+
+  Future<void> deleteRecord(int id) async {
     final db = await database;
 
     await db.delete(

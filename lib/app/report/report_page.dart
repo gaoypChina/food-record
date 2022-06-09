@@ -244,7 +244,11 @@ class ReportPage extends ConsumerWidget {
     );
   }
 
-  Widget _messageItem(RecordModel record, BuildContext context) {
+  Widget _messageItem(
+    RecordModel record,
+    BuildContext context,
+    ReportViewModel viewModel,
+  ) {
     return Container(
       decoration: new BoxDecoration(
           border:
@@ -280,7 +284,10 @@ class ReportPage extends ConsumerWidget {
                 record: record,
               ),
             ),
-          ).then((value) {
+          ).then((value) async {
+            await viewModel.updateWeekRecords();
+            await viewModel.updateWeekReports();
+            // viewModel.load();
             // viewModel.recordIndex = 3,
             // viewModel.loadCustomPeriod(),
           });
@@ -460,7 +467,11 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index], context);
+                return _messageItem(
+                  records[index],
+                  context,
+                  viewModel,
+                );
               },
             )
           : Container();
@@ -480,7 +491,11 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index], context);
+                return _messageItem(
+                  records[index],
+                  context,
+                  viewModel,
+                );
               },
             )
           : Container();
@@ -500,7 +515,11 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index], context);
+                return _messageItem(
+                  records[index],
+                  context,
+                  viewModel,
+                );
               },
             )
           : Container();
@@ -520,7 +539,11 @@ class ReportPage extends ConsumerWidget {
                 //     "メッセージ",
                 //   ]);
                 // }
-                return _messageItem(records[index], context);
+                return _messageItem(
+                  records[index],
+                  context,
+                  viewModel,
+                );
               },
             )
           : Container();

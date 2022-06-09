@@ -686,4 +686,18 @@ class ReportViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<void> updateWeekRecords() async {
+    final records = await getWeekRecords();
+    weekRecords = records;
+    print('一週間のRecord: $weekRecords');
+    notifyListeners();
+  }
+
+  Future<void> updateWeekReports() async {
+    final reports = await fetchWeekRecords();
+    weekReports = reports;
+    print('一週間のReport: $weekReports');
+    notifyListeners();
+  }
 }

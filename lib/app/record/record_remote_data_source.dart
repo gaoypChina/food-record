@@ -21,6 +21,13 @@ class RecordRemoteDataSource {
     await _recordDatabase.add(record);
   }
 
+  Future<void> updateRecord({
+    required RecordModel record,
+  }) async {
+    print('Databaseに更新するよ〜〜〜: $record');
+    await _recordDatabase.updateRecord(record);
+  }
+
   Future<List<RecordModel>> getWeekRecordList() async {
     return _recordDatabase.getWeekRecordList();
   }

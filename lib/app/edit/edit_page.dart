@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/category/category_model.dart';
 import 'package:food_record/app/edit/date_picker.dart';
 import 'package:food_record/app/edit/edit_view_model.dart';
 import 'package:food_record/app/edit/input_dialog.dart';
+import 'package:food_record/app/edit/select_category_page.dart';
 import 'package:food_record/app/record/record_model.dart';
 
 class EditPage extends ConsumerWidget {
@@ -47,12 +49,26 @@ class EditPage extends ConsumerWidget {
           ListTile(
             tileColor: Colors.white,
             title: Text(
-              record.category,
+              viewModel.category.isEmpty ? record.category : viewModel.category,
             ),
             trailing: Icon(
               Icons.arrow_back_ios,
               textDirection: TextDirection.rtl,
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<String>(
+                  builder: (context) => SelectCategoryPage(),
+                ),
+              ).then((value) => {
+                    print('戻ってきたよ〜〜〜: $value'),
+                    if (value != null)
+                      {
+                        viewModel.updateCategory(value.toString()),
+                      }
+                  });
+            },
           ),
           // Text(record.category),
           Padding(
@@ -169,8 +185,14 @@ class EditPage extends ConsumerWidget {
             },
             tileColor: Colors.white,
             title: Text(
-              // '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}',
-              '${viewModel.date.year}/${viewModel.date.month}/${viewModel.date.day}',
+              viewModel.date ==
+                      DateTime(
+                        DateTime.now().year,
+                        DateTime.now().month,
+                        DateTime.now().day,
+                      )
+                  ? '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}'
+                  : '${viewModel.date.year}/${viewModel.date.month}/${viewModel.date.day}',
             ),
             trailing: Icon(
               Icons.arrow_back_ios,
@@ -192,6 +214,13 @@ class EditPage extends ConsumerWidget {
                   ),
                 ),
                 onPressed: () {
+                  viewModel.updateRecord(
+                    int.parse(record.id.toString()),
+                    viewModel.money,
+                    viewModel.date,
+                    viewModel.category,
+                    record.createdAt,
+                  );
                   Navigator.pop(context);
                   // Navigator.push(
                   //   context,
