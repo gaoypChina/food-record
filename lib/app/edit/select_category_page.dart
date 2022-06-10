@@ -43,7 +43,7 @@ class SelectCategoryPage extends ConsumerWidget {
                     child: ListTile(
                       onTap: () {
                         final selectedCategory = viewModel.categories[index];
-                        print('選択したカテゴリー: $selectedCategory');
+                        // print('選択したカテゴリー: $selectedCategory');
                         Navigator.pop<String>(context, selectedCategory);
                       },
                       tileColor: Colors.white,

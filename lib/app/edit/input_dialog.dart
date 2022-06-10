@@ -39,7 +39,7 @@ class InputDialog extends StatelessWidget {
               ElevatedButton(
                 child: Text('×8%'),
                 onPressed: () {
-                  print('8%掛ける');
+                  // print('8%掛ける');
                   viewModel.getTaxIncludePrice(1.08);
                 },
                 style: ElevatedButton.styleFrom(
@@ -49,7 +49,7 @@ class InputDialog extends StatelessWidget {
               ElevatedButton(
                 child: Text('×10%'),
                 onPressed: () {
-                  print('10%掛ける');
+                  // print('10%掛ける');
                   viewModel.getTaxIncludePrice(1.1);
                 },
                 style: ElevatedButton.styleFrom(
@@ -84,7 +84,7 @@ class InputDialog extends StatelessWidget {
             // );
             // print('返り血$expenditureDate');
             final foodPrice = int.parse(viewModel.foodPriceController.text);
-            print('食費の金額: $foodPrice');
+            // print('食費の金額: $foodPrice');
             await viewModel.updateMoney(foodPrice);
             // viewModel.money = foodPrice;
             // await viewModel.createRecord(

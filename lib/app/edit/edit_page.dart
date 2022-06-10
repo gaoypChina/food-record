@@ -40,7 +40,7 @@ class EditPage extends ConsumerWidget {
               size: 28,
             ),
             onPressed: () {
-              print('この記録を駆除する');
+              // print('この記録を駆除する');
               _confirmDeleteDialog.deleteRecordDialog(
                 context,
                 viewModel,
@@ -83,7 +83,7 @@ class EditPage extends ConsumerWidget {
                   builder: (context) => SelectCategoryPage(),
                 ),
               ).then((value) => {
-                    print('戻ってきたよ〜〜〜: $value'),
+                    // print('戻ってきたよ〜〜〜: $value'),
                     if (value != null)
                       {
                         viewModel.updateCategory(value.toString()),
@@ -177,7 +177,7 @@ class EditPage extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            print('OK');
+                            // print('OK');
                             viewModel.updateExpenditureDate();
                             // if (period == '開始日') {
                             //   viewModel.setOpeningDate(viewModel.openingDate);
@@ -260,11 +260,11 @@ class EditPage extends ConsumerWidget {
                       final category = viewModel.isUpdatedCategory
                           ? viewModel.category
                           : record.category;
-                      print(
-                          '更新してるの？${viewModel.isUpdatedMoney} : Money $money');
-                      print('更新してるの？${viewModel.isUpdatedDate} : Date $date');
-                      print(
-                          '更新してるの？${viewModel.isUpdatedCategory} : Category $category');
+                      // print(
+                      //     '更新してるの？${viewModel.isUpdatedMoney} : Money $money');
+                      // print('更新してるの？${viewModel.isUpdatedDate} : Date $date');
+                      // print(
+                      //     '更新してるの？${viewModel.isUpdatedCategory} : Category $category');
 
                       await viewModel.updateRecord(
                         int.parse(record.id.toString()),
@@ -309,7 +309,7 @@ class EditPage extends ConsumerWidget {
                       ),
                     ),
                     onPressed: () {
-                      print('この記録を駆除する');
+                      // print('この記録を駆除する');
                       _confirmDeleteDialog.deleteRecordDialog(
                         context,
                         viewModel,

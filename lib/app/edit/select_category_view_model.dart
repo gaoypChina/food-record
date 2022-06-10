@@ -12,7 +12,7 @@ final selectCategoryViewModelProvider = ChangeNotifierProvider((ref) {
 
 class SelectCategoryViewModel extends ChangeNotifier {
   SelectCategoryViewModel(this._recordService) {
-    print('SharedPreferenceを読み込むよ〜〜〜');
+    // print('SharedPreferenceを読み込むよ〜〜〜');
     load();
   }
   final RecordService _recordService;
@@ -33,17 +33,17 @@ class SelectCategoryViewModel extends ChangeNotifier {
     if (savedCategories != null) {
       categories = savedCategories;
       notifyListeners();
-      print('保存されているcategoriesを読み込んだよ〜〜〜');
+      // print('保存されているcategoriesを読み込んだよ〜〜〜');
     } else {
-      print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
+      // print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
     }
   }
 
   Future<List<String>?> getCategoryList() async {
     final prefs = await SharedPreferences.getInstance();
-    print(categoryListPrefsKey);
+    // print(categoryListPrefsKey);
     final categoryList = prefs.getStringList(categoryListPrefsKey);
-    print('カテゴリーはjson型？？？$categoryList');
+    // print('カテゴリーはjson型？？？$categoryList');
     return categoryList;
   }
 }
