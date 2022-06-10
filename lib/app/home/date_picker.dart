@@ -26,9 +26,9 @@ class DatePicker extends StatelessWidget {
                 initialItem: 8,
               ),
               onSelectedItemChanged: (index) {
-                print(index);
+                // print(index);
                 viewModel.selectYear = Constants.yearArray[index];
-                print(viewModel.selectYear);
+                // print(viewModel.selectYear);
               },
             ),
           ),
@@ -45,9 +45,9 @@ class DatePicker extends StatelessWidget {
                     viewModel.selectMonth == 1 ? 0 : viewModel.selectMonth - 1,
               ),
               onSelectedItemChanged: (index) {
-                print(index);
+                // print(index);
                 viewModel.selectMonth = Constants.monthArray[index];
-                print(viewModel.selectMonth);
+                // print(viewModel.selectMonth);
               },
             ),
           ),
@@ -64,9 +64,9 @@ class DatePicker extends StatelessWidget {
                     viewModel.selectDay == 1 ? 0 : viewModel.selectDay - 1,
               ),
               onSelectedItemChanged: (index) {
-                print(index);
+                // print(index);
                 viewModel.selectDay = Constants.dayArray[index];
-                print(viewModel.selectDay);
+                // print(viewModel.selectDay);
               },
             ),
           ),

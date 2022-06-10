@@ -11,7 +11,7 @@ final customViewModelProvider = ChangeNotifierProvider((ref) {
 
 class CustomViewModel extends ChangeNotifier {
   CustomViewModel(this._recordService) {
-    print('ロードするよ');
+    // print('ロードするよ');
     load();
   }
   final RecordService _recordService;
@@ -28,7 +28,7 @@ class CustomViewModel extends ChangeNotifier {
   // TODO: 初期ロードの処理
   Future<void> load() async {
     final index = await getPeriodIndex();
-    print(index);
+    // print(index);
     selectedPeriodIndex = int.parse(index.toString());
     notifyListeners();
   }
@@ -37,7 +37,7 @@ class CustomViewModel extends ChangeNotifier {
   Future<int?> getPeriodIndex() async {
     final prefs = await SharedPreferences.getInstance();
     final index = prefs.getInt(indexPrefsKey);
-    print(index);
+    // print(index);
     // selectedPeriodIndex = int.parse(index.toString());
     return index;
   }
@@ -50,7 +50,7 @@ class CustomViewModel extends ChangeNotifier {
   Future<void> setOpeningDate(DateTime date) async {
     final prefs = await SharedPreferences.getInstance();
     final opening = date.millisecondsSinceEpoch;
-    print('opening: $opening');
+    // print('opening: $opening');
     await prefs.setInt(openingPrefsKey, opening);
     isFullPeriod = false;
     notifyListeners();
@@ -59,7 +59,7 @@ class CustomViewModel extends ChangeNotifier {
   Future<void> setClosingDate(DateTime date) async {
     final prefs = await SharedPreferences.getInstance();
     final closing = date.millisecondsSinceEpoch;
-    print('closing: $closing');
+    // print('closing: $closing');
     await prefs.setInt(closingPrefsKey, closing);
     isFullPeriod = false;
     notifyListeners();
@@ -70,7 +70,7 @@ class CustomViewModel extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     if (selectedPeriodIndex != themeIndex) {
       selectedPeriodIndex = themeIndex;
-      print(selectedPeriodIndex);
+      // print(selectedPeriodIndex);
       await prefs.setInt(indexPrefsKey, themeIndex);
       if (selectedPeriodIndex == 0) {
         setToday();
@@ -127,12 +127,12 @@ class CustomViewModel extends ChangeNotifier {
       now.month,
       now.day,
     ).weekday;
-    print(today);
+    // print(today);
     final monday =
         isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
     final sunday = isWeekday == 7 ? today : monday.add(Duration(days: 6));
-    print('月曜日: ${monday}');
-    print('日曜日: ${sunday}');
+    // print('月曜日: ${monday}');
+    // print('日曜日: ${sunday}');
     openingDate = monday;
     closingDate = sunday;
     isFullPeriod = false;

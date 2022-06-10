@@ -23,7 +23,7 @@ class RecordRepository {
   Future<void> createRecord({
     required RecordModel record,
   }) async {
-    print('test');
+    // print('test');
     await _recordRemoteDataSource.createRecord(
       record: record,
     );
@@ -32,7 +32,7 @@ class RecordRepository {
   Future<void> updateRecord({
     required RecordModel record,
   }) async {
-    print('update: $record');
+    // print('update: $record');
     await _recordRemoteDataSource.updateRecord(
       record: record,
     );
@@ -41,7 +41,7 @@ class RecordRepository {
   Future<void> deleteRecord({
     required RecordModel record,
   }) async {
-    print('delete: $record');
+    // print('delete: $record');
     await _recordRemoteDataSource.deleteRecord(
       record: record,
     );

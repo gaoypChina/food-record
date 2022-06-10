@@ -15,7 +15,7 @@ class RootMethod {
   FlutterLocalNotificationsPlugin flnp = FlutterLocalNotificationsPlugin();
 
   Future<void> _initializeNotification() async {
-    print('Flutter Local Notificationの初期化');
+    // print('Flutter Local Notificationの初期化');
     await flnp.initialize(
       const InitializationSettings(
         iOS: IOSInitializationSettings(),
@@ -26,12 +26,12 @@ class RootMethod {
   Future<bool?> getFirstLoading() async {
     final prefs = await SharedPreferences.getInstance();
     final isFirstLoading = prefs.getBool(isFirstLoadingPrefsKey);
-    print(isFirstLoading);
+    // print(isFirstLoading);
     if (isFirstLoading == null) {
-      print('object');
+      // print('object');
       return true;
     }
-    print('初期起動じゃないよ〜〜〜');
+    // print('初期起動じゃないよ〜〜〜');
     return isFirstLoading;
   }
 
@@ -74,7 +74,7 @@ class RootMethod {
 
   Future<void> _setIsFirstLoading() async {
     final prefs = await SharedPreferences.getInstance();
-    print('初期起動後falseにするよ〜〜〜');
+    // print('初期起動後falseにするよ〜〜〜');
     await prefs.setBool(isFirstLoadingPrefsKey, false);
     // TODO: 朝、昼、夜の通知予約処理を呼び出す
     // await _setLocalNotification();
@@ -82,19 +82,19 @@ class RootMethod {
 
   Future<void> _setCanBeMorning(bool canbeCalled) async {
     final prefs = await SharedPreferences.getInstance();
-    print('朝通知するよ');
+    // print('朝通知するよ');
     await prefs.setBool(canBeMorningPrefsKey, canbeCalled);
   }
 
   Future<void> _setCanBeNoon(bool canbeCalled) async {
     final prefs = await SharedPreferences.getInstance();
-    print('昼通知するよ');
+    // print('昼通知するよ');
     await prefs.setBool(canBeNoonPrefsKey, canbeCalled);
   }
 
   Future<void> _setCanBeNight(bool canbeCalled) async {
     final prefs = await SharedPreferences.getInstance();
-    print('夜通知するよ');
+    // print('夜通知するよ');
     await prefs.setBool(canBeNightPrefsKey, canbeCalled);
   }
 
@@ -167,9 +167,9 @@ class RootMethod {
     // final location = tz.getLocation(timeZoneName);
     final japan = tz.getLocation("Asia/Tokyo");
     // print(timeZoneName);
-    print(japan);
+    // print(japan);
     tz.setLocalLocation(japan);
-    print(tz.local);
+    // print(tz.local);
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     // final locations = tz.timeZoneDatabase.locations;
     tz.TZDateTime scheduledDate = tz.TZDateTime(
@@ -179,11 +179,11 @@ class RootMethod {
       now.day,
       hour,
     );
-    print(now);
+    // print(now);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
-    print(scheduledDate);
+    // print(scheduledDate);
     return scheduledDate;
   }
 }

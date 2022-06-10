@@ -46,7 +46,7 @@ class ConfirmDeleteDialog {
                 //   viewModel.selectDay,
                 // );
                 // print('返り血$expenditureDate');
-                print('レコード名: $record');
+                // print('レコード名: $record');
                 await viewModel.deleteRecord(record);
                 // await viewModel.deleteCategory(index);
                 // await viewModel.addNewCategory(category);

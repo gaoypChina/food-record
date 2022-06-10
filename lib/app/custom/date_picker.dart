@@ -29,7 +29,7 @@ class DatePicker extends StatelessWidget {
               initialItem: 8,
             ),
             onSelectedItemChanged: (index) {
-              print(index);
+              // print(index);
               if (isOpening == true) {
                 final opening = DateTime(
                   Constants.yearArray[index],
@@ -37,7 +37,7 @@ class DatePicker extends StatelessWidget {
                   viewModel.openingDate.day,
                 );
                 viewModel.openingDate = opening;
-                print(viewModel.openingDate);
+                // print(viewModel.openingDate);
               } else {
                 final closing = DateTime(
                   Constants.yearArray[index],
@@ -45,7 +45,7 @@ class DatePicker extends StatelessWidget {
                   viewModel.closingDate.day,
                 );
                 viewModel.closingDate = closing;
-                print(viewModel.closingDate);
+                // print(viewModel.closingDate);
               }
               // viewModel.selectYear = Constants.yearArray[index];
               // print(viewModel.selectYear);
@@ -66,7 +66,7 @@ class DatePicker extends StatelessWidget {
               //     viewModel.selectMonth == 1 ? 0 : viewModel.selectMonth - 1,
             ),
             onSelectedItemChanged: (index) {
-              print(index);
+              // print(index);
               if (isOpening == true) {
                 final opening = DateTime(
                   viewModel.openingDate.year,
@@ -74,7 +74,7 @@ class DatePicker extends StatelessWidget {
                   viewModel.openingDate.day,
                 );
                 viewModel.openingDate = opening;
-                print(viewModel.openingDate);
+                // print(viewModel.openingDate);
               } else {
                 final closing = DateTime(
                   viewModel.closingDate.year,
@@ -82,7 +82,7 @@ class DatePicker extends StatelessWidget {
                   viewModel.closingDate.day,
                 );
                 viewModel.closingDate = closing;
-                print(viewModel.closingDate);
+                // print(viewModel.closingDate);
               }
               // viewModel.selectMonth = Constants.monthArray[index];
               // print(viewModel.selectMonth);
@@ -103,7 +103,7 @@ class DatePicker extends StatelessWidget {
               //     viewModel.selectDay == 1 ? 0 : viewModel.selectDay - 1,
             ),
             onSelectedItemChanged: (index) {
-              print(index);
+              // print(index);
               if (isOpening == true) {
                 final opening = DateTime(
                   viewModel.openingDate.year,
@@ -111,7 +111,7 @@ class DatePicker extends StatelessWidget {
                   Constants.dayArray[index],
                 );
                 viewModel.openingDate = opening;
-                print(viewModel.openingDate);
+                // print(viewModel.openingDate);
               } else {
                 final closing = DateTime(
                   viewModel.closingDate.year,
@@ -119,7 +119,7 @@ class DatePicker extends StatelessWidget {
                   Constants.dayArray[index],
                 );
                 viewModel.closingDate = closing;
-                print(viewModel.closingDate);
+                // print(viewModel.closingDate);
               }
               // viewModel.selectDay = Constants.dayArray[index];
               // print(viewModel.selectDay);

@@ -16,7 +16,7 @@ class RecordRemoteDataSource {
   Future<void> createRecord({
     required RecordModel record,
   }) async {
-    print('テstudio');
+    // print('テstudio');
     // await _recordDatabase.deleteTable();
     await _recordDatabase.add(record);
   }
@@ -24,14 +24,14 @@ class RecordRemoteDataSource {
   Future<void> updateRecord({
     required RecordModel record,
   }) async {
-    print('Databaseに更新するよ〜〜〜: $record');
+    // print('Databaseに更新するよ〜〜〜: $record');
     await _recordDatabase.updateRecord(record);
   }
 
   Future<void> deleteRecord({
     required RecordModel record,
   }) async {
-    print('Databaseに更新するよ〜〜〜: $record');
+    // print('Databaseに更新するよ〜〜〜: $record');
     final recordId = int.parse(record.id.toString());
     await _recordDatabase.deleteRecord(recordId);
   }

@@ -11,7 +11,7 @@ final editViewModelProvider = ChangeNotifierProvider.autoDispose((ref) {
 
 class EditViewModel extends ChangeNotifier {
   EditViewModel(this._recordService) {
-    print('EditViewModel初期描画');
+    // print('EditViewModel初期描画');
     load();
   }
   final RecordService _recordService;
@@ -84,7 +84,7 @@ class EditViewModel extends ChangeNotifier {
 
   Future<DateTime> createExpenditureDate(int year, int month, int day) async {
     final expenditureDate = DateTime(year, month, day);
-    print('支出日: $expenditureDate');
+    // print('支出日: $expenditureDate');
     return expenditureDate;
   }
 
@@ -92,8 +92,8 @@ class EditViewModel extends ChangeNotifier {
     if (foodPriceController.text.isEmpty == false) {
       final foodPrice = int.parse(foodPriceController.text) * number;
       final floorFoodPrice = foodPrice.round();
-      print(foodPrice);
-      print(floorFoodPrice);
+      // print(foodPrice);
+      // print(floorFoodPrice);
       foodPriceController.text = floorFoodPrice.toString();
     }
   }
@@ -101,16 +101,16 @@ class EditViewModel extends ChangeNotifier {
   Future<void> updateCategory(String selectedCategory) async {
     category = selectedCategory;
     isUpdatedCategory = true;
-    print(category);
-    print(isUpdatedCategory);
+    // print(category);
+    // print(isUpdatedCategory);
     notifyListeners();
   }
 
   Future<void> updateMoney(int foodPrice) async {
     money = foodPrice;
     isUpdatedMoney = true;
-    print(money);
-    print(isUpdatedMoney);
+    // print(money);
+    // print(isUpdatedMoney);
     notifyListeners();
   }
 
@@ -118,8 +118,8 @@ class EditViewModel extends ChangeNotifier {
     final expenditureDate = DateTime(selectYear, selectMonth, selectDay);
     date = expenditureDate;
     isUpdatedDate = true;
-    print(date);
-    print(isUpdatedDate);
+    // print(date);
+    // print(isUpdatedDate);
     notifyListeners();
   }
 }

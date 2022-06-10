@@ -29,7 +29,7 @@ class MiniRecordButton extends StatelessWidget {
         elevation: 0,
         // ),
         onPressed: () {
-          print('食費を入力');
+          // print('食費を入力');
           showCupertinoDialog<void>(
             context: context,
             builder: (context) {

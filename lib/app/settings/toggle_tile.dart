@@ -49,7 +49,7 @@ class ToggleTile extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () async {
-                  print('開く');
+                  // print('開く');
                   // await _rootMethod.reserveLocalNotification();
                   // await _rootMethod.setIsFirstLoading();
                   // await openAppSettings();
@@ -98,14 +98,14 @@ class ToggleTile extends StatelessWidget {
             CupertinoSwitch(
               value: viewModel.canBeNotified,
               onChanged: (isValue) async {
-                print('通知: $isValue');
+                // print('通知: $isValue');
                 // viewModel.toggleSwitch();
                 if (viewModel.canBeNotified) {
                   await viewModel.notificationTurnOff();
                 } else {
                   // TODO: PermissionHandlerで通知が許可されているか真偽値で返す。
                   await viewModel.getPermission().then((value) async {
-                    print('許可の真偽値: $value');
+                    // print('許可の真偽値: $value');
                     if (value) {
                       await viewModel.notificationTurnOn();
                     } else {
@@ -113,7 +113,7 @@ class ToggleTile extends StatelessWidget {
                     }
                   });
                 }
-                print(viewModel.canBeNotified);
+                // print(viewModel.canBeNotified);
               },
             ),
             // Icon(Icons.check_box_outline_blank),
@@ -128,7 +128,7 @@ class ToggleTile extends StatelessWidget {
         ),
         onTap: () {
           // viewModel.setPeriodIndex(index);
-          print('Indexを切り替えるよ');
+          // print('Indexを切り替えるよ');
         },
       ),
     );

@@ -16,7 +16,7 @@ final settingsViewModelProvider = ChangeNotifierProvider((ref) {
 
 class SettingsViewModel extends ChangeNotifier {
   SettingsViewModel(this._recordService) {
-    print('設定画面ロードするよ＝＝＝');
+    // print('設定画面ロードするよ＝＝＝');
     load();
   }
   final RecordService _recordService;
@@ -49,8 +49,8 @@ class SettingsViewModel extends ChangeNotifier {
         isMorning = canBeMorning;
         isNoon = canBeNoon;
         isNight = canBeNight;
-        print(
-            '取得された後ViewModelの真偽値はどうなった？?朝: $isMorning. 昼: $isNoon. 夜: $isNight.');
+        // print(
+        //     '取得された後ViewModelの真偽値はどうなった？?朝: $isMorning. 昼: $isNoon. 夜: $isNight.');
         // TODO: PermissionHandlerでNotificationが可能かどうか判断するメソッドを呼び出す。
         // await _getPermission();
         final permission = await _getLocalNotification();
@@ -95,7 +95,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   Future<void> updateIsMorning() async {
     if (isMorning) {
-      print('通知予約キャンセル');
+      // print('通知予約キャンセル');
       await flnp.cancel(1);
     } else {
       await _scheduleDailyMorningNotification();
@@ -107,7 +107,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   Future<void> updateIsNoon() async {
     if (isNoon) {
-      print('通知予約キャンセル');
+      // print('通知予約キャンセル');
       await flnp.cancel(2);
     } else {
       await _scheduleDailyNoonNotification();
@@ -119,7 +119,7 @@ class SettingsViewModel extends ChangeNotifier {
 
   Future<void> updateIsNight() async {
     if (isNight) {
-      print('通知予約キャンセル');
+      // print('通知予約キャンセル');
       await flnp.cancel(3);
     } else {
       await _scheduleDailyNightNotification();
@@ -131,19 +131,19 @@ class SettingsViewModel extends ChangeNotifier {
 
   Future<void> _setCanBeMorning(bool canbeCalled) async {
     final prefs = await SharedPreferences.getInstance();
-    print('朝通知するよ');
+    // print('朝通知するよ');
     await prefs.setBool(canBeMorningPrefsKey, canbeCalled);
   }
 
   Future<void> _setCanBeNoon(bool canbeCalled) async {
     final prefs = await SharedPreferences.getInstance();
-    print('昼通知するよ');
+    // print('昼通知するよ');
     await prefs.setBool(canBeNoonPrefsKey, canbeCalled);
   }
 
   Future<void> _setCanBeNight(bool canbeCalled) async {
     final prefs = await SharedPreferences.getInstance();
-    print('夜通知するよ');
+    // print('夜通知するよ');
     await prefs.setBool(canBeNightPrefsKey, canbeCalled);
   }
 
@@ -156,11 +156,11 @@ class SettingsViewModel extends ChangeNotifier {
     // permission_handler で通知に対する許可状態を把握
     var statusForNotificationO = await Permission.notification.status;
 
-    print("statusForNotificationO: $statusForNotificationO");
+    // print("statusForNotificationO: $statusForNotificationO");
 
     if (statusForNotificationO != PermissionStatus.granted) {
       // 許可されていなかったら、ここで設定変更してもらうよう、促すメッセージを出す
-      print('通知が許可されていません！');
+      // print('通知が許可されていません！');
       canBeNotified = false;
       return false;
       // TODO: 設定ページに飛ばすダイアログを出す。
@@ -236,7 +236,7 @@ class SettingsViewModel extends ChangeNotifier {
     await _setCanBeNight(false);
 
     // TODO: B. 通知を全てキャンセルにする。
-    print('通知を全てキャンセル');
+    // print('通知を全てキャンセル');
     await flnp.cancelAll();
     notifyListeners();
   }
@@ -294,9 +294,9 @@ class SettingsViewModel extends ChangeNotifier {
     // final location = tz.getLocation(timeZoneName);
     final japan = tz.getLocation("Asia/Tokyo");
     // print(timeZoneName);
-    print(japan);
+    // print(japan);
     tz.setLocalLocation(japan);
-    print(tz.local);
+    // print(tz.local);
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     // final locations = tz.timeZoneDatabase.locations;
     tz.TZDateTime scheduledDate = tz.TZDateTime(
@@ -306,11 +306,11 @@ class SettingsViewModel extends ChangeNotifier {
       now.day,
       hour,
     );
-    print(now);
+    // print(now);
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
     }
-    print(scheduledDate);
+    // print(scheduledDate);
     return scheduledDate;
   }
 }

@@ -43,7 +43,7 @@ class EditCategoryPage extends ConsumerWidget {
                     ),
                     child: ListTile(
                       onTap: () {
-                        print('カテゴリーの編集と削除を記述するよ');
+                        // print('カテゴリーの編集と削除を記述するよ');
                         _editCategoryMethod.showActionSheet(
                           context,
                           viewModel,
@@ -68,7 +68,7 @@ class EditCategoryPage extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          print('カテゴリーを追加する');
+          // print('カテゴリーを追加する');
           await _editCategoryMethod.newCategoryDialog(context, viewModel);
           // await newCategoryDialog(context, viewModel);
         },
