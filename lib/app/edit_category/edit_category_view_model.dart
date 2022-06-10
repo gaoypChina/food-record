@@ -19,7 +19,7 @@ final editCategoryViewModelProvider = ChangeNotifierProvider((ref) {
 class EditCategoryViewModel extends ChangeNotifier {
   // EditCategoryViewModel(this._recordService);
   EditCategoryViewModel(this._recordService) {
-    print('設定画面ロードするよ＝＝＝');
+    // print('設定画面ロードするよ＝＝＝');
     load();
   }
   final RecordService _recordService;
@@ -43,9 +43,9 @@ class EditCategoryViewModel extends ChangeNotifier {
     if (savedCategories != null) {
       categories = savedCategories;
       notifyListeners();
-      print('保存されているcategoriesを読み込んだよ〜〜〜');
+      // print('保存されているcategoriesを読み込んだよ〜〜〜');
     } else {
-      print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
+      // print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
       await setCategoryList(categories);
       // categories.forEach((category) {
       //   print('一個ずつcategory保存していくよ〜〜〜');
@@ -56,12 +56,12 @@ class EditCategoryViewModel extends ChangeNotifier {
 
   Future<List<String>?> getCategoryList() async {
     final prefs = await SharedPreferences.getInstance();
-    print(categoryListPrefsKey);
+    // print(categoryListPrefsKey);
     // final isFirstLoading = prefs
     //     .getStringList(categoryListPrefsKey)
     //     ?.cast<String>() as List<String>;
     final categoryList = prefs.getStringList(categoryListPrefsKey);
-    print('カテゴリーはjson型？？？$categoryList');
+    // print('カテゴリーはjson型？？？$categoryList');
     return categoryList;
 
     // if (categoryList != null) {
@@ -81,8 +81,8 @@ class EditCategoryViewModel extends ChangeNotifier {
   Future<void> setCategoryList(List<String> categories) async {
     final prefs = await SharedPreferences.getInstance();
     final index = categories.length - 1;
-    print('新しく作成するIndex: $index');
-    print('保存するするするCategories: $categories');
+    // print('新しく作成するIndex: $index');
+    // print('保存するするするCategories: $categories');
     // final fixedCategories =
     // final newCategories = categories
     //     .map(
@@ -129,12 +129,12 @@ class EditCategoryViewModel extends ChangeNotifier {
     //       (element) => categories.indexOf(element) == index,
     //     )
     //     .toList();
-    print('カテゴリーの番号: $index');
-    print('新しいカテゴリー: $newCategory');
-    print('条件に合ったカテゴリー: $updatedCategory');
-    print(updatedCategory);
+    // print('カテゴリーの番号: $index');
+    // print('新しいカテゴリー: $newCategory');
+    // print('条件に合ったカテゴリー: $updatedCategory');
+    // print(updatedCategory);
     categories = updatedCategory;
-    print(categories);
+    // print(categories);
     notifyListeners();
     await setCategoryList(updatedCategory);
     // await setCategoryList(categories);
@@ -146,10 +146,10 @@ class EditCategoryViewModel extends ChangeNotifier {
   Future<void> deleteCategory(
     int index,
   ) async {
-    print('削除前のCategories: $categories');
+    // print('削除前のCategories: $categories');
     categories.removeAt(index);
     await setCategoryList(categories);
-    print('削除後のCategories: $categories');
+    // print('削除後のCategories: $categories');
     notifyListeners();
     // final fixedCategory = categories
     //     .map(

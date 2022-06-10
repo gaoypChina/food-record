@@ -8,7 +8,7 @@ class EditCategoryMethod {
     EditCategoryViewModel viewModel,
     int index,
   ) {
-    print('index: $index');
+    // print('index: $index');
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
@@ -107,7 +107,7 @@ class EditCategoryMethod {
                 // );
                 // print('返り血$expenditureDate');
                 final category = viewModel.categoryController.text;
-                print('カテゴリー名: $category');
+                // print('カテゴリー名: $category');
                 await viewModel.addNewCategory(category);
                 // viewModel.money = foodPrice;
                 // await viewModel.createRecord(
@@ -185,7 +185,7 @@ class EditCategoryMethod {
                 // );
                 // print('返り血$expenditureDate');
                 final category = viewModel.categoryController.text;
-                print('カテゴリー名: $category');
+                // print('カテゴリー名: $category');
                 await viewModel.updateCategory(category, index);
                 // await viewModel.addNewCategory(category);
                 // viewModel.money = foodPrice;
@@ -253,7 +253,7 @@ class EditCategoryMethod {
                 //   viewModel.selectDay,
                 // );
                 // print('返り血$expenditureDate');
-                print('カテゴリー名: ${viewModel.categories[index]}');
+                // print('カテゴリー名: ${viewModel.categories[index]}');
                 await viewModel.deleteCategory(index);
                 // await viewModel.addNewCategory(category);
                 // viewModel.money = foodPrice;
