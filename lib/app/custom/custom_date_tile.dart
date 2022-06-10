@@ -86,7 +86,7 @@ class CustomDateTile extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        print('OK');
+                        // print('OK');
                         if (period == '開始日') {
                           viewModel.setOpeningDate(viewModel.openingDate);
                         } else {

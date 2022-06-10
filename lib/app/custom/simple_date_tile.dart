@@ -51,7 +51,7 @@ class SimpleDateTile extends StatelessWidget {
         ),
         onTap: () {
           viewModel.setPeriodIndex(index);
-          print('Indexを切り替えるよ');
+          // print('Indexを切り替えるよ');
         },
       ),
     );
