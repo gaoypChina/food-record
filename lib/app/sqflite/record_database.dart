@@ -15,8 +15,8 @@ class RecordDatabase {
       version: 1,
       onCreate: _onCreate,
     );
-    print('データーベース作成中');
-    print(_database);
+    // print('データーベース作成中');
+    // print(_database);
     return _database;
   }
 
@@ -36,21 +36,21 @@ class RecordDatabase {
 
   Future<void> add(RecordModel record) async {
     final db = await database;
-    print(db);
-    print(record);
-    print(record.toMap());
+    // print(db);
+    // print(record);
+    // print(record.toMap());
     await db.insert(
       'foodRecord',
       record.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    print('追加後のDB$db');
+    // print('追加後のDB$db');
     final List<Map<String, dynamic>> maps = await db.query('foodRecord');
-    print(maps);
+    // print(maps);
     final test = DateTime.fromMicrosecondsSinceEpoch(
       int.parse(maps[0]['expenditureDate'].toString()),
     );
-    print('支出日をparse$test');
+    // print('支出日をparse$test');
     // final List<Map<String, dynamic>> maps = await db.query('foodRecord');
     // print('追加後のdb$db');
   }
@@ -58,13 +58,13 @@ class RecordDatabase {
   Future<List<RecordModel>> records() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('foodRecord');
-    print(db);
+    // print(db);
     final test = DateTime.fromMicrosecondsSinceEpoch(
       int.parse(maps[0]['expenditureDate'].toString()),
     );
     // final test = maps[0]['expenditureDate'].toString();
     // DateTime.parse(maps[0]['expenditureDate'].toString()).toLocal();
-    print('支出日をparse$test');
+    // print('支出日をparse$test');
     final fixedMaps = maps
         .map((record) => RecordModel(
               id: int.parse(record['id'].toString()),
@@ -88,14 +88,14 @@ class RecordDatabase {
     final db = await database;
     final formattedOpening = opening.microsecondsSinceEpoch.toString();
     final formattedClosing = closing.microsecondsSinceEpoch.toString();
-    print(formattedOpening);
-    print(formattedClosing);
+    // print(formattedOpening);
+    // print(formattedClosing);
     final customPeriodRawQuery =
         'select * from foodRecord where expenditureDate between $formattedOpening and $formattedClosing';
     // const customPeriodRawQuery = 'select * from foodRecord';
     final List<Map<String, dynamic>> maps =
         await db.rawQuery(customPeriodRawQuery);
-    print(maps);
+    // print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
@@ -113,8 +113,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -126,20 +126,20 @@ class RecordDatabase {
       now.month - 2,
       1,
     );
-    print('3ヶ月の初日$first');
+    // print('3ヶ月の初日$first');
     final end = DateTime(
       now.year,
       now.month + 1,
       1,
     ).add(Duration(days: -1));
-    print('3ヶ月の末日$end');
+    // print('3ヶ月の末日$end');
 
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
         'select * from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
-    print(maps);
+    // print(maps);
 
     final fixedMaps = maps
         .map(
@@ -156,8 +156,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -169,20 +169,20 @@ class RecordDatabase {
       now.month,
       1,
     );
-    print('月の初日$first');
+    // print('月の初日$first');
     final end = DateTime(
       now.year,
       now.month + 1,
       1,
     ).add(Duration(days: -1));
-    print('月の末日$end');
+    // print('月の末日$end');
 
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
         'select * from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
-    print(maps);
+    // print(maps);
 
     final fixedMaps = maps
         .map(
@@ -199,8 +199,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -226,11 +226,11 @@ class RecordDatabase {
     //     isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
     // final sunday =
     //     isWeekday == 7 ? today : today.add(Duration(days: isWeekday - 1) * 1);
-    print(opening);
-    print(opening.microsecondsSinceEpoch);
-    print(closing);
-    print(closing.microsecondsSinceEpoch);
-    print('これ何曜日？${opening.weekday}');
+    // print(opening);
+    // print(opening.microsecondsSinceEpoch);
+    // print(closing);
+    // print(closing.microsecondsSinceEpoch);
+    // print('これ何曜日？${opening.weekday}');
     final formattedMonday = opening.microsecondsSinceEpoch.toString();
     final formattedSunday = closing.microsecondsSinceEpoch.toString();
     // final mondayRawQuery = 'select * from foodRecord order by expenditureDate';
@@ -249,7 +249,7 @@ class RecordDatabase {
     final List<Map<String, dynamic>> maps = await db.rawQuery(mondayRawQuery);
     // final List<Map<String, dynamic>> maps =
     //     await db.rawQuery('select * from foodRecord limit 3 offset 1;');
-    print(maps);
+    // print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
@@ -271,8 +271,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -298,11 +298,11 @@ class RecordDatabase {
     //     isWeekday == 1 ? today : today.add(Duration(days: isWeekday - 1) * -1);
     // final sunday =
     //     isWeekday == 7 ? today : today.add(Duration(days: isWeekday - 1) * 1);
-    print(opening);
-    print(opening.microsecondsSinceEpoch);
-    print(closing);
-    print(closing.microsecondsSinceEpoch);
-    print('これ何曜日？${closing.weekday}');
+    // print(opening);
+    // print(opening.microsecondsSinceEpoch);
+    // print(closing);
+    // print(closing.microsecondsSinceEpoch);
+    // print('これ何曜日？${closing.weekday}');
     final formattedOpening = opening.microsecondsSinceEpoch.toString();
     final formattedClosing = closing.microsecondsSinceEpoch.toString();
     // final mondayRawQuery = 'select * from foodRecord order by expenditureDate';
@@ -321,7 +321,7 @@ class RecordDatabase {
     final List<Map<String, dynamic>> maps = await db.rawQuery(mondayRawQuery);
     // final List<Map<String, dynamic>> maps =
     //     await db.rawQuery('select * from foodRecord limit 3 offset 1;');
-    print(maps);
+    // print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
@@ -342,8 +342,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -355,13 +355,13 @@ class RecordDatabase {
       now.month,
       1,
     );
-    print('月の初日$first');
+    // print('月の初日$first');
     final end = DateTime(
       now.year,
       now.month + 1,
       1,
     ).add(Duration(days: -1));
-    print('月の末日$end');
+    // print('月の末日$end');
 
     final isWeekday = DateTime(
       now.year,
@@ -374,7 +374,7 @@ class RecordDatabase {
     final monthRawQuery =
         'select expenditureDate, sum(money) from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
-    print(maps);
+    // print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
@@ -387,8 +387,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -400,20 +400,20 @@ class RecordDatabase {
       now.month - 2,
       1,
     );
-    print('3ヶ月の初日$first');
+    // print('3ヶ月の初日$first');
     final end = DateTime(
       now.year,
       now.month + 1,
       1,
     ).add(Duration(days: -1));
-    print('3ヶ月の末日$end');
+    // print('3ヶ月の末日$end');
 
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
         'select expenditureDate, sum(money) from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
-    print(maps);
+    // print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
@@ -426,8 +426,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -438,14 +438,14 @@ class RecordDatabase {
     final db = await database;
     final formattedOpening = opening.microsecondsSinceEpoch.toString();
     final formattedClosing = closing.microsecondsSinceEpoch.toString();
-    print(formattedOpening);
-    print(formattedClosing);
+    // print(formattedOpening);
+    // print(formattedClosing);
     final customPeriodRawQuery =
         'select expenditureDate, sum(money) from foodRecord where expenditureDate between $formattedOpening and $formattedClosing group by expenditureDate';
     // const customPeriodRawQuery = 'select * from foodRecord';
     final List<Map<String, dynamic>> maps =
         await db.rawQuery(customPeriodRawQuery);
-    print(maps);
+    // print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
     final fixedMaps = maps
@@ -458,8 +458,8 @@ class RecordDatabase {
           ),
         )
         .toList();
-    print('object');
-    print(fixedMaps);
+    // print('object');
+    // print(fixedMaps);
     return fixedMaps;
   }
 
@@ -473,7 +473,7 @@ class RecordDatabase {
 
   Future<void> updateRecord(RecordModel record) async {
     final db = await database;
-    print(record.toMap());
+    // print(record.toMap());
     await db.update(
       'foodRecord',
       record.toMap(),
@@ -496,7 +496,7 @@ class RecordDatabase {
     final db = await database;
 
     await db.execute('DROP TABLE foodRecord;');
-    print(db);
-    print(db.path);
+    // print(db);
+    // print(db.path);
   }
 }
