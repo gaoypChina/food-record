@@ -27,13 +27,13 @@ class RecordService {
     DateTime expenditureDate,
     String category,
   ) async {
-    print('記録するよ');
+    // print('記録するよ');
     final data = RecordModel.initialData(
       money,
       expenditureDate,
       category,
     );
-    print(data);
+    // print(data);
     await _recordRepository.createRecord(
       record: data,
     );
@@ -46,7 +46,7 @@ class RecordService {
     String category,
     DateTime createdAt,
   ) async {
-    print('Recordをアップデートするよ');
+    // print('Recordをアップデートするよ');
     final data = RecordModel(
       id: id,
       money: money,
@@ -54,7 +54,7 @@ class RecordService {
       category: category,
       createdAt: createdAt,
     );
-    print(data);
+    // print(data);
     await _recordRepository.updateRecord(
       record: data,
     );
