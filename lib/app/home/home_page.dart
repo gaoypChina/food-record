@@ -30,119 +30,121 @@ class HomePage extends ConsumerWidget {
           ],
         ),
       ),
-      body: Container(
-        height: 540,
-        child: Column(
-          children: [
-            SizedBox(
-              width: 18,
-              height: 18,
-            ),
-            Text(
-              '支出日',
-              style: TextStyle(
-                fontSize: 24,
+      body: SingleChildScrollView(
+        child: Container(
+          height: 540,
+          child: Column(
+            children: [
+              SizedBox(
+                width: 18,
+                height: 18,
               ),
-            ),
-            SizedBox(
-              width: 18,
-              height: 18,
-            ),
-            DatePicker(viewModel: viewModel),
-            Padding(
-              padding: const EdgeInsets.only(
-                right: 8,
+              Text(
+                '支出日',
+                style: TextStyle(
+                  fontSize: 24,
+                ),
               ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<CategoryModel>(
-                        builder: (context) => EditCategoryPage(),
+              SizedBox(
+                width: 18,
+                height: 18,
+              ),
+              DatePicker(viewModel: viewModel),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 8,
+                ),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<CategoryModel>(
+                          builder: (context) => EditCategoryPage(),
+                        ),
+                      ).then((value) => {
+                            // print('EditCategoryから戻ってきたよ: $value'),
+                            viewModel.load(),
+                          });
+                      // .then((value) => {
+                      //       viewModel.recordIndex = 3,
+                      //       viewModel.loadCustomPeriod(),
+                      //     });
+                    },
+                    style: OutlinedButton.styleFrom(
+                      primary: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    ).then((value) => {
-                          // print('EditCategoryから戻ってきたよ: $value'),
-                          viewModel.load(),
-                        });
-                    // .then((value) => {
-                    //       viewModel.recordIndex = 3,
-                    //       viewModel.loadCustomPeriod(),
-                    //     });
+                      side: const BorderSide(
+                        color: Colors.green,
+                      ),
+                    ),
+                    child: Text(
+                      'カテゴリーを編集',
+                      style: TextStyle(
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 8,
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RecordButton(
+                    viewModel: viewModel,
+                    category: viewModel.categories[0],
+                    // category: '朝食',
+                  ),
+                  SizedBox(
+                    width: 18,
+                    height: 18,
+                  ),
+                  RecordButton(
+                    viewModel: viewModel,
+                    category: viewModel.categories[1],
+                    // category: '昼食',
+                  ),
+                  SizedBox(
+                    width: 18,
+                    height: 18,
+                  ),
+                  RecordButton(
+                    viewModel: viewModel,
+                    category: viewModel.categories[2],
+                    // category: '夕食',
+                  )
+                ],
+              ),
+              Flexible(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: viewModel.categories.sublist(3).length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      children: [
+                        MiniRecordButton(
+                          viewModel: viewModel,
+                          category: viewModel.categories.sublist(3)[index],
+                          // category: '朝食',
+                        ),
+                        SizedBox(
+                          width: 12,
+                          height: 12,
+                        ),
+                      ],
+                    );
                   },
-                  style: OutlinedButton.styleFrom(
-                    primary: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    side: const BorderSide(
-                      color: Colors.green,
-                    ),
-                  ),
-                  child: Text(
-                    'カテゴリーを編集',
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 8,
-              height: 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RecordButton(
-                  viewModel: viewModel,
-                  category: viewModel.categories[0],
-                  // category: '朝食',
-                ),
-                SizedBox(
-                  width: 18,
-                  height: 18,
-                ),
-                RecordButton(
-                  viewModel: viewModel,
-                  category: viewModel.categories[1],
-                  // category: '昼食',
-                ),
-                SizedBox(
-                  width: 18,
-                  height: 18,
-                ),
-                RecordButton(
-                  viewModel: viewModel,
-                  category: viewModel.categories[2],
-                  // category: '夕食',
-                )
-              ],
-            ),
-            Flexible(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: viewModel.categories.sublist(3).length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Row(
-                    children: [
-                      MiniRecordButton(
-                        viewModel: viewModel,
-                        category: viewModel.categories.sublist(3)[index],
-                        // category: '朝食',
-                      ),
-                      SizedBox(
-                        width: 12,
-                        height: 12,
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
