@@ -26,15 +26,15 @@ class RootPageState extends ConsumerState<RootPage> {
   @override
   void initState() {
     super.initState();
-    print('初期きどう');
+    // print('初期きどう');
     // TODO: SharedPreferenceの値次第で初期起動かどうか判断する
     // final firstLoading = getFirstLoading();
     _rootMethod.getFirstLoading().then((firstLoading) {
       if (firstLoading != true) {
-        print('初期テスト');
+        // print('初期テスト');
         return;
       } else {
-        print('テスト春');
+        // print('テスト春');
         Future.delayed(Duration.zero, () {
           _openNotificationDialog();
         });
@@ -70,7 +70,7 @@ class RootPageState extends ConsumerState<RootPage> {
               ),
               TextButton(
                 onPressed: () async {
-                  print('OK');
+                  // print('OK');
                   await _rootMethod.reserveLocalNotification();
                   // await _rootMethod.setIsFirstLoading();
                   Navigator.pop(context);
