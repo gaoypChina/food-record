@@ -13,7 +13,7 @@ final reportViewModelProvider = ChangeNotifierProvider.autoDispose((ref) {
 
 class ReportViewModel extends ChangeNotifier {
   ReportViewModel(this._recordService) {
-    print('loadするよ〜〜〜');
+    // print('loadするよ〜〜〜');
     load();
   }
 
@@ -43,8 +43,8 @@ class ReportViewModel extends ChangeNotifier {
       Duration(days: -6),
     );
     closing = DateTime.now();
-    print(opening);
-    print(closing);
+    // print(opening);
+    // print(closing);
     if (weekRecords.isEmpty || weekReports.isEmpty) {
       weekReports = await fetchWeekRecords();
       weekRecords = await getWeekRecords();
@@ -62,18 +62,18 @@ class ReportViewModel extends ChangeNotifier {
     //   opening = await getOpeningDate();
     //   closing = await getClosingDate();
     // }
-    weekRecords.forEach((record) => {
-          print(record.id),
-          print(record.category),
-          print(record.createdAt),
-          print(record.expenditureDate),
-          print(record.money),
-        });
-    weekReports.forEach((report) => {
-          print(report.date),
-          print(report.expense),
-        });
-    print('初期リロード$weekRecords');
+    // weekRecords.forEach((record) => {
+    //       print(record.id),
+    //       print(record.category),
+    //       print(record.createdAt),
+    //       print(record.expenditureDate),
+    //       print(record.money),
+    //     });
+    // weekReports.forEach((report) => {
+    //       print(report.date),
+    //       print(report.expense),
+    //     });
+    // print('初期リロード$weekRecords');
     notifyListeners();
   }
 
@@ -89,14 +89,14 @@ class ReportViewModel extends ChangeNotifier {
       now.month + 1,
       1,
     ).add(Duration(days: -1));
-    print(opening);
-    print(closing);
+    // print(opening);
+    // print(closing);
     if (monthRecords.isEmpty || monthReports.isEmpty) {
       monthReports = await fetchMonthRecords();
       monthRecords = await getMonthRecords();
     }
-    print('リロード$monthReports');
-    print('リロード$monthRecords');
+    // print('リロード$monthReports');
+    // print('リロード$monthRecords');
     notifyListeners();
   }
 
@@ -105,13 +105,13 @@ class ReportViewModel extends ChangeNotifier {
       Duration(days: -90),
     );
     closing = DateTime.now();
-    print(opening);
-    print(closing);
+    // print(opening);
+    // print(closing);
     if (threeMonthRecords.isEmpty || threeMonthReports.isEmpty) {
       threeMonthReports = await fetchThreeMonthRecords();
       threeMonthRecords = await getThreeMonthRecords();
     }
-    print('リロード$threeMonthReports');
+    // print('リロード$threeMonthReports');
     notifyListeners();
   }
 
@@ -135,7 +135,7 @@ class ReportViewModel extends ChangeNotifier {
         now.month,
         now.day,
       ).weekday;
-      print(today);
+      // print(today);
       final monday = isWeekday == 1
           ? today
           : today.add(Duration(days: isWeekday - 1) * -1);
@@ -198,7 +198,7 @@ class ReportViewModel extends ChangeNotifier {
     // }
     customReports = await fetchCustomPeriodRecords();
     customRecords = await getCustomRecords();
-    print('リロード$customReports');
+    // print('リロード$customReports');
     notifyListeners();
   }
 
@@ -212,13 +212,13 @@ class ReportViewModel extends ChangeNotifier {
   Future<int> getCustomIndex() async {
     final prefs = await SharedPreferences.getInstance();
     final customIndex = prefs.getInt(indexPrefsKey);
-    print(customIndex);
+    // print(customIndex);
     if (customIndex == null) {
       const index = 0;
       return index;
     }
     final index = int.parse(customIndex.toString());
-    print('インデックスを取得したよ〜〜〜$index');
+    // print('インデックスを取得したよ〜〜〜$index');
     return index;
   }
 
@@ -226,7 +226,7 @@ class ReportViewModel extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final index = int.parse(prefs.getInt(openingPrefsKey).toString());
     final opening = DateTime.fromMillisecondsSinceEpoch(index);
-    print('openingをDateTimeに$opening');
+    // print('openingをDateTimeに$opening');
     return opening;
   }
 
@@ -234,25 +234,25 @@ class ReportViewModel extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final index = int.parse(prefs.getInt(closingPrefsKey).toString());
     final closing = DateTime.fromMillisecondsSinceEpoch(index);
-    print('closingをDateTimeに$closing');
+    // print('closingをDateTimeに$closing');
     return closing;
   }
 
   Future<List<RecordModel>> getWeekRecords() async {
     final records = await _recordService.getWeekRecords();
-    print(records);
+    // print(records);
     return records;
   }
 
   Future<List<RecordModel>> getMonthRecords() async {
     final records = await _recordService.getMonthRecords();
-    print(records);
+    // print(records);
     return records;
   }
 
   Future<List<RecordModel>> getThreeMonthRecords() async {
     final records = await _recordService.getThreeMonthRecords();
-    print(records);
+    // print(records);
     return records;
   }
 
@@ -265,37 +265,37 @@ class ReportViewModel extends ChangeNotifier {
       now.day,
     );
     if (index == 0) {
-      print(index);
+      // print(index);
       final customOpening = today;
       final customClosing = today.add(
         Duration(days: 1),
       );
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 1) {
-      print(index);
+      // print(index);
       final customOpening = today.add(
         Duration(days: -1),
       );
       final customClosing = today;
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 2) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final today = DateTime(
         now.year,
@@ -307,22 +307,22 @@ class ReportViewModel extends ChangeNotifier {
         now.month,
         now.day,
       ).weekday;
-      print(today);
+      // print(today);
       final monday = isWeekday == 1
           ? today
           : today.add(Duration(days: isWeekday - 1) * -1);
       final sunday = isWeekday == 7 ? today : monday.add(Duration(days: 6));
       opening = monday;
       closing = sunday;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         monday,
         sunday,
       );
       return customPeriodReports;
     } else if (index == 3) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final customOpening = DateTime(
         now.year,
@@ -337,15 +337,15 @@ class ReportViewModel extends ChangeNotifier {
       ).add(Duration(days: -1));
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 4) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final customOpening = DateTime(
         now.year,
@@ -360,15 +360,15 @@ class ReportViewModel extends ChangeNotifier {
       ).add(Duration(days: -1));
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 5) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final today = DateTime(
         now.year,
@@ -383,15 +383,15 @@ class ReportViewModel extends ChangeNotifier {
 
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 6) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final today = DateTime(
         now.year,
@@ -406,8 +406,8 @@ class ReportViewModel extends ChangeNotifier {
 
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         customOpening,
         customClosing,
@@ -419,13 +419,13 @@ class ReportViewModel extends ChangeNotifier {
       //   return customPeriodReports;
       // } else if (index == 8) {
     } else {
-      print(index);
+      // print(index);
       final customOpening = await getOpeningDate();
       final customClosing = await getClosingDate();
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.getCustomRecords(
         opening,
         closing,
@@ -445,7 +445,7 @@ class ReportViewModel extends ChangeNotifier {
     // closing = DateTime.now();
     // print(opening);
     // print(closing);
-    print('fetchしてるよ〜〜〜$reports');
+    // print('fetchしてるよ〜〜〜$reports');
     return reports;
   }
 
@@ -468,7 +468,7 @@ class ReportViewModel extends ChangeNotifier {
     // closing = DateTime.now();
     // print(opening);
     // print(closing);
-    print('月のレポート表示$monthReports');
+    // print('月のレポート表示$monthReports');
     return monthReports;
     // reports = monthReports;
     // notifyListeners();
@@ -482,7 +482,7 @@ class ReportViewModel extends ChangeNotifier {
     // closing = DateTime.now();
     // print(opening);
     // print(closing);
-    print('月のレポート表示$threeMonthReports');
+    // print('月のレポート表示$threeMonthReports');
     return threeMonthReports;
     // reports = monthReports;
     // notifyListeners();
@@ -503,37 +503,37 @@ class ReportViewModel extends ChangeNotifier {
     );
     final index = await getCustomIndex();
     if (index == 0) {
-      print(index);
+      // print(index);
       final customOpening = today;
       final customClosing = today.add(
         Duration(days: 1),
       );
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 1) {
-      print(index);
+      // print(index);
       final customOpening = today.add(
         Duration(days: -1),
       );
       final customClosing = today;
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 2) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final today = DateTime(
         now.year,
@@ -545,22 +545,22 @@ class ReportViewModel extends ChangeNotifier {
         now.month,
         now.day,
       ).weekday;
-      print(today);
+      // print(today);
       final monday = isWeekday == 1
           ? today
           : today.add(Duration(days: isWeekday - 1) * -1);
       final sunday = isWeekday == 7 ? today : monday.add(Duration(days: 6));
       opening = monday;
       closing = sunday;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         monday,
         sunday,
       );
       return customPeriodReports;
     } else if (index == 3) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final customOpening = DateTime(
         now.year,
@@ -575,15 +575,15 @@ class ReportViewModel extends ChangeNotifier {
       ).add(Duration(days: -1));
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 4) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final customOpening = DateTime(
         now.year,
@@ -598,15 +598,15 @@ class ReportViewModel extends ChangeNotifier {
       ).add(Duration(days: -1));
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 5) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final today = DateTime(
         now.year,
@@ -621,15 +621,15 @@ class ReportViewModel extends ChangeNotifier {
 
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         customOpening,
         customClosing,
       );
       return customPeriodReports;
     } else if (index == 6) {
-      print(index);
+      // print(index);
       final now = DateTime.now();
       final today = DateTime(
         now.year,
@@ -644,8 +644,8 @@ class ReportViewModel extends ChangeNotifier {
 
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         customOpening,
         customClosing,
@@ -657,13 +657,13 @@ class ReportViewModel extends ChangeNotifier {
       //   return customPeriodReports;
       // } else if (index == 8) {
     } else {
-      print(index);
+      // print(index);
       final customOpening = await getOpeningDate();
       final customClosing = await getClosingDate();
       opening = customOpening;
       closing = customClosing;
-      print('オープニング: $opening');
-      print('クロージング: $closing');
+      // print('オープニング: $opening');
+      // print('クロージング: $closing');
       final customPeriodReports = await _recordService.fetchCustomPeriodRecords(
         opening,
         closing,
@@ -674,7 +674,7 @@ class ReportViewModel extends ChangeNotifier {
 
   Future<void> updateIndex(int index) async {
     recordIndex = index;
-    print(recordIndex);
+    // print(recordIndex);
     if (index == 0) {
       await load();
     } else if (index == 1) {
@@ -690,56 +690,56 @@ class ReportViewModel extends ChangeNotifier {
   Future<void> updateWeekRecords() async {
     final records = await getWeekRecords();
     weekRecords = records;
-    print('一週間のRecord: $weekRecords');
+    // print('一週間のRecord: $weekRecords');
     notifyListeners();
   }
 
   Future<void> updateWeekReports() async {
     final reports = await fetchWeekRecords();
     weekReports = reports;
-    print('一週間のReport: $weekReports');
+    // print('一週間のReport: $weekReports');
     notifyListeners();
   }
 
   Future<void> updateMonthRecords() async {
     final records = await getMonthRecords();
     monthRecords = records;
-    print('一ヶ月のRecord: $monthRecords');
+    // print('一ヶ月のRecord: $monthRecords');
     notifyListeners();
   }
 
   Future<void> updateMonthReports() async {
     final reports = await fetchMonthRecords();
     monthReports = reports;
-    print('一ヶ月のReport: $monthReports');
+    // print('一ヶ月のReport: $monthReports');
     notifyListeners();
   }
 
   Future<void> updateThreeMonthRecords() async {
     final records = await getThreeMonthRecords();
     threeMonthRecords = records;
-    print('3ヶ月のRecord: $monthRecords');
+    // print('3ヶ月のRecord: $monthRecords');
     notifyListeners();
   }
 
   Future<void> updateThreeMonthReports() async {
     final reports = await fetchThreeMonthRecords();
     threeMonthReports = reports;
-    print('3ヶ月のReport: $monthReports');
+    // print('3ヶ月のReport: $monthReports');
     notifyListeners();
   }
 
   Future<void> updateCustomRecords() async {
     final records = await getCustomRecords();
     customRecords = records;
-    print('CustomRecord: $customRecords');
+    // print('CustomRecord: $customRecords');
     notifyListeners();
   }
 
   Future<void> updateCustomReports() async {
     final reports = await fetchCustomPeriodRecords();
     customReports = reports;
-    print('CustomReport: $customReports');
+    // print('CustomReport: $customReports');
     notifyListeners();
   }
 }

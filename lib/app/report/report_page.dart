@@ -51,7 +51,7 @@ class ReportPage extends ConsumerWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          print('期間を設定する');
+          // print('期間を設定する');
           Navigator.push(
             context,
             MaterialPageRoute<ReportModel>(
@@ -88,7 +88,7 @@ class ReportPage extends ConsumerWidget {
               size: 28,
             ),
             onPressed: () async {
-              print('ローディング');
+              // print('ローディング');
               if (viewModel.recordIndex == 0) {
                 await viewModel.updateWeekRecords();
                 await viewModel.updateWeekReports();
@@ -148,7 +148,7 @@ class ReportPage extends ConsumerWidget {
                       },
                       groupValue: viewModel.recordIndex,
                       onValueChanged: (index) {
-                        print(index);
+                        // print(index);
                         viewModel.updateIndex(int.parse(index.toString()));
                         // if (viewModel.recordIndex == 3) {
                         // TODO: 下のコードを移動する
@@ -329,7 +329,7 @@ class ReportPage extends ConsumerWidget {
               ),
             ),
           ).then((value) async {
-            print('RecordIndex: ${value}');
+            // print('RecordIndex: ${value}');
             if (value == 0) {
               await viewModel.updateWeekRecords();
               await viewModel.updateWeekReports();
@@ -347,10 +347,10 @@ class ReportPage extends ConsumerWidget {
             // viewModel.recordIndex = 3,
             // viewModel.loadCustomPeriod(),
           });
-          print("onTap called.");
+          // print("onTap called.");
         }, // タップ
         onLongPress: () {
-          print("onLongTap called.");
+          // print("onLongTap called.");
         }, // 長押し
       ),
     );
@@ -436,10 +436,10 @@ class ReportPage extends ConsumerWidget {
     } else if (viewModel.recordIndex == 1) {
       // } else if (index == 1) {
       // print('切り替え時${index}');
-      print('切り替え時${viewModel.recordIndex}');
+      // print('切り替え時${viewModel.recordIndex}');
       // viewModel.fetchMonthRecords();
       // viewModel.loadMonth();
-      print('一ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.monthReports}');
+      // print('一ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.monthReports}');
       // return charts.TimeSeriesChart(
       //   _createReportModel(viewModel.monthReports),
       // _createReportModel(reports),
@@ -461,8 +461,8 @@ class ReportPage extends ConsumerWidget {
     } else if (viewModel.recordIndex == 2) {
       // } else if (index == 2) {
       // print('切り替え時${index}');
-      print('切り替え時${viewModel.recordIndex}');
-      print('3ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.threeMonthReports}');
+      // print('切り替え時${viewModel.recordIndex}');
+      // print('3ヶ月のレポートのデータ取得したよ〜〜〜${viewModel.threeMonthReports}');
       final reports = viewModel.threeMonthReports;
       // return charts.TimeSeriesChart(
       //   _createReportModel(viewModel.threeMonthReports),
@@ -482,8 +482,8 @@ class ReportPage extends ConsumerWidget {
           : NoDataAlert();
     } else {
       // print('切り替え時${index}');
-      print('切り替え時${viewModel.recordIndex}');
-      print('カスタムのレポートのデータ取得したよ〜〜〜${viewModel.customReports}');
+      // print('切り替え時${viewModel.recordIndex}');
+      // print('カスタムのレポートのデータ取得したよ〜〜〜${viewModel.customReports}');
       final reports = viewModel.customReports;
       return reports.isNotEmpty
           ? Container(
