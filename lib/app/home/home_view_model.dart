@@ -44,9 +44,9 @@ class HomeViewModel extends ChangeNotifier {
     final readingCategories = await getCategories();
     if (readingCategories != null) {
       categories = readingCategories;
-      print('保存されているcategoriesを読み込んだよ〜〜〜$categories');
+      // print('保存されているcategoriesを読み込んだよ〜〜〜$categories');
     } else {
-      print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
+      // print('まだ、SharedPreferenceは使われてはいないよ〜〜〜$categories');
     }
     notifyListeners();
   }
@@ -54,7 +54,7 @@ class HomeViewModel extends ChangeNotifier {
   Future<List<String>?> getCategories() async {
     final prefs = await SharedPreferences.getInstance();
     final categoryList = prefs.getStringList(categoryListPrefsKey);
-    print('カテゴリーはjson型？？？$categoryList');
+    // print('カテゴリーはjson型？？？$categoryList');
     return categoryList;
   }
 
@@ -74,7 +74,7 @@ class HomeViewModel extends ChangeNotifier {
 
   Future<DateTime> createExpenditureDate(int year, int month, int day) async {
     final expenditureDate = DateTime(year, month, day);
-    print('支出日: $expenditureDate');
+    // print('支出日: $expenditureDate');
     return expenditureDate;
   }
 
@@ -82,8 +82,8 @@ class HomeViewModel extends ChangeNotifier {
     if (foodPriceController.text.isEmpty == false) {
       final foodPrice = int.parse(foodPriceController.text) * number;
       final floorFoodPrice = foodPrice.round();
-      print(foodPrice);
-      print(floorFoodPrice);
+      // print(foodPrice);
+      // print(floorFoodPrice);
       foodPriceController.text = floorFoodPrice.toString();
     }
   }
