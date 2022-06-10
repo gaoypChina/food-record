@@ -11,7 +11,7 @@ final recordDatabaseProvider = Provider<RecordDatabase>((ref) {
 class RecordDatabase {
   static Future<Database> get database async {
     final _database = openDatabase(
-      join(await getDatabasesPath(), 'expenses_database.db'),
+      join(await getDatabasesPath(), 'foodRecord_database.db'),
       version: 1,
       onCreate: _onCreate,
     );
@@ -22,11 +22,13 @@ class RecordDatabase {
 
   static Future _onCreate(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE expenses(
+      CREATE TABLE foodRecord(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         money TEXT,
         category TEXT,
         expenditureDate INTEGER,
+        shop TEXT,
+        memo TEXT,
         createdAt TEXT
       )
     ''');
@@ -38,24 +40,24 @@ class RecordDatabase {
     print(record);
     print(record.toMap());
     await db.insert(
-      'expenses',
+      'foodRecord',
       record.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     print('追加後のDB$db');
-    final List<Map<String, dynamic>> maps = await db.query('expenses');
+    final List<Map<String, dynamic>> maps = await db.query('foodRecord');
     print(maps);
     final test = DateTime.fromMicrosecondsSinceEpoch(
       int.parse(maps[0]['expenditureDate'].toString()),
     );
     print('支出日をparse$test');
-    // final List<Map<String, dynamic>> maps = await db.query('expenses');
+    // final List<Map<String, dynamic>> maps = await db.query('foodRecord');
     // print('追加後のdb$db');
   }
 
   Future<List<RecordModel>> records() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('expenses');
+    final List<Map<String, dynamic>> maps = await db.query('foodRecord');
     print(db);
     final test = DateTime.fromMicrosecondsSinceEpoch(
       int.parse(maps[0]['expenditureDate'].toString()),
@@ -89,8 +91,8 @@ class RecordDatabase {
     print(formattedOpening);
     print(formattedClosing);
     final customPeriodRawQuery =
-        'select * from expenses where expenditureDate between $formattedOpening and $formattedClosing';
-    // const customPeriodRawQuery = 'select * from expenses';
+        'select * from foodRecord where expenditureDate between $formattedOpening and $formattedClosing';
+    // const customPeriodRawQuery = 'select * from foodRecord';
     final List<Map<String, dynamic>> maps =
         await db.rawQuery(customPeriodRawQuery);
     print(maps);
@@ -135,7 +137,7 @@ class RecordDatabase {
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
-        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
+        'select * from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
 
@@ -178,7 +180,7 @@ class RecordDatabase {
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
-        'select * from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
+        'select * from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
 
@@ -231,22 +233,22 @@ class RecordDatabase {
     print('これ何曜日？${opening.weekday}');
     final formattedMonday = opening.microsecondsSinceEpoch.toString();
     final formattedSunday = closing.microsecondsSinceEpoch.toString();
-    // final mondayRawQuery = 'select * from expenses order by expenditureDate';
+    // final mondayRawQuery = 'select * from foodRecord order by expenditureDate';
     final mondayRawQuery =
-        'select * from expenses where expenditureDate between $formattedMonday and $formattedSunday';
+        'select * from foodRecord where expenditureDate between $formattedMonday and $formattedSunday';
     // final mondayRawQuery =
-    //     'select money, expenditureDate, sum(money), count(*) from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
+    //     'select money, expenditureDate, sum(money), count(*) from foodRecord where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
     // final mondayRawQuery =
-    //     'select * from expenses where expenditureDate between $formattedMonday and $formattedSunday order by expenditureDate';
+    //     'select * from foodRecord where expenditureDate between $formattedMonday and $formattedSunday order by expenditureDate';
     // final sundayRawQuery =
-    //     'select * from expenses where expenditureDate = $formattedSunday';
+    //     'select * from foodRecord where expenditureDate = $formattedSunday';
     // final mondayRawQuery =
-    //     'select * from expenses where expenditureDate = $formattedMonday';
+    //     'select * from foodRecord where expenditureDate = $formattedMonday';
     // final mondayRawQuery =
-    //     'select expenditureDate, typeof(expenditureDate), createdAt, typeof(createdAt) from expenses';
+    //     'select expenditureDate, typeof(expenditureDate), createdAt, typeof(createdAt) from foodRecord';
     final List<Map<String, dynamic>> maps = await db.rawQuery(mondayRawQuery);
     // final List<Map<String, dynamic>> maps =
-    //     await db.rawQuery('select * from expenses limit 3 offset 1;');
+    //     await db.rawQuery('select * from foodRecord limit 3 offset 1;');
     print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
@@ -303,22 +305,22 @@ class RecordDatabase {
     print('これ何曜日？${closing.weekday}');
     final formattedOpening = opening.microsecondsSinceEpoch.toString();
     final formattedClosing = closing.microsecondsSinceEpoch.toString();
-    // final mondayRawQuery = 'select * from expenses order by expenditureDate';
+    // final mondayRawQuery = 'select * from foodRecord order by expenditureDate';
     final mondayRawQuery =
-        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedOpening and $formattedClosing group by expenditureDate';
+        'select expenditureDate, sum(money) from foodRecord where expenditureDate between $formattedOpening and $formattedClosing group by expenditureDate';
     // final mondayRawQuery =
-    //     'select money, expenditureDate, sum(money), count(*) from expenses where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
+    //     'select money, expenditureDate, sum(money), count(*) from foodRecord where expenditureDate between $formattedMonday and $formattedSunday group by expenditureDate';
     // final mondayRawQuery =
-    //     'select * from expenses where expenditureDate between $formattedMonday and $formattedSunday order by expenditureDate';
+    //     'select * from foodRecord where expenditureDate between $formattedMonday and $formattedSunday order by expenditureDate';
     // final sundayRawQuery =
-    //     'select * from expenses where expenditureDate = $formattedSunday';
+    //     'select * from foodRecord where expenditureDate = $formattedSunday';
     // final mondayRawQuery =
-    //     'select * from expenses where expenditureDate = $formattedMonday';
+    //     'select * from foodRecord where expenditureDate = $formattedMonday';
     // final mondayRawQuery =
-    //     'select expenditureDate, typeof(expenditureDate), createdAt, typeof(createdAt) from expenses';
+    //     'select expenditureDate, typeof(expenditureDate), createdAt, typeof(createdAt) from foodRecord';
     final List<Map<String, dynamic>> maps = await db.rawQuery(mondayRawQuery);
     // final List<Map<String, dynamic>> maps =
-    //     await db.rawQuery('select * from expenses limit 3 offset 1;');
+    //     await db.rawQuery('select * from foodRecord limit 3 offset 1;');
     print(maps);
     // print(maps[0]['expenditureDate'].toString());
     // print(maps[0]['sum(money)'].toString());
@@ -370,7 +372,7 @@ class RecordDatabase {
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
-        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
+        'select expenditureDate, sum(money) from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
     // print(maps[0]['expenditureDate'].toString());
@@ -409,7 +411,7 @@ class RecordDatabase {
     final formattedMonthFirst = first.microsecondsSinceEpoch.toString();
     final formattedMonthEnd = end.microsecondsSinceEpoch.toString();
     final monthRawQuery =
-        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
+        'select expenditureDate, sum(money) from foodRecord where expenditureDate between $formattedMonthFirst and $formattedMonthEnd group by expenditureDate';
     final List<Map<String, dynamic>> maps = await db.rawQuery(monthRawQuery);
     print(maps);
     // print(maps[0]['expenditureDate'].toString());
@@ -439,8 +441,8 @@ class RecordDatabase {
     print(formattedOpening);
     print(formattedClosing);
     final customPeriodRawQuery =
-        'select expenditureDate, sum(money) from expenses where expenditureDate between $formattedOpening and $formattedClosing group by expenditureDate';
-    // const customPeriodRawQuery = 'select * from expenses';
+        'select expenditureDate, sum(money) from foodRecord where expenditureDate between $formattedOpening and $formattedClosing group by expenditureDate';
+    // const customPeriodRawQuery = 'select * from foodRecord';
     final List<Map<String, dynamic>> maps =
         await db.rawQuery(customPeriodRawQuery);
     print(maps);
@@ -473,7 +475,7 @@ class RecordDatabase {
     final db = await database;
     print(record.toMap());
     await db.update(
-      'expenses',
+      'foodRecord',
       record.toMap(),
       where: 'id = ?',
       whereArgs: [record.id],
@@ -484,7 +486,7 @@ class RecordDatabase {
     final db = await database;
 
     await db.delete(
-      'expenses',
+      'foodRecord',
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -493,7 +495,7 @@ class RecordDatabase {
   Future<void> deleteTable() async {
     final db = await database;
 
-    await db.execute('DROP TABLE expenses;');
+    await db.execute('DROP TABLE foodRecord;');
     print(db);
     print(db.path);
   }
