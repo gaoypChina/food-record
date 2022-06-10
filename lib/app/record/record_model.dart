@@ -7,6 +7,8 @@ class RecordModel {
     required this.category,
     required this.expenditureDate,
     required this.createdAt,
+    this.shop,
+    this.memo,
   });
 
   final int? id;
@@ -14,6 +16,8 @@ class RecordModel {
   final String category;
   final DateTime expenditureDate;
   final DateTime createdAt;
+  final String? shop;
+  final String? memo;
 
   Map<String, dynamic> toMap() {
     final map = {

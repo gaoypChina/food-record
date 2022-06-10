@@ -99,7 +99,8 @@ class InputDialog extends StatelessWidget {
               },
             );
             Navigator.of(context).overlay?.insert(_overlayEntry);
-            Timer(Duration(seconds: 2), () => _overlayEntry.remove());
+            Timer(Duration(seconds: 1, milliseconds: 30),
+                () => _overlayEntry.remove());
           },
           child: Text(
             '完了',
