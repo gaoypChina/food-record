@@ -20,7 +20,7 @@ class RecordButton extends StatelessWidget {
       height: 100,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.green,
+          primary: Colors.blue,
           shape: CircleBorder(),
           elevation: 0,
         ),

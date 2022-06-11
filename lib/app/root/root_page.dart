@@ -124,7 +124,7 @@ class RootPageState extends ConsumerState<RootPage> {
         //   color: Color.fromARGB(255, 27, 152, 40),
         // ),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color.fromARGB(255, 27, 152, 40),
+        selectedItemColor: Colors.blue,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.edit),

@@ -159,11 +159,11 @@ class MorningCheckBox extends StatelessWidget {
       child: viewModel.isMorning
           ? Icon(
               Icons.check_box,
-              color: Colors.green,
+              color: Colors.blue,
             )
           : Icon(
               Icons.check_box_outline_blank,
-              color: Colors.green,
+              color: Colors.blue,
             ),
     );
   }
@@ -186,11 +186,11 @@ class NoonCheckBox extends StatelessWidget {
       child: viewModel.isNoon
           ? Icon(
               Icons.check_box,
-              color: Colors.green,
+              color: Colors.blue,
             )
           : Icon(
               Icons.check_box_outline_blank,
-              color: Colors.green,
+              color: Colors.blue,
             ),
     );
   }
@@ -213,11 +213,11 @@ class NightCheckBox extends StatelessWidget {
       child: viewModel.isNight
           ? Icon(
               Icons.check_box,
-              color: Colors.green,
+              color: Colors.blue,
             )
           : Icon(
               Icons.check_box_outline_blank,
-              color: Colors.green,
+              color: Colors.blue,
             ),
     );
   }

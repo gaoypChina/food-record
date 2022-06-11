@@ -42,7 +42,7 @@ class SettingsPage extends ConsumerWidget {
               initiallyExpanded: true,
               leading: Icon(
                 Icons.notifications,
-                color: Colors.green,
+                color: Colors.blue,
               ),
               backgroundColor: Colors.white,
               collapsedBackgroundColor: Colors.white,
@@ -87,7 +87,7 @@ class SettingsPage extends ConsumerWidget {
                 //   title: '入力忘れ防止の通知',
                 //   icon: Icon(
                 //     Icons.notifications,
-                //     color: Colors.green,
+                //     color: Colors.blue,
                 //   ),
                 // ),
               ],
@@ -98,7 +98,7 @@ class SettingsPage extends ConsumerWidget {
           //   title: 'このアプリを紹介する',
           //   icon: Icon(
           //     Icons.share_sharp,
-          //     color: Colors.green,
+          //     color: Colors.blue,
           //   ),
           //   onTap: () {
           //     print('紹介するよ〜〜〜');
@@ -110,7 +110,7 @@ class SettingsPage extends ConsumerWidget {
           //   title: 'このアプリを評価する',
           //   icon: Icon(
           //     Icons.thumb_up_outlined,
-          //     color: Colors.green,
+          //     color: Colors.blue,
           //   ),
           //   onTap: () async {
           //     await appReview();

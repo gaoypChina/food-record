@@ -96,6 +96,7 @@ class ToggleTile extends StatelessWidget {
             //     ? Icon(Icons.check_box)
             //     :
             CupertinoSwitch(
+              activeColor: Colors.blue,
               value: viewModel.canBeNotified,
               onChanged: (isValue) async {
                 // print('通知: $isValue');
