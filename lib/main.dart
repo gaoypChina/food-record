@@ -24,18 +24,18 @@ Future<void> main() async {
   );
 }
 
-// final analyticsProvider =
-//     Provider<FirebaseAnalytics>((ref) => FirebaseAnalytics.instance);
+final analyticsProvider =
+    Provider<FirebaseAnalytics>((ref) => FirebaseAnalytics.instance);
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // WidgetsBinding.instance?.addPostFrameCallback(
     //   (_) => ATTHelper().attCheck(),
     // );
-    // final analytics = ref.watch(analyticsProvider);
+    final analytics = ref.watch(analyticsProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: '食費管理アプリ',
@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
           // analytics: analytics,
           ),
       navigatorObservers: [
-        // FirebaseAnalyticsObserver(
-        //   analytics: analytics,
-        // )
+        FirebaseAnalyticsObserver(
+          analytics: analytics,
+        )
       ],
     );
   }
