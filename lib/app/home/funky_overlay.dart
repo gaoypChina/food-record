@@ -55,7 +55,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
                 children: [
                   Icon(
                     Icons.check_circle_rounded,
-                    color: Colors.green,
+                    color: Colors.blue,
                     size: 64,
                   ),
                   SizedBox(

@@ -20,10 +20,10 @@ class MiniRecordButton extends StatelessWidget {
       height: 64,
       child: MaterialButton(
         // style: OutlinedButton.styleFrom(
-        // primary: Colors.green,
+        // primary: Colors.blue,
         shape: const CircleBorder(
           side: BorderSide(
-            color: Colors.green,
+            color: Colors.blue,
           ),
         ),
         elevation: 0,
@@ -45,7 +45,7 @@ class MiniRecordButton extends StatelessWidget {
           style: TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.bold,
-            color: Colors.green,
+            color: Colors.blue,
           ),
         ),
       ),

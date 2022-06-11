@@ -62,7 +62,7 @@ class ReportPage extends ConsumerWidget {
                 viewModel.loadCustomPeriod(),
               });
         },
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blue,
         label: Text('期間を設定'),
         icon: Icon(
           Icons.search,
@@ -70,7 +70,7 @@ class ReportPage extends ConsumerWidget {
       ),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blue,
         title: Column(
           children: const [
             Text(
@@ -301,7 +301,7 @@ class ReportPage extends ConsumerWidget {
         leading: Icon(
           Icons.arrow_back_ios,
           size: 32,
-          color: Colors.green,
+          color: Colors.blue,
         ),
         title: Text(
           record.category,

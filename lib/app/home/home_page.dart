@@ -18,7 +18,7 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blue,
         title: Column(
           children: const [
             Text(
@@ -73,12 +73,12 @@ class HomePage extends ConsumerWidget {
                       //     });
                     },
                     style: OutlinedButton.styleFrom(
-                      primary: Colors.green,
+                      primary: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                       side: const BorderSide(
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     ),
                     child: Text(

@@ -72,7 +72,7 @@ class EditCategoryPage extends ConsumerWidget {
           await _editCategoryMethod.newCategoryDialog(context, viewModel);
           // await newCategoryDialog(context, viewModel);
         },
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blue,
         child: Icon(
           Icons.add,
         ),
@@ -81,7 +81,7 @@ class EditCategoryPage extends ConsumerWidget {
       //   onPressed: () {
       //     print('カテゴリーを追加する');
       //   },
-      //   backgroundColor: Colors.green,
+      //   backgroundColor: Colors.blue,
       //   icon: Icon(
       //     Icons.add,
       //   ),
