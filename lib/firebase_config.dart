@@ -13,7 +13,7 @@ class DefaultFirebaseConfig {
         apiKey: 'AIzaSyACOj1l8ts0vdqCkZUEaXKDbTYfVR17qIw',
         projectId: 'food-record-3783d',
         messagingSenderId: '824269911129',
-        iosBundleId: 'com.kasiwa.intervalWalking',
+        iosBundleId: 'com.kasiwa.foodRecord',
         iosClientId:
             '824269911129-a8br692bjb63ltsgjgopc9jmfu16fbpg.apps.googleusercontent.com',
         storageBucket: 'food-record-3783d.appspot.com',
