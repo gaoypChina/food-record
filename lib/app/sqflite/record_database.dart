@@ -499,4 +499,13 @@ class RecordDatabase {
     // print(db);
     // print(db.path);
   }
+
+  Future<int> getCategoryIndex() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps =
+        await db.rawQuery('SELECT LAST_INSERT_ROWID()');
+    print(maps);
+    final walkingIndex = int.parse(maps.first.toString().substring(22, 23));
+    return walkingIndex;
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:app_review/app_review.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_record/app/home/funky_overlay.dart';
@@ -93,6 +94,19 @@ class InputDialog extends StatelessWidget {
             );
             viewModel.foodPriceController.clear();
             Navigator.pop(context);
+            viewModel.getCategoryIndex().then((value) => {
+                  print(value),
+                  if (value == 1)
+                    {
+                      AppReview.requestReview.then((value) => {
+                            print(value),
+                          }),
+                    }
+                  // else if (value % 3 == 0)
+                  //   {
+                  //     print('インタースティシャル広告'),
+                  //   }
+                });
             final _overlayEntry = OverlayEntry(
               builder: (BuildContext context) {
                 return FunkyOverlay();

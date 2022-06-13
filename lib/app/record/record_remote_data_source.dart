@@ -74,6 +74,10 @@ class RecordRemoteDataSource {
     return _recordDatabase.getCustomPeriodRecords(opening, closing);
   }
 
+  Future<int> getCategoryIndex() async {
+    return _recordDatabase.getCategoryIndex();
+  }
+
   // Future<void> setRoom(
   //     {required String roomId, required Map<String, dynamic> data}) async {
   //   await _cloudFirestoreService.setData(
