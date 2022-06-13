@@ -62,17 +62,20 @@ BannerAd myBanner = BannerAd(
 
 // プラットフォーム（iOS / Android）に合わせてデモ用広告IDを返す
 String getTestAdBannerUnitId() {
-  // const testBannerUnitId = "ca-app-pub-4934605992618285/7840208836";
-
   // iOSのデモ用バナー広告ID
-  const testBannerUnitId = "ca-app-pub-3940256099942544/2934735716";
+  // const testBannerUnitId = "ca-app-pub-3940256099942544/2934735716";
+
+  // 本番用のバナー広告
+  const testBannerUnitId = "ca-app-pub-4934605992618285/6577479426";
 
   return testBannerUnitId;
 }
 
 String getTestAdInterstitialUnitId() {
   // iOSのテスト用インタースティシャル広告
-  const testBannerUnitId = "ca-app-pub-3940256099942544/4411468910";
-  // const testBannerUnitId = "ca-app-pub-4934605992618285/2481487598";
+  // const testBannerUnitId = "ca-app-pub-3940256099942544/4411468910";
+
+  // 本番用のインタースティシャル広告
+  const testBannerUnitId = "ca-app-pub-4934605992618285/2481487598";
   return testBannerUnitId;
 }
