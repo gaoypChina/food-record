@@ -10,7 +10,7 @@ import 'package:food_record/app/settings/setting_tile.dart';
 import 'package:food_record/app/settings/settings_view_model.dart';
 import 'package:food_record/app/settings/simple_data_tile.dart';
 import 'package:food_record/app/settings/toggle_tile.dart';
-// import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({
@@ -93,18 +93,20 @@ class SettingsPage extends ConsumerWidget {
               ],
             ),
           ),
-          // SettingTile(
-          //   viewModel: viewModel,
-          //   title: 'このアプリを紹介する',
-          //   icon: Icon(
-          //     Icons.share_sharp,
-          //     color: Colors.blue,
-          //   ),
-          //   onTap: () {
-          //     print('紹介するよ〜〜〜');
-          //     Share.share('食費管理');
-          //   },
-          // ),
+          SettingTile(
+            viewModel: viewModel,
+            title: 'このアプリを紹介する',
+            icon: Icon(
+              Icons.share_sharp,
+              color: Colors.blue,
+            ),
+            onTap: () {
+              print('紹介するよ〜〜〜');
+              Share.share(
+                '食費管理 https://apps.apple.com/app/%E9%A3%9F%E8%B2%BB%E7%AE%A1%E7%90%86-%E5%AE%B6%E8%A8%88%E7%B0%BF%E3%81%A7%E7%94%9F%E6%B4%BB%E3%82%92%E8%B1%8A%E3%81%8B%E3%81%AB/id1629308895',
+              );
+            },
+          ),
           // SettingTile(
           //   viewModel: viewModel,
           //   title: 'このアプリを評価する',
