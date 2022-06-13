@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/admob/admob_api.dart';
 import 'package:food_record/app/record/record_model.dart';
 import 'package:food_record/app/record/record_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 final homeViewModelProvider = ChangeNotifierProvider((ref) {
   return HomeViewModel(
@@ -13,6 +15,7 @@ final homeViewModelProvider = ChangeNotifierProvider((ref) {
 class HomeViewModel extends ChangeNotifier {
   HomeViewModel(this._recordService) {
     load();
+    createInterstitialAd();
   }
   final RecordService _recordService;
   // List<RecordModel> rooms = [];
@@ -33,6 +36,7 @@ class HomeViewModel extends ChangeNotifier {
   int selectDay = today.day;
   static const categoryListPrefsKey = 'categoryArray';
   static const appReviewPrefsKey = 'isReviewed';
+  InterstitialAd? _interstitialAd;
 
   // Future<void> load() async {
   // rooms = await fetchRoom();
@@ -103,5 +107,47 @@ class HomeViewModel extends ChangeNotifier {
       // print(floorFoodPrice);
       foodPriceController.text = floorFoodPrice.toString();
     }
+  }
+
+  void createInterstitialAd() {
+    print('広告読み込むよ＝＝');
+    // final myInterstitial = InterstitialAd.load(
+    InterstitialAd.load(
+      adUnitId: getTestAdInterstitialUnitId(),
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          // Keep a reference to the ad so you can show it later.
+          _interstitialAd = ad;
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('InterstitialAd failed to load: $error');
+        },
+      ),
+    );
+  }
+
+  void showInterstitialAd() {
+    // _createInterstitialAd();
+    if (_interstitialAd == null) {
+      print('Warning: attempt to show interstitial before loaded.');
+      return;
+    }
+    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) =>
+          print('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        print('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        createInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        print('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        createInterstitialAd();
+      },
+    );
+    _interstitialAd!.show();
+    _interstitialAd = null;
   }
 }

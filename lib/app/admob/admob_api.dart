@@ -10,47 +10,47 @@ BannerAd myBanner = BannerAd(
   listener: const BannerAdListener(),
 )..load();
 
-void createInterstitialAd() {
-  // print('広告読み込むよ＝＝');
-  // final myInterstitial = InterstitialAd.load(
-  InterstitialAd.load(
-    adUnitId: getTestAdInterstitialUnitId(),
-    request: const AdRequest(),
-    adLoadCallback: InterstitialAdLoadCallback(
-      onAdLoaded: (InterstitialAd ad) {
-        // Keep a reference to the ad so you can show it later.
-        _interstitialAd = ad;
-      },
-      onAdFailedToLoad: (LoadAdError error) {
-        // print('InterstitialAd failed to load: $error');
-      },
-    ),
-  );
-}
+// void createInterstitialAd() {
+//   // print('広告読み込むよ＝＝');
+//   // final myInterstitial = InterstitialAd.load(
+//   InterstitialAd.load(
+//     adUnitId: getTestAdInterstitialUnitId(),
+//     request: const AdRequest(),
+//     adLoadCallback: InterstitialAdLoadCallback(
+//       onAdLoaded: (InterstitialAd ad) {
+//         // Keep a reference to the ad so you can show it later.
+//         _interstitialAd = ad;
+//       },
+//       onAdFailedToLoad: (LoadAdError error) {
+//         // print('InterstitialAd failed to load: $error');
+//       },
+//     ),
+//   );
+// }
 
-void showInterstitialAd() {
-  // _createInterstitialAd();
-  if (_interstitialAd == null) {
-    print('Warning: attempt to show interstitial before loaded.');
-    return;
-  }
-  _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-    onAdShowedFullScreenContent: (InterstitialAd ad) =>
-        print('ad onAdShowedFullScreenContent.'),
-    onAdDismissedFullScreenContent: (InterstitialAd ad) {
-      print('$ad onAdDismissedFullScreenContent.');
-      ad.dispose();
-      createInterstitialAd();
-    },
-    onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-      print('$ad onAdFailedToShowFullScreenContent: $error');
-      ad.dispose();
-      createInterstitialAd();
-    },
-  );
-  _interstitialAd!.show();
-  _interstitialAd = null;
-}
+// void showInterstitialAd() {
+//   // _createInterstitialAd();
+//   if (_interstitialAd == null) {
+//     print('Warning: attempt to show interstitial before loaded.');
+//     return;
+//   }
+//   _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+//     onAdShowedFullScreenContent: (InterstitialAd ad) =>
+//         print('ad onAdShowedFullScreenContent.'),
+//     onAdDismissedFullScreenContent: (InterstitialAd ad) {
+//       print('$ad onAdDismissedFullScreenContent.');
+//       ad.dispose();
+//       createInterstitialAd();
+//     },
+//     onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+//       print('$ad onAdFailedToShowFullScreenContent: $error');
+//       ad.dispose();
+//       createInterstitialAd();
+//     },
+//   );
+//   _interstitialAd!.show();
+//   _interstitialAd = null;
+// }
 
 // InterstitialAd myInterstitial =
 // InterstitialAd(

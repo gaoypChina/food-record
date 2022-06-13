@@ -106,7 +106,7 @@ class InputDialog extends StatelessWidget {
                   else if (value % 3 == 0)
                     {
                       print('インタースティシャル広告'),
-                      showInterstitialAd(),
+                      viewModel.showInterstitialAd(),
                     }
                 });
             final _overlayEntry = OverlayEntry(
