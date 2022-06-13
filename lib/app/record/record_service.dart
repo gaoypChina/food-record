@@ -103,4 +103,8 @@ class RecordService {
   ) async {
     return _recordRepository.fetchCustomPeriodRecords(opening, closing);
   }
+
+  Future<int> getCategoryIndex() async {
+    return _recordRepository.getCategoryIndex();
+  }
 }

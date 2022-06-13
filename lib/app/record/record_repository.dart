@@ -84,4 +84,8 @@ class RecordRepository {
   ) async {
     return _recordRemoteDataSource.getCustomPeriodRecords(opening, closing);
   }
+
+  Future<int> getCategoryIndex() async {
+    return _recordRemoteDataSource.getCategoryIndex();
+  }
 }

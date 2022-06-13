@@ -32,6 +32,7 @@ class HomeViewModel extends ChangeNotifier {
   int selectMonth = today.month;
   int selectDay = today.day;
   static const categoryListPrefsKey = 'categoryArray';
+  static const appReviewPrefsKey = 'isReviewed';
 
   // Future<void> load() async {
   // rooms = await fetchRoom();
@@ -51,11 +52,27 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setIsReview(bool isReviewed) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(appReviewPrefsKey, isReviewed);
+  }
+
+  Future<bool?> getIsReviewed() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isReviewed = prefs.getBool(appReviewPrefsKey);
+    return isReviewed;
+  }
+
   Future<List<String>?> getCategories() async {
     final prefs = await SharedPreferences.getInstance();
     final categoryList = prefs.getStringList(categoryListPrefsKey);
     // print('カテゴリーはjson型？？？$categoryList');
     return categoryList;
+  }
+
+  Future<int> getCategoryIndex() async {
+    final categoryIndex = await _recordService.getCategoryIndex();
+    return categoryIndex;
   }
 
   // Future<List<RecordModel>> fetchRoom() async {
