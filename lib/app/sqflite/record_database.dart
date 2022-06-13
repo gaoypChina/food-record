@@ -504,8 +504,29 @@ class RecordDatabase {
     final db = await database;
     final List<Map<String, dynamic>> maps =
         await db.rawQuery('SELECT LAST_INSERT_ROWID()');
-    print(maps);
-    final walkingIndex = int.parse(maps.first.toString().substring(22, 23));
-    return walkingIndex;
+    // print(maps);
+    final str = maps.toString();
+    // print(str);
+    final start = '[{LAST_INSERT_ROWID():';
+    final end = '}]';
+    if (str.contains(start) == true) {
+      final startIndex = str.indexOf(start);
+      final endIndex = str.indexOf(end, startIndex + start.length);
+      // print('コールID' + str.substring(startIndex + start.length, endIndex));
+      // print(startIndex + start.length);
+      // print(endIndex);
+      final walkingIndex = int.parse(
+        str.substring(
+          startIndex + start.length,
+          endIndex,
+        ),
+      );
+      // print(walkingIndex);
+      return walkingIndex;
+    } else {
+      return 2;
+    }
+    // final walkingIndex = int.parse(maps.first.toString().substring(22, 23));
+    // return walkingIndex;
   }
 }

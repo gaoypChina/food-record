@@ -95,7 +95,7 @@ class InputDialog extends StatelessWidget {
             viewModel.foodPriceController.clear();
             Navigator.pop(context);
             viewModel.getCategoryIndex().then((value) => {
-                  print(value),
+                  // print(value),
                   if (value == 1)
                     {
                       AppReview.requestReview.then((value) => {
