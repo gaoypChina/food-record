@@ -107,17 +107,17 @@ class SettingsPage extends ConsumerWidget {
               );
             },
           ),
-          // SettingTile(
-          //   viewModel: viewModel,
-          //   title: 'このアプリを評価する',
-          //   icon: Icon(
-          //     Icons.thumb_up_outlined,
-          //     color: Colors.blue,
-          //   ),
-          //   onTap: () async {
-          //     await appReview();
-          //   },
-          // ),
+          SettingTile(
+            viewModel: viewModel,
+            title: 'このアプリを評価する',
+            icon: Icon(
+              Icons.thumb_up_outlined,
+              color: Colors.blue,
+            ),
+            onTap: () async {
+              await AppReview.writeReview;
+            },
+          ),
           // Text(
           //     '${record.expenditureDate.year}/${record.expenditureDate.month}/${record.expenditureDate.day}'),
         ],
