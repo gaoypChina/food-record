@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_record/app/admob/admob_api.dart';
 import 'package:food_record/app/home/date_picker.dart';
 import 'package:food_record/app/home/home_page.dart';
 import 'package:food_record/app/report/report_page.dart';
@@ -9,6 +10,7 @@ import 'package:food_record/app/report/report_view_model.dart';
 import 'package:food_record/app/root/root_view_model.dart';
 import 'package:food_record/app/root/tab_controller.dart';
 import 'package:food_record/app/settings/settings_page.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:food_record/app/root/root_method.dart';
 
@@ -108,12 +110,12 @@ class RootPageState extends ConsumerState<RootPage> {
       body: Column(
         children: [
           Expanded(child: _views[tabType.index]),
-          // Container(
-          //   color: Colors.white,
-          //   height: 48.0,
-          //   width: double.infinity,
-          //   child: AdWidget(ad: myBanner),
-          // ),
+          Container(
+            color: Colors.white,
+            height: 60.0,
+            width: double.infinity,
+            child: AdWidget(ad: myBanner),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
