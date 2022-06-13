@@ -1,6 +1,7 @@
 import 'package:app_review/app_review.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_record/app/admob/admob_api.dart';
 import 'package:food_record/app/home/funky_overlay.dart';
 import 'package:food_record/app/home/home_view_model.dart';
 import 'dart:async';
@@ -102,10 +103,11 @@ class InputDialog extends StatelessWidget {
                             print(value),
                           }),
                     }
-                  // else if (value % 3 == 0)
-                  //   {
-                  //     print('インタースティシャル広告'),
-                  //   }
+                  else if (value % 3 == 0)
+                    {
+                      print('インタースティシャル広告'),
+                      viewModel.showInterstitialAd(),
+                    }
                 });
             final _overlayEntry = OverlayEntry(
               builder: (BuildContext context) {

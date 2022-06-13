@@ -26,6 +26,8 @@ dependencies:
   app_review: ^2.1.1+1
   share_plus: ^4.0.7
   flutter_launcher_icons: ^0.9.3
+  google_mobile_ads: ^1.2.0
+  app_tracking_transparency: ^2.0.2+4
 
 flutter_icons:
   android: false
